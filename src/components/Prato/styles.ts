@@ -5,10 +5,18 @@ export const Card = styled.div`
   padding: 8px;
   background-color: ${cores.vermelho};
   color: ${cores.brancoEscuro};
+  cursor: pointer;
 
   p {
     line-height: 22px;
     margin: 8px 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 167px;
+    object-fit: cover;
   }
 `
 

@@ -7,8 +7,11 @@ export const Card = styled.div`
   color: ${cores.vermelho};
   position: relative;
 
-  img {
+  > img {
     display: block;
+    width: 100%;
+    height: 217px;
+    object-fit: cover;
   }
 `
 

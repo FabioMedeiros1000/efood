@@ -1,14 +1,24 @@
 import { Container } from './styles'
 
-import fundo from '../../assets/images/fundo-hero-categoria.png'
+type Props = {
+  image: string
+  type: string
+  titulo: string
+}
 
-const HeroCategoria = () => (
-  <Container style={{ backgroundImage: `url(${fundo})` }}>
-    <div className="container">
-      <p>Italiana</p>
-      <h2>La Dolce Vita Trattoria</h2>
-    </div>
-  </Container>
-)
+const HeroCategoria = ({ image, type, titulo }: Props) => {
+  const capitalizeInitial = (palavra: string) => {
+    return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()
+  }
+
+  return (
+    <Container style={{ backgroundImage: `url(${image})` }}>
+      <div className="container">
+        <p>{capitalizeInitial(type)}</p>
+        <h2>{titulo}</h2>
+      </div>
+    </Container>
+  )
+}
 
 export default HeroCategoria

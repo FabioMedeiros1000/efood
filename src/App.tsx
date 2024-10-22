@@ -1,5 +1,5 @@
 import Footer from './components/Footer'
-import Categoria from './pages/Categoria'
+import Restaurante from './pages/Restaurante'
 import Home from './pages/Home'
 import EstiloGlobal from './styles'
 
@@ -11,8 +11,8 @@ const rotas = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/categoria',
-    element: <Categoria />
+    path: '/restaurante/:id',
+    element: <Restaurante />
   }
 ])
 
