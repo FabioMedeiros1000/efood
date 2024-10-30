@@ -4,6 +4,9 @@ import Home from './pages/Home'
 import EstiloGlobal from './styles'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
+import { store } from './store'
 
 const rotas = createBrowserRouter([
   {
@@ -18,11 +21,11 @@ const rotas = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <EstiloGlobal />
       <RouterProvider router={rotas} />
       <Footer />
-    </>
+    </Provider>
   )
 }
 

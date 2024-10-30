@@ -6,6 +6,7 @@ import HeroCategoria from '../../components/HeroCategoria'
 import ListaDePratos from '../../components/ListaDePratos'
 
 import { RestauranteProps } from '../../components/ListaDeRestaurantes'
+import Cart from '../../components/Cart'
 
 const Restaurante = () => {
   const { id } = useParams()
@@ -30,6 +31,7 @@ const Restaurante = () => {
         type={restaurante.tipo}
       />
       <ListaDePratos />
+      <Cart />
     </>
   )
 }

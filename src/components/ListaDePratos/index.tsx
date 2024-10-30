@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -8,7 +9,9 @@ import fechar from '../../assets/images/close.svg'
 
 import { trimDescription } from '../Restaurante'
 
-interface PratoProps {
+import { addToCart, openCart } from '../../store/reducers/cart'
+
+export interface PratoProps {
   foto: string
   preco: number
   id: number
@@ -19,6 +22,13 @@ interface PratoProps {
 
 interface ModalType extends PratoProps {
   visible: boolean
+}
+
+export const convertToCurrency = (preco: number) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
 }
 
 const ListaDePratos = () => {
@@ -33,6 +43,7 @@ const ListaDePratos = () => {
     porcao: ''
   })
   const { id } = useParams()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
@@ -55,11 +66,21 @@ const ListaDePratos = () => {
       visible: false
     })
 
-  const convertToCurrency = (preco: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
+  const addCar = () => {
+    dispatch(
+      addToCart({
+        id: modal.id,
+        descricao: modal.descricao,
+        foto: modal.foto,
+        nome: modal.nome,
+        porcao: modal.porcao,
+        preco: modal.preco
+      })
+    )
+  }
+
+  const OpenCar = () => {
+    dispatch(openCart())
   }
 
   return (
@@ -97,7 +118,11 @@ const ListaDePratos = () => {
                 ? 'Serve: 1 pessoa'
                 : `Serve: de ${modal.porcao}`}
             </p>
-            <Botao>
+            <Botao
+              onClick={() => {
+                addCar(), OpenCar(), closeModal()
+              }}
+            >
               Adicionar ao carrinho - {convertToCurrency(modal.preco)}
             </Botao>
           </div>
