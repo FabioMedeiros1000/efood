@@ -2,7 +2,16 @@
 
 **eFood** é uma aplicação de loja online onde usuários podem explorar restaurantes e seus pratos disponíveis. Ao acessar a página de um restaurante, é possível visualizar os pratos oferecidos e adicionar os itens desejados ao carrinho, além de ver informações detalhadas sobre cada prato.
 
-![Lista de Restaurantes](./lista-restaurantes.png) ![Lista de Pratos](./lista-pratos.png) ![Carrinho de Compras](./carrinho.png) |
+<div>
+  <h3>Lista de Restaurantes</h3>
+  <img src="./lista-restaurantes.png" alt="Lista de Restaurantes" width="300" />
+
+  <h3>Lista de Pratos</h3>
+  <img src="./lista-pratos.png" alt="Lista de Pratos" width="300" />
+
+  <h3>Carrinho de Compras</h3>
+  <img src="./carrinho.png" alt="Carrinho de Compras" width="300" />
+</div>
 
 ## Funcionalidades
 
