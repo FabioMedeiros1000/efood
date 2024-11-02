@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# eFood 🍽️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**eFood** é uma aplicação de loja online onde usuários podem explorar restaurantes e seus pratos disponíveis. Ao acessar a página de um restaurante, é possível visualizar os pratos oferecidos e adicionar os itens desejados ao carrinho, além de ver informações detalhadas sobre cada prato.
 
-## Available Scripts
+| Lista de Restaurantes | Lista de Pratos | Carrinho de Compras |
+| --- | --- | --- |
+| ![Lista de Restaurantes](./lista-restaurantes.png) | ![Lista de Pratos](./lista-pratos.png) | ![Carrinho de Compras](./carrinho.png) |
 
-In the project directory, you can run:
+## Funcionalidades
 
-### `npm start`
+- **Adicionar ao Carrinho**: Adicione pratos ao carrinho para um pedido personalizado.
+- **Remover do Carrinho**: Remova itens do carrinho com facilidade.
+- **Preço Total**: Visualize o valor total dos itens selecionados no carrinho.
+- **Detalhes do Prato**: Exiba informações detalhadas sobre o prato em uma modal.
+- **Contador de Itens**: Mostra a quantidade de itens adicionados ao carrinho.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tecnologias Utilizadas
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **React**
+- **Styled-components**: Estilização de componentes.
+- **React Router DOM**: Gerenciamento de rotas e navegação entre páginas.
+- **Redux** e **Redux Toolkit Query**: Gerenciamento de estado e requisições de dados.
 
-### `npm test`
+## APIs Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Restaurantes**: https://fake-api-tau.vercel.app/api/efood/restaurantes
+- **Detalhes do Restaurante**: https://fake-api-tau.vercel.app/api/efood/restaurantes/:id  
+  (Substitua `:id` pelo ID do restaurante mais informações sobre ele)
 
-### `npm run build`
+## Como Usar
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone o repositório e instale as dependências:
+   ```bash
+   git clone https://github.com/seu-usuario/efood.git
+   cd efood
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Inicie a aplicação:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ```bash
+  npm start
+  ```
 
-### `npm run eject`
+3. Acesse a aplicação no navegador:
+  ```bash
+  http://localhost:3000
+  ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Demonstração
+[Link para demonstração do projeto](https://efood-flm.vercel.app/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Observação: Este projeto foi criado para fins educacionais e usa uma API simulada para os dados dos restaurantes e pratos.
