@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Prato from '../Prato'
@@ -10,6 +10,7 @@ import fechar from '../../assets/images/close.svg'
 import { trimDescription } from '../Restaurante'
 
 import { addToCart, openCart } from '../../store/reducers/cart'
+import { useGetFoodQuery } from '../../services/api'
 
 export interface PratoProps {
   foto: string
@@ -32,7 +33,6 @@ export const convertToCurrency = (preco: number) => {
 }
 
 const ListaDePratos = () => {
-  const [pratos, setPratos] = useState<PratoProps[]>([])
   const [modal, setModal] = useState<ModalType>({
     visible: false,
     id: 1,
@@ -45,11 +45,7 @@ const ListaDePratos = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((res) => setPratos(res.cardapio))
-  }, [id])
+  const { data: pratos } = useGetFoodQuery(id!)
 
   if (id === undefined) {
     return null
@@ -81,6 +77,10 @@ const ListaDePratos = () => {
 
   const OpenCar = () => {
     dispatch(openCart())
+  }
+
+  if (!pratos) {
+    return <h2>Carregando...</h2>
   }
 
   return (

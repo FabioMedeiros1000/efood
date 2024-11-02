@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 import { openCart } from '../../store/reducers/cart'
 
-const HeaderCategoria = () => {
+const HeaderRestaurante = () => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
 
@@ -28,4 +28,4 @@ const HeaderCategoria = () => {
   )
 }
 
-export default HeaderCategoria
+export default HeaderRestaurante

@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 
-import pizza from '../../assets/images/pizza.png'
 import excluir from '../../assets/images/excluir.svg'
 
 import { closeCart, deleteToCart } from '../../store/reducers/cart'
