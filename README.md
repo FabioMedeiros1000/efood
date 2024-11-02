@@ -31,7 +31,7 @@
 
 1. Clone o repositório e instale as dependências:
    ```bash
-   git clone https://github.com/seu-usuario/efood.git
+   git clone https://github.com/FabioMedeiros1000/efood.git
    cd efood
    npm install
    ```
