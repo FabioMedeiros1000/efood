@@ -91,22 +91,21 @@ const Payment = () => {
           : value
 
       // Atualiza apenas se o valor realmente mudou para evitar renderizações desnecessárias
-      if (formik.values[name as keyof typeof formik.values] !== parsedValue) {
-        dispatch(
-          updatePayment({
-            card: {
-              name: formik.values.name,
-              number: formik.values.number,
-              code: formik.values.code,
-              expires: {
-                month: formik.values.month,
-                year: formik.values.year
-              },
-              [name]: parsedValue
-            }
-          })
-        )
-      }
+
+      dispatch(
+        updatePayment({
+          card: {
+            name: formik.values.name,
+            number: formik.values.number,
+            code: formik.values.code,
+            expires: {
+              month: formik.values.month,
+              year: formik.values.year
+            },
+            [name]: parsedValue
+          }
+        })
+      )
     },
     [dispatch, formik]
   )
