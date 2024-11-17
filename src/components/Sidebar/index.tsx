@@ -5,8 +5,16 @@ import { Aside, CartContainer, Overlay } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { clearCart, closeCart } from '../../store/reducers/cart'
-import { clearDelivery, closeDelivery } from '../../store/reducers/delivery'
-import { clearPayment, closePayment } from '../../store/reducers/payment'
+import {
+  clearDelivery,
+  closeDelivery,
+  setFormCompletedToFalse
+} from '../../store/reducers/delivery'
+import {
+  clearPayment,
+  closePayment,
+  setFormCompleted
+} from '../../store/reducers/payment'
 
 import { closeConfirmed } from '../../store/reducers/confirmed'
 
@@ -41,6 +49,8 @@ const Sidebar = ({ content }: Props) => {
             dispatch(clearCart())
             dispatch(clearDelivery())
             dispatch(clearPayment())
+            dispatch(setFormCompletedToFalse())
+            dispatch(setFormCompleted(false))
           }
         }}
       />

@@ -3,8 +3,11 @@ import ButtonSidebar from '../ButtonSidebar'
 import { Title, Text } from './styles'
 import { useDispatch } from 'react-redux'
 
-import { closeDelivery } from '../../store/reducers/delivery'
-import { closePayment } from '../../store/reducers/payment'
+import {
+  closeDelivery,
+  setFormCompletedToFalse
+} from '../../store/reducers/delivery'
+import { closePayment, setFormCompleted } from '../../store/reducers/payment'
 import { clearCart } from '../../store/reducers/cart'
 import { clearDelivery } from '../../store/reducers/delivery'
 import { clearPayment } from '../../store/reducers/payment'
@@ -42,6 +45,8 @@ const Confirmed = (data: PurchaseResponse) => {
             dispatch(clearCart())
             dispatch(clearDelivery())
             dispatch(clearPayment())
+            dispatch(setFormCompletedToFalse())
+            dispatch(setFormCompleted(false))
           }}
         >
           Concluir
