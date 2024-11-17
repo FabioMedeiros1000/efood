@@ -1,30 +1,28 @@
+import React, { useEffect, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import InputMask from 'react-input-mask'
+
 import ButtonSidebar from '../ButtonSidebar'
 import { FormContainer, InputGroup, Row, Title } from '../Payment/styles'
-
-import { useDispatch, useSelector } from 'react-redux'
-
 import { closePayment, updatePayment } from '../../store/reducers/payment'
 import { openConfirmed } from '../../store/reducers/confirmed'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency, TotalPrice } from '../../utils'
 import { RootReducer } from '../../store'
-import { useFormik } from 'formik'
-
-import * as Yup from 'yup'
 import { usePurchaseMutation } from '../../services/api'
 import Confirmed from '../Confirmed'
-import { useEffect } from 'react'
-import InputMask from 'react-input-mask'
 
 const Payment = () => {
   const dispatch = useDispatch()
   const { items } = useSelector((state: RootReducer) => state.cart)
   const { payment } = useSelector((state: RootReducer) => state.payment)
-  const { delivery } = useSelector((state: RootReducer) => state.delivery)
+  const delivery = useSelector((state: RootReducer) => state.delivery.delivery)
 
   const [purchase, { isSuccess, data }] = usePurchaseMutation()
 
-  const form = useFormik({
+  const formik = useFormik({
     initialValues: {
       name: payment.card.name,
       number: payment.card.number,
@@ -37,8 +35,7 @@ const Payment = () => {
         .min(5, 'Esse campo deve ter pelo menos 5 caracteres')
         .required('Esse campo é obrigatório'),
       number: Yup.string()
-        .min(19, 'Esse cartão não existe')
-        .max(19, 'Esse cartão não existe')
+        .matches(/^\d{4} \d{4} \d{4} \d{4}$/, 'Número de cartão inválido') // Aceita formato com espaços
         .required('Esse campo é obrigatório'),
       code: Yup.string()
         .matches(/^\d{3,4}$/, 'CVV inválido')
@@ -70,12 +67,12 @@ const Payment = () => {
         },
         payment: {
           card: {
-            code: Number(payment.card.code),
-            name: payment.card.name,
-            number: payment.card.number,
+            code: Number(values.code),
+            name: values.name,
+            number: values.number,
             expires: {
-              month: payment.card.expires.month,
-              year: payment.card.expires.year
+              month: values.month,
+              year: values.year
             }
           }
         }
@@ -83,38 +80,36 @@ const Payment = () => {
     }
   })
 
-  console.log(form)
+  const handleBlurAndSave = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      formik.handleBlur(e)
 
-  const checkInputHasError = (fieldname: string) => {
-    const isInvalid = fieldname in form.errors
-    const isTouched = fieldname in form.touched
+      const { name, value } = e.target
+      const parsedValue =
+        name === 'code' || name === 'month' || name === 'year'
+          ? Number(value)
+          : value
 
-    return isInvalid && isTouched
-  }
-
-  const handleBlurAndSave = (e: React.FocusEvent<HTMLInputElement>) => {
-    form.handleBlur(e)
-
-    const { name, value, type } = e.target
-    const parsedValue = type === 'number' ? Number(value) : value
-
-    dispatch(
-      updatePayment({
-        payment: {
-          card: {
-            code: form.values.code,
-            name: form.values.name,
-            number: form.values.number,
-            expires: {
-              month: form.values.month,
-              year: form.values.year
-            },
-            [name]: parsedValue
-          }
-        }
-      })
-    )
-  }
+      // Atualiza apenas se o valor realmente mudou para evitar renderizações desnecessárias
+      if (formik.values[name as keyof typeof formik.values] !== parsedValue) {
+        dispatch(
+          updatePayment({
+            card: {
+              name: formik.values.name,
+              number: formik.values.number,
+              code: formik.values.code,
+              expires: {
+                month: formik.values.month,
+                year: formik.values.year
+              },
+              [name]: parsedValue
+            }
+          })
+        )
+      }
+    },
+    [dispatch, formik]
+  )
 
   useEffect(() => {
     if (isSuccess) {
@@ -122,8 +117,15 @@ const Payment = () => {
     }
   }, [isSuccess, dispatch])
 
+  const checkInputHasError = (fieldname: string) => {
+    return (
+      formik.errors[fieldname as keyof typeof formik.errors] &&
+      formik.touched[fieldname as keyof typeof formik.touched]
+    )
+  }
+
   return (
-    <form onSubmit={form.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       {isSuccess && data ? (
         <Confirmed orderId={data.orderId} />
       ) : (
@@ -139,12 +141,12 @@ const Payment = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={form.values.name}
-                  onChange={form.handleChange}
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('name') ? form.errors.name : ''}
+                  {checkInputHasError('name') ? formik.errors.name : ''}
                 </small>
               </InputGroup>
             </Row>
@@ -156,12 +158,12 @@ const Payment = () => {
                   type="text"
                   id="number"
                   name="number"
-                  value={form.values.number}
-                  onChange={form.handleChange}
+                  value={formik.values.number}
+                  onChange={formik.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('number') ? form.errors.number : ''}
+                  {checkInputHasError('number') ? formik.errors.number : ''}
                 </small>
               </InputGroup>
               <InputGroup>
@@ -170,12 +172,12 @@ const Payment = () => {
                   type="text"
                   id="code"
                   name="code"
-                  value={form.values.code}
-                  onChange={form.handleChange}
+                  value={formik.values.code}
+                  onChange={formik.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('code') ? form.errors.code : ''}
+                  {checkInputHasError('code') ? formik.errors.code : ''}
                 </small>
               </InputGroup>
             </Row>
@@ -188,38 +190,35 @@ const Payment = () => {
                   name="month"
                   min="1"
                   max="12"
-                  value={form.values.month}
-                  onChange={form.handleChange}
+                  value={formik.values.month}
+                  onChange={formik.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('month') ? form.errors.month : ''}
+                  {checkInputHasError('month') ? formik.errors.month : ''}
                 </small>
               </InputGroup>
               <InputGroup>
                 <label>
                   Ano de <br /> vencimento
                 </label>
-                <InputMask
-                  mask="9999"
+                <input
                   type="number"
                   id="year"
                   name="year"
                   min="1000"
                   max="9999"
-                  value={form.values.year}
-                  onChange={form.handleChange}
+                  value={formik.values.year}
+                  onChange={formik.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('year') ? form.errors.year : ''}
+                  {checkInputHasError('year') ? formik.errors.year : ''}
                 </small>
               </InputGroup>
             </Row>
           </FormContainer>
-          <ButtonSidebar type="submit" onClick={form.handleSubmit}>
-            Finalizar pagamento
-          </ButtonSidebar>
+          <ButtonSidebar type="submit">Finalizar pagamento</ButtonSidebar>
           <ButtonSidebar
             type="button"
             onClick={() => {

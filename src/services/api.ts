@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RestauranteProps } from '../components/ListaDeRestaurantes'
 import { PratoProps } from '../components/ListaDePratos'
-import { PaymentType } from '../store/reducers/payment'
+import { PaymentState } from '../store/reducers/payment'
 import { DeliveryType } from '../store/reducers/delivery'
 
 interface Product {
@@ -9,7 +9,9 @@ interface Product {
   price: number
 }
 
-interface PurchaseType extends PaymentType, DeliveryType {
+interface PurchaseType
+  extends Omit<PaymentState, 'isOpen' | 'formCompleted'>,
+    DeliveryType {
   products: Product[]
 }
 

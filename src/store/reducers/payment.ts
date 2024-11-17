@@ -1,22 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface PaymentType {
-  payment: {
-    card: {
-      name: string
-      number: string
-      code: number
-      expires: {
-        month: number
-        year: number
-      }
-    }
+export interface CardDetails {
+  name: string
+  number: string
+  code: number
+  expires: {
+    month: number
+    year: number
   }
 }
 
-interface PaymentState extends PaymentType {
+export interface PaymentType {
+  card: CardDetails
+}
+
+export interface PaymentState {
   isOpen: boolean
   formCompleted: boolean
+  payment: PaymentType
 }
 
 const initialState: PaymentState = {
@@ -39,41 +40,29 @@ const paymentSlice = createSlice({
   name: 'payment',
   initialState,
   reducers: {
-    openPayment: (state) => {
+    openPayment(state) {
       state.isOpen = true
     },
-    closePayment: (state) => {
+    closePayment(state) {
       state.isOpen = false
     },
-    updatePayment: (state, action: PayloadAction<PaymentType>) => {
-      state.payment = action.payload.payment
+    updatePayment(state, action: PayloadAction<PaymentType>) {
+      state.payment = action.payload
     },
-    setFormCompletedToTrue: (state) => {
-      state.formCompleted = true
+    setFormCompleted(state, action: PayloadAction<boolean>) {
+      state.formCompleted = action.payload
     },
-    setFormCompletedToFalse: (state) => {
-      state.formCompleted = false
-    },
-    clearPayment: (state) => {
-      state.payment.card = {
-        name: '',
-        number: '',
-        code: 0,
-        expires: {
-          month: 0,
-          year: 0
-        }
-      }
+    clearPayment(state) {
+      state.payment = initialState.payment
     }
   }
 })
 
 export const {
-  closePayment,
   openPayment,
+  closePayment,
   updatePayment,
-  setFormCompletedToTrue,
-  setFormCompletedToFalse,
+  setFormCompleted,
   clearPayment
 } = paymentSlice.actions
 export default paymentSlice.reducer
