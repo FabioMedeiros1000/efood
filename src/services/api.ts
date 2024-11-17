@@ -1,6 +1,21 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RestauranteProps } from '../components/ListaDeRestaurantes'
 import { PratoProps } from '../components/ListaDePratos'
+import { PaymentType } from '../store/reducers/payment'
+import { DeliveryType } from '../store/reducers/delivery'
+
+interface Product {
+  id: number
+  price: number
+}
+
+interface PurchaseType extends PaymentType, DeliveryType {
+  products: Product[]
+}
+
+export type PurchaseResponse = {
+  orderId: string
+}
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -17,6 +32,13 @@ const api = createApi({
     }),
     getHeroRestaurant: builder.query<RestauranteProps, string>({
       query: (id) => `restaurantes/${id}`
+    }),
+    purchase: builder.mutation<PurchaseResponse, PurchaseType>({
+      query: (body) => ({
+        url: 'checkout',
+        method: 'POST',
+        body
+      })
     })
   })
 })
@@ -25,5 +47,6 @@ export default api
 export const {
   useGetRestaurantQuery,
   useGetFoodQuery,
-  useGetHeroRestaurantQuery
+  useGetHeroRestaurantQuery,
+  usePurchaseMutation
 } = api

@@ -4,7 +4,8 @@ export const cores = {
   branco: '#ffffff',
   vermelho: '#E66767',
   brancoEscuro: '#FFF8F2',
-  vermelhoClaro: '#FFEBD9'
+  vermelhoClaro: '#FFEBD9',
+  preto: '#4B4B4B'
 }
 
 const EstiloGlobal = createGlobalStyle`

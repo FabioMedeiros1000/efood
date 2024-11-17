@@ -4,13 +4,22 @@ import HeaderRestaurante from '../../components/HeaderRestaurante'
 import HeroRestaurante from '../../components/HeroRestaurante'
 import ListaDePratos from '../../components/ListaDePratos'
 
-import Cart from '../../components/Cart'
 import { useGetHeroRestaurantQuery } from '../../services/api'
+import Sidebar from '../../components/Sidebar'
+import { useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
 const Restaurante = () => {
   const { id } = useParams()
-
   const { data: restaurante } = useGetHeroRestaurantQuery(id!)
+
+  const { isOpen: isOpenCart } = useSelector((state: RootReducer) => state.cart)
+  const { isOpen: isOpenDelivery } = useSelector(
+    (state: RootReducer) => state.delivery
+  )
+  const { isOpen: isOpenPayment } = useSelector(
+    (state: RootReducer) => state.payment
+  )
 
   if (!id) {
     return null
@@ -29,7 +38,9 @@ const Restaurante = () => {
         type={restaurante.tipo}
       />
       <ListaDePratos />
-      <Cart />
+      {isOpenCart && <Sidebar content="cart" />}
+      {isOpenDelivery && <Sidebar content="delivery" />}
+      {isOpenPayment && <Sidebar content="payment" />}
     </>
   )
 }

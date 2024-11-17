@@ -11,6 +11,7 @@ import { trimDescription } from '../Restaurante'
 
 import { addToCart, openCart } from '../../store/reducers/cart'
 import { useGetFoodQuery } from '../../services/api'
+import { convertToCurrency } from '../../utils'
 
 export interface PratoProps {
   foto: string
@@ -23,13 +24,6 @@ export interface PratoProps {
 
 interface ModalType extends PratoProps {
   visible: boolean
-}
-
-export const convertToCurrency = (preco: number) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(preco)
 }
 
 const ListaDePratos = () => {
@@ -66,11 +60,11 @@ const ListaDePratos = () => {
     dispatch(
       addToCart({
         id: modal.id,
+        preco: modal.preco,
         descricao: modal.descricao,
         foto: modal.foto,
         nome: modal.nome,
-        porcao: modal.porcao,
-        preco: modal.preco
+        porcao: modal.porcao
       })
     )
   }

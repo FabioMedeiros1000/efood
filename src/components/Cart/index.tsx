@@ -4,55 +4,58 @@ import { RootReducer } from '../../store'
 import excluir from '../../assets/images/excluir.svg'
 
 import { closeCart, deleteToCart } from '../../store/reducers/cart'
+import { openDelivery } from '../../store/reducers/delivery'
 
-import { convertToCurrency } from '../ListaDePratos'
+import { convertToCurrency } from '../../utils'
 
-import {
-  Aside,
-  Button,
-  CartContainer,
-  Item,
-  Overlay,
-  PriceContainer
-} from './styles'
+import { Item, PriceContainer, P } from './styles'
+import { TotalPrice } from '../../utils'
+import ButtonSidebar from '../ButtonSidebar'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
 
-  const TotalPrice = () => {
-    return items.reduce((acumulador, valorAtual) => {
-      return (acumulador += valorAtual.preco)
-    }, 0)
+  if (items.length === 0) {
+    return <P>Sem itens no carrinho. Adicione algum item!</P>
   }
 
   return (
-    <CartContainer className={isOpen ? 'is-open' : ''}>
-      <Overlay onClick={() => dispatch(closeCart())} />
-      <Aside>
-        <ul>
-          {items.map((item) => (
-            <Item key={item.id}>
-              <img src={item.foto} alt={item.nome} />
-              <div>
-                <h3>{item.nome}</h3>
-                <p>{convertToCurrency(item.preco)}</p>
-              </div>
-              <img
-                onClick={() => dispatch(deleteToCart(item.id))}
-                src={excluir}
-                alt="Botão para excluir do carrinho"
-              />
-            </Item>
-          ))}
-        </ul>
-        <PriceContainer>
-          <p>Valor Total</p>
-          <p>{convertToCurrency(TotalPrice())}</p>
-        </PriceContainer>
-        <Button>Continuar com a entrega</Button>
-      </Aside>
-    </CartContainer>
+    <>
+      <ul>
+        {items.map((item) => (
+          <Item key={item.id}>
+            <img src={item.foto} alt={item.nome} />
+            <div>
+              <h3>{item.nome}</h3>
+              <p>{convertToCurrency(item.preco)}</p>
+            </div>
+            <img
+              onClick={() => dispatch(deleteToCart(item.id))}
+              src={excluir}
+              alt="Botão para excluir do carrinho"
+            />
+          </Item>
+        ))}
+      </ul>
+      <PriceContainer>
+        <p>Valor Total</p>
+        <p>{convertToCurrency(TotalPrice(items))}</p>
+      </PriceContainer>
+      <ButtonSidebar
+        type="button"
+        onClick={() => {
+          if (items.length != 0) {
+            dispatch(closeCart())
+            dispatch(openDelivery())
+          } else {
+            dispatch(closeCart())
+          }
+        }}
+      >
+        Continuar com a entrega
+      </ButtonSidebar>
+    </>
   )
 }
 
