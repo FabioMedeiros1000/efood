@@ -218,7 +218,23 @@ const Payment = () => {
               </InputGroup>
             </Row>
           </FormContainer>
-          <ButtonSidebar type="submit">Finalizar pagamento</ButtonSidebar>
+          <ButtonSidebar
+            type="submit"
+            onClick={() => {
+              if (!formik.isValid || !formik.dirty) {
+                formik.setTouched({
+                  name: true,
+                  number: true,
+                  code: true,
+                  month: true,
+                  year: true
+                })
+                formik.validateForm()
+              }
+            }}
+          >
+            Finalizar pagamento
+          </ButtonSidebar>
           <ButtonSidebar
             type="button"
             onClick={() => {

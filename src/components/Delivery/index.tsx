@@ -184,7 +184,10 @@ const Delivery = () => {
       <ButtonSidebar
         type="button"
         onClick={() => {
-          if ((form.isValid && form.dirty) || (formCompleted && form.isValid)) {
+          if (
+            (form.isValid && form.dirty) ||
+            (formCompleted && form.isValid && form.dirty)
+          ) {
             dispatch(closeDelivery())
             dispatch(openPayment())
             dispatch(setFormCompletedToTrue())
