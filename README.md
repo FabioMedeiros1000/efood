@@ -3,7 +3,7 @@
 **eFood** é uma aplicação de loja online onde usuários podem explorar restaurantes e seus pratos disponíveis. Ao acessar a página de um restaurante, é possível visualizar os pratos oferecidos e adicionar os itens desejados ao carrinho, além de ver informações detalhadas sobre cada prato.
 
 | Lista de Restaurantes | Lista de Pratos | Carrinho de Compras |
-| --- | --- | --- |
+|-----------------------|------------------|---------------------|
 | ![Lista de Restaurantes](./lista-restaurantes.png) | ![Lista de Pratos](./lista-pratos.png) | ![Carrinho de Compras](./carrinho.png) |
 
 ## Funcionalidades
@@ -31,7 +31,7 @@
 
 1. Clone o repositório e instale as dependências:
    ```bash
-   git clone https://github.com/seu-usuario/efood.git
+   git clone https://github.com/FabioMedeiros1000/efood.git
    cd efood
    npm install
    ```
