@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Container = styled.div`
   padding-top: 24px;
@@ -21,6 +21,10 @@ export const Container = styled.div`
     margin-bottom: 156px;
     font-weight: 100;
     font-size: 32px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      margin-bottom: 145px;
+    }
   }
 
   h2 {

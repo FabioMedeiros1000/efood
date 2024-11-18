@@ -30,9 +30,11 @@ export const Title = styled.h3`
 export const Botao = styled.a`
   background-color: ${cores.brancoEscuro};
   color: ${cores.vermelho};
-  padding: 4px 83px;
+  padding: 4px 0;
   font-weight: bold;
   line-height: 16.41px;
   cursor: pointer;
   display: block;
+  white-space: nowrap;
+  text-align: center;
 `

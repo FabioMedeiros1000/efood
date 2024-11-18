@@ -17,10 +17,6 @@ export const Row = styled.div`
   display: flex;
   column-gap: 34px;
 
-  @media (max-width: ${breakpoints.tablet}) {
-    display: block;
-  }
-
   @media (max-width: ${breakpoints.pc}) {
     display: block;
   }
