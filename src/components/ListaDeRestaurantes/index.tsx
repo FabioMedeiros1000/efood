@@ -1,6 +1,8 @@
 import Restaurante from '../Restaurante'
 import { Container } from './styles'
 import { useGetRestaurantQuery } from '../../services/api'
+import Loading from '../Loading'
+import { cores } from '../../styles'
 
 export type RestauranteProps = {
   avaliacao: number
@@ -27,7 +29,7 @@ const ListaDeRestaurantes = () => {
   }
 
   if (!restaurante) {
-    return <h2>Carregando...</h2>
+    return <Loading color={cores.vermelho} />
   }
 
   return (

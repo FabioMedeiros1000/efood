@@ -1,11 +1,15 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Container = styled.div`
   text-align: center;
   padding-top: 64px;
   padding-bottom: 40px;
   color: ${cores.vermelho};
+
+  @media (max-width: ${breakpoints.tablet}) {
+    max-width: 100%;
+  }
 `
 
 export const Title = styled.h1`
@@ -15,4 +19,9 @@ export const Title = styled.h1`
   width: 539px;
   margin: 0 auto;
   margin-top: 138px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 24px;
+    max-width: 80%;
+  }
 `

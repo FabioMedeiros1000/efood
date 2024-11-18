@@ -3,7 +3,15 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Prato from '../Prato'
-import { Botao, Modal, ModalContent, Section, Container } from './styles'
+import {
+  Botao,
+  Modal,
+  ModalContent,
+  Section,
+  Container,
+  ModalMobile,
+  ModalContentMobile
+} from './styles'
 
 import fechar from '../../assets/images/close.svg'
 
@@ -12,6 +20,8 @@ import { trimDescription } from '../Restaurante'
 import { addToCart, openCart } from '../../store/reducers/cart'
 import { useGetFoodQuery } from '../../services/api'
 import { convertToCurrency } from '../../utils'
+import Loading from '../Loading'
+import { cores } from '../../styles'
 
 export interface PratoProps {
   foto: string
@@ -74,7 +84,7 @@ const ListaDePratos = () => {
   }
 
   if (!pratos) {
-    return <h2>Carregando...</h2>
+    return <Loading color={cores.vermelho} height={400} />
   }
 
   return (
@@ -113,6 +123,7 @@ const ListaDePratos = () => {
                 : `Serve: de ${modal.porcao}`}
             </p>
             <Botao
+              title="Clique aqui para adicionar ao carrinho"
               onClick={() => {
                 addCar(), OpenCar(), closeModal()
               }}
@@ -127,6 +138,35 @@ const ListaDePratos = () => {
           />
         </ModalContent>
       </Modal>
+      <ModalMobile
+        className={modal.visible ? 'container isVisible' : 'container'}
+      >
+        <ModalContentMobile>
+          <h1>{modal.nome}</h1>
+          <img src={modal.foto} className="prato-foto-mobile" />
+          <p>
+            {modal.descricao} <br />
+            <br />
+            {modal.porcao.includes('1 pessoa')
+              ? 'Serve: 1 pessoa'
+              : `Serve: de ${modal.porcao}`}
+          </p>
+          <Botao
+            title="Clique aqui para adicionar ao carrinho"
+            onClick={() => {
+              addCar(), OpenCar(), closeModal()
+            }}
+          >
+            Adicionar ao carrinho - {convertToCurrency(modal.preco)}
+          </Botao>
+          <img
+            className="close-icone-mobile"
+            onClick={() => closeModal()}
+            src={fechar}
+            alt="Ícone de fechar a modal"
+          />
+        </ModalContentMobile>
+      </ModalMobile>
       <div
         onClick={() => closeModal()}
         className={modal.visible ? 'overlay isVisible' : 'overlay'}

@@ -20,7 +20,7 @@ const Payment = () => {
   const { payment } = useSelector((state: RootReducer) => state.payment)
   const delivery = useSelector((state: RootReducer) => state.delivery.delivery)
 
-  const [purchase, { isSuccess, data }] = usePurchaseMutation()
+  const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
 
   const formik = useFormik({
     initialValues: {
@@ -218,6 +218,8 @@ const Payment = () => {
             </Row>
           </FormContainer>
           <ButtonSidebar
+            title="Clique aqui para finalizar o pagamento e fazer o seu pedido"
+            disabled={isLoading}
             type="submit"
             onClick={() => {
               if (!formik.isValid || !formik.dirty) {
@@ -232,9 +234,10 @@ const Payment = () => {
               }
             }}
           >
-            Finalizar pagamento
+            {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
           </ButtonSidebar>
           <ButtonSidebar
+            title="Clique aqui para editar o endereço"
             type="button"
             onClick={() => {
               dispatch(closePayment())

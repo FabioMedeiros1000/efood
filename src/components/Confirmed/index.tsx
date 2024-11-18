@@ -36,6 +36,7 @@ const Confirmed = (data: PurchaseResponse) => {
           gastronômica. Bom apetite!
         </Text>
         <ButtonSidebar
+          title="Clique aqui para voltar à Home"
           type="button"
           onClick={() => {
             navigate('/')

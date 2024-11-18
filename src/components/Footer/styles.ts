@@ -1,14 +1,20 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Container = styled.div`
   text-align: center;
   color: ${cores.vermelho};
   padding: 40px 0;
+  max-width: 100%;
 
   p {
     font-size: 10px;
     line-height: 12px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      width: 80%;
+      margin: 0 auto;
+    }
   }
 `
 

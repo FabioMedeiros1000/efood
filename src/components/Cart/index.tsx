@@ -31,6 +31,7 @@ const Cart = () => {
               <p>{convertToCurrency(item.preco)}</p>
             </div>
             <img
+              title="Clique para excluir esse item do carrinho"
               onClick={() => dispatch(deleteToCart(item.id))}
               src={excluir}
               alt="Botão para excluir do carrinho"
@@ -43,6 +44,7 @@ const Cart = () => {
         <p>{convertToCurrency(TotalPrice(items))}</p>
       </PriceContainer>
       <ButtonSidebar
+        title="Clique aqui para fornecer informações de entrega"
         type="button"
         onClick={() => {
           if (items.length != 0) {

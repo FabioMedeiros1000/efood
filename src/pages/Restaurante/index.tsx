@@ -8,10 +8,12 @@ import { useGetHeroRestaurantQuery } from '../../services/api'
 import Sidebar from '../../components/Sidebar'
 import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
+import Loading from '../../components/Loading'
+import { cores } from '../../styles'
 
 const Restaurante = () => {
   const { id } = useParams()
-  const { data: restaurante } = useGetHeroRestaurantQuery(id!)
+  const { data: restaurante, isLoading } = useGetHeroRestaurantQuery(id!)
 
   const { isOpen: isOpenCart } = useSelector((state: RootReducer) => state.cart)
   const { isOpen: isOpenDelivery } = useSelector(

@@ -6,4 +6,5 @@ export const Box = styled.div`
   background-color: ${cores.vermelho};
   padding: 6px 4px;
   display: inline-block;
+  width: max-content;
 `

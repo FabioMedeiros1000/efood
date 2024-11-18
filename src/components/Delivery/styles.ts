@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const FormContainer = styled.div`
   margin-bottom: 24px;
@@ -16,6 +16,14 @@ export const Title = styled.h2`
 export const Row = styled.div`
   display: flex;
   column-gap: 34px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    display: block;
+  }
+
+  @media (max-width: ${breakpoints.pc}) {
+    display: block;
+  }
 `
 
 export const InputGroup = styled.div`

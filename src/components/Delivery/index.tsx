@@ -182,6 +182,7 @@ const Delivery = () => {
         </Row>
       </FormContainer>
       <ButtonSidebar
+        title="Clique aqui para fornecer informações de pagamento"
         type="button"
         onClick={() => {
           if ((form.isValid && form.dirty) || formCompleted) {
@@ -205,6 +206,7 @@ const Delivery = () => {
         Continuar com o pagamento
       </ButtonSidebar>
       <ButtonSidebar
+        title="Clique aqui para voltar ao carrinho e editar itens"
         type="button"
         onClick={() => {
           dispatch(closeDelivery())

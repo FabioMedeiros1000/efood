@@ -8,6 +8,11 @@ export const cores = {
   preto: '#4B4B4B'
 }
 
+export const breakpoints = {
+  tablet: '768px',
+  pc: '1023px'
+}
+
 const EstiloGlobal = createGlobalStyle`
   * {
     padding: 0;
@@ -26,6 +31,15 @@ const EstiloGlobal = createGlobalStyle`
     max-width: 1024px;
     width: 100%;
     margin: 0 auto;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      width: 80%;
+    }
+
+    @media (max-width: ${breakpoints.pc}) {
+      width: 80%;
+    }
+
   }
 `
 

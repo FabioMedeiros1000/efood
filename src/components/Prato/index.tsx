@@ -9,7 +9,11 @@ type Props = {
 
 const Prato = ({ image, title, description, onClick }: Props) => {
   return (
-    <Card onClick={onClick} className="container">
+    <Card
+      title="Clique aqui para ter mais informações sobre esse prato"
+      onClick={onClick}
+      className="container"
+    >
       <img src={image} alt={title} />
       <Title>{title}</Title>
       <p>{description}</p>

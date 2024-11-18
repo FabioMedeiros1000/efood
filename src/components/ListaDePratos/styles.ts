@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Container = styled.div`
   .overlay {
@@ -24,6 +24,14 @@ export const Section = styled.div`
   gap: 32px;
   padding-top: 56px;
   padding-bottom: 120px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: ${breakpoints.pc}) {
+    grid-template-columns: 1fr 1fr;
+  }
 `
 
 export const Modal = styled.div`
@@ -39,8 +47,10 @@ export const Modal = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: none;
 
-  &.isVisible {
-    display: block;
+  @media (min-width: ${breakpoints.tablet}) {
+    &.isVisible {
+      display: block;
+    }
   }
 `
 
@@ -84,4 +94,43 @@ export const Botao = styled.div`
   font-weight: 700;
   line-height: 16.41px;
   cursor: pointer;
+`
+
+export const ModalMobile = styled.div`
+  width: 80%;
+  background-color: ${cores.vermelho};
+  display: none;
+  color: ${cores.brancoEscuro};
+  padding: 16px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    &.isVisible {
+      display: block;
+    }
+  }
+`
+
+export const ModalContentMobile = styled.div`
+  width: 100%;
+
+  .prato-foto-mobile {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  .close-icone-mobile {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+  }
 `

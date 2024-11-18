@@ -5,7 +5,7 @@ import { Container, Title } from './styles'
 const Hero = () => {
   return (
     <Container style={{ backgroundImage: `url(${fundo})` }}>
-      <img src={logo} alt="logo da efood" />
+      <img src={logo} alt="logo da efood" title="logo da efood" />
       <Title>Viva experiências gastronômicas no conforto da sua casa</Title>
     </Container>
   )

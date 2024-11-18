@@ -9,7 +9,7 @@ export const Container = styled.div`
   line-height: 38px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: cover;
   position: relative;
 
   div {

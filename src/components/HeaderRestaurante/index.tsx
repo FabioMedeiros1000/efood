@@ -18,9 +18,16 @@ const HeaderRestaurante = () => {
       <div className="container">
         <p>Restaurantes</p>
         <Link to={'/'}>
-          <img src={logo} alt="logo da efood" />
+          <img
+            src={logo}
+            alt="logo da efood"
+            title="Clique aqui para voltar à Home"
+          />
         </Link>
-        <ButtonCart onClick={() => dispatch(openCart())}>
+        <ButtonCart
+          title="Clique aqui para ver os itens no carrinho"
+          onClick={() => dispatch(openCart())}
+        >
           {items.length} produto(s) no carrinho
         </ButtonCart>
       </div>

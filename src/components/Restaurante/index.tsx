@@ -45,7 +45,12 @@ const Restaurante = ({
           </BoxAvaliation>
         </BoxTitle>
         <p>{trimDescription(description)}</p>
-        <Botao to={`/restaurante/${id}`}>Saiba mais</Botao>
+        <Botao
+          title="Clique aqui para saber mais sobre o restaurante"
+          to={`/restaurante/${id}`}
+        >
+          Saiba mais
+        </Botao>
       </Container>
       <TagContainer>
         {infos.map((info) => (

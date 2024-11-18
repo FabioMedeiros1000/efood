@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const P = styled.p`
   color: ${cores.brancoEscuro};
@@ -17,11 +17,20 @@ export const Item = styled.li`
   margin-bottom: 16px;
   position: relative;
 
+  @media (max-width: ${breakpoints.tablet}) {
+    display: block;
+  }
+
   img:first-child {
     width: 80px;
     height: 80px;
     object-fit: cover;
     margin-right: 8px;
+
+    @media (max-width: ${breakpoints.tablet}) {
+      width: 100%;
+      margin-right: 0;
+    }
   }
 
   h3 {
