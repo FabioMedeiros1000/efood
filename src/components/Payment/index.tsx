@@ -90,8 +90,6 @@ const Payment = () => {
           ? Number(value)
           : value
 
-      // Atualiza apenas se o valor realmente mudou para evitar renderizações desnecessárias
-
       dispatch(
         updatePayment({
           card: {

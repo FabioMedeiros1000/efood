@@ -2,12 +2,7 @@ import ButtonSidebar from '../ButtonSidebar'
 import { FormContainer, InputGroup, Row, Title } from './styles'
 
 import { openCart } from '../../store/reducers/cart'
-import {
-  closeDelivery,
-  updateDelivery,
-  setFormCompletedToTrue,
-  setFormCompletedToFalse
-} from '../../store/reducers/delivery'
+import { closeDelivery, updateDelivery } from '../../store/reducers/delivery'
 import { openPayment } from '../../store/reducers/payment'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,11 +11,12 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { RootReducer } from '../../store'
 import InputMask from 'react-input-mask'
+import { useCallback } from 'react'
 
 const Delivery = () => {
   const dispatch = useDispatch()
 
-  const { delivery: deliveryState, formCompleted } = useSelector(
+  const { delivery: deliveryState, isformCompleted } = useSelector(
     (state: RootReducer) => state.delivery
   )
 
@@ -40,8 +36,7 @@ const Delivery = () => {
       description: Yup.string().required('Esse campo é obrigatório'),
       city: Yup.string().required('Esse campo é obrigatório'),
       zipCode: Yup.string()
-        .min(9, 'CEP inválido')
-        .max(9, 'CEP inválido')
+        .matches(/^\d{5}-\d{3}$/, 'CEP inválido')
         .required('Esse campo é obrigatório'),
       number: Yup.number().required('Esse campo é obrigatório')
     }),
@@ -59,27 +54,43 @@ const Delivery = () => {
     return isInvalid && isTouched
   }
 
-  const handleBlurAndSave = (e: React.FocusEvent<HTMLInputElement>) => {
-    form.handleBlur(e)
+  const handleBlurAndSave = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      form.handleBlur(e)
 
-    const { name, value, type } = e.target
-    const parsedValue = type === 'number' ? Number(value) : value
+      const { name, value } = e.target
+      const unmaskedValue = name === 'zipCode' ? value.replace('-', '') : value
 
-    dispatch(
-      updateDelivery({
-        delivery: {
-          receiver: form.values.receiver,
-          address: {
-            city: form.values.city,
-            complement: form.values.complement,
-            description: form.values.description,
-            number: form.values.number,
-            zipCode: form.values.zipCode
-          },
-          [name]: parsedValue
-        }
-      })
-    )
+      dispatch(
+        updateDelivery({
+          delivery: {
+            receiver: form.values.receiver,
+            address: {
+              city: form.values.city,
+              complement: form.values.complement,
+              description: form.values.description,
+              number: form.values.number,
+              zipCode: name === 'zipCode' ? unmaskedValue : form.values.zipCode
+            },
+            [name]: unmaskedValue
+          }
+        })
+      )
+    },
+    [dispatch, form]
+  )
+
+  const touchInputsFormAndValidate = () => {
+    form.setTouched({
+      city: true,
+      complement: true,
+      description: true,
+      number: true,
+      receiver: true,
+      zipCode: true
+    })
+
+    form.validateForm()
   }
 
   return (
@@ -185,21 +196,11 @@ const Delivery = () => {
         title="Clique aqui para fornecer informações de pagamento"
         type="button"
         onClick={() => {
-          if ((form.isValid && form.dirty) || formCompleted) {
+          if (isformCompleted && form.isValid) {
             dispatch(closeDelivery())
             dispatch(openPayment())
-            dispatch(setFormCompletedToTrue())
           } else {
-            dispatch(setFormCompletedToFalse())
-            form.setTouched({
-              receiver: true,
-              description: true,
-              city: true,
-              zipCode: true,
-              number: true,
-              complement: true
-            })
-            form.validateForm()
+            touchInputsFormAndValidate()
           }
         }}
       >

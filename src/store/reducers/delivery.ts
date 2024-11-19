@@ -15,12 +15,12 @@ export interface DeliveryType {
 
 interface DeliveryState extends DeliveryType {
   isOpen: boolean
-  formCompleted: boolean
+  isformCompleted: boolean
 }
 
 const initialState: DeliveryState = {
   isOpen: false,
-  formCompleted: false,
+  isformCompleted: false,
   delivery: {
     receiver: '',
     address: {
@@ -45,12 +45,25 @@ const deliverySlice = createSlice({
     },
     updateDelivery: (state, action: PayloadAction<DeliveryType>) => {
       state.delivery = action.payload.delivery
-    },
-    setFormCompletedToTrue: (state) => {
-      state.formCompleted = true
-    },
-    setFormCompletedToFalse: (state) => {
-      state.formCompleted = false
+
+      const isReceiverCompleted =
+        state.delivery.receiver !== initialState.delivery.receiver
+      const isCityCompleted =
+        state.delivery.address.city !== initialState.delivery.address.city
+      const isDescriptionCompleted =
+        state.delivery.address.description !==
+        initialState.delivery.address.description
+      const isNumberCompleted =
+        state.delivery.address.number !== initialState.delivery.address.number
+      const isZipCodeCompleted =
+        state.delivery.address.zipCode !== initialState.delivery.address.zipCode
+
+      state.isformCompleted =
+        isReceiverCompleted &&
+        isCityCompleted &&
+        isDescriptionCompleted &&
+        isNumberCompleted &&
+        isZipCodeCompleted
     },
     clearDelivery: (state) => {
       state.delivery.receiver = ''
@@ -61,6 +74,10 @@ const deliverySlice = createSlice({
         number: 0,
         zipCode: ''
       }
+      state.isformCompleted = false
+    },
+    setFormCompleted: (state, action: PayloadAction<boolean>) => {
+      state.isformCompleted = action.payload
     }
   }
 })
@@ -69,8 +86,7 @@ export const {
   closeDelivery,
   openDelivery,
   updateDelivery,
-  setFormCompletedToTrue,
-  setFormCompletedToFalse,
-  clearDelivery
+  clearDelivery,
+  setFormCompleted
 } = deliverySlice.actions
 export default deliverySlice.reducer
