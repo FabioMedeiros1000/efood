@@ -3,12 +3,12 @@ import { RootReducer } from '../../store'
 
 import ButtonSidebar from '../ButtonSidebar'
 
-import { closeCart, deleteToCart } from '../../store/reducers/cart'
+import { closeCart, deleteFromCart } from '../../store/reducers/cart'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency } from '../../utils'
 import { TotalPrice } from '../../utils'
 
-import excluir from '../../assets/images/excluir.svg'
+import removeIcon from '../../assets/images/excluir.svg'
 
 import * as S from './styles'
 
@@ -32,8 +32,8 @@ const Cart = () => {
             </div>
             <img
               title="Clique para excluir esse item do carrinho"
-              onClick={() => dispatch(deleteToCart(item.id))}
-              src={excluir}
+              onClick={() => dispatch(deleteFromCart(item.id))}
+              src={removeIcon}
               alt="Botão para excluir do carrinho"
             />
           </S.Item>

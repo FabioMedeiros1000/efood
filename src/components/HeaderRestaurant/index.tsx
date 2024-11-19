@@ -5,16 +5,16 @@ import { RootReducer } from '../../store'
 import { openCart } from '../../store/reducers/cart'
 
 import logo from '../../assets/images/logo-efood.svg'
-import fundo from '../../assets/images/fundo-header-categoria.png'
+import backgroundPng from '../../assets/images/fundo-header-categoria.png'
 
 import * as S from './styles'
 
-const HeaderRestaurante = () => {
+const HeaderRestaurant = () => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
 
   return (
-    <S.Container style={{ backgroundImage: `url(${fundo})` }}>
+    <S.Container style={{ backgroundImage: `url(${backgroundPng})` }}>
       <div className="container">
         <p>Restaurantes</p>
         <Link to={'/'}>
@@ -35,4 +35,4 @@ const HeaderRestaurante = () => {
   )
 }
 
-export default HeaderRestaurante
+export default HeaderRestaurant

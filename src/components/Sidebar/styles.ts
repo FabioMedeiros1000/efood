@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const CartContainer = styled.div`
   position: fixed;
@@ -28,7 +28,7 @@ export const Overlay = styled.div`
 `
 
 export const Aside = styled.aside`
-  background-color: ${cores.vermelho};
+  background-color: ${colors.red};
   padding: 0 8px;
   padding-top: 32px;
   width: 360px;

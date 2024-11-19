@@ -2,21 +2,21 @@ import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import Prato from '../Prato'
+import Dish from '../Dish'
 import Loading from '../Loading'
 
-import fechar from '../../assets/images/close.svg'
+import closeIcon from '../../assets/images/close.svg'
 
-import { trimDescription } from '../Restaurante'
+import { trimDescription } from '../Restaurant'
 import { addToCart, openCart } from '../../store/reducers/cart'
 import { useGetFoodQuery } from '../../services/api'
 import { convertToCurrency } from '../../utils'
 
 import * as S from './styles'
 
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
-export interface PratoProps {
+export interface DishProps {
   foto: string
   preco: number
   id: number
@@ -25,11 +25,11 @@ export interface PratoProps {
   porcao: string
 }
 
-interface ModalType extends PratoProps {
+interface ModalType extends DishProps {
   visible: boolean
 }
 
-const ListaDePratos = () => {
+const DishesList = () => {
   const [modal, setModal] = useState<ModalType>({
     visible: false,
     id: 1,
@@ -77,14 +77,14 @@ const ListaDePratos = () => {
   }
 
   if (!pratos) {
-    return <Loading color={cores.vermelho} height={400} />
+    return <Loading color={colors.red} height={400} />
   }
 
   return (
     <S.Container>
       <S.Section className="container">
         {pratos.map((prato) => (
-          <Prato
+          <Dish
             onClick={() => {
               setModal({
                 id: prato.id,
@@ -126,7 +126,7 @@ const ListaDePratos = () => {
           </div>
           <img
             onClick={() => closeModal()}
-            src={fechar}
+            src={closeIcon}
             alt="Ícone de fechar a modal"
           />
         </S.ModalContent>
@@ -155,7 +155,7 @@ const ListaDePratos = () => {
           <img
             className="close-icone-mobile"
             onClick={() => closeModal()}
-            src={fechar}
+            src={closeIcon}
             alt="Ícone de fechar a modal"
           />
         </S.ModalContentMobile>
@@ -168,4 +168,4 @@ const ListaDePratos = () => {
   )
 }
 
-export default ListaDePratos
+export default DishesList

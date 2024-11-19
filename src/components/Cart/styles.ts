@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const P = styled.p`
-  color: ${cores.brancoEscuro};
+  color: ${colors.darkWhite};
   text-align: center;
   font-size: 16px;
   line-height: 22px;
@@ -10,8 +10,8 @@ export const P = styled.p`
 
 export const Item = styled.li`
   display: flex;
-  background-color: ${cores.vermelhoClaro};
-  color: ${cores.vermelho};
+  background-color: ${colors.lightRed};
+  color: ${colors.red};
   padding: 8px;
   width: 100%;
   margin-bottom: 16px;
@@ -54,7 +54,7 @@ export const Item = styled.li`
 
 export const PriceContainer = styled.div`
   margin-top: 40px;
-  color: ${cores.vermelhoClaro};
+  color: ${colors.lightRed};
   display: flex;
   justify-content: space-between;
 

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const Box = styled.div`
-  color: ${cores.brancoEscuro};
-  background-color: ${cores.vermelho};
+  color: ${colors.darkWhite};
+  background-color: ${colors.red};
   padding: 6px 4px;
   display: inline-block;
   width: max-content;

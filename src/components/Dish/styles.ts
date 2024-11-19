@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const Card = styled.div`
   padding: 8px;
-  background-color: ${cores.vermelho};
-  color: ${cores.brancoEscuro};
+  background-color: ${colors.red};
+  color: ${colors.darkWhite};
   cursor: pointer;
 
   p {
@@ -28,8 +28,8 @@ export const Title = styled.h3`
 `
 
 export const Botao = styled.a`
-  background-color: ${cores.brancoEscuro};
-  color: ${cores.vermelho};
+  background-color: ${colors.darkWhite};
+  color: ${colors.red};
   padding: 4px 0;
   font-weight: bold;
   line-height: 16.41px;

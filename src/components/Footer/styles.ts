@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Container = styled.div`
   text-align: center;
-  color: ${cores.vermelho};
+  color: ${colors.red};
   padding: 40px 0;
   max-width: 100%;
 

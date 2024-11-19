@@ -7,7 +7,7 @@ type Props = {
   onClick: () => void
 }
 
-const Prato = ({ image, title, description, onClick }: Props) => {
+const Dish = ({ image, title, description, onClick }: Props) => {
   return (
     <S.Card
       title="Clique aqui para ter mais informações sobre esse prato"
@@ -22,4 +22,4 @@ const Prato = ({ image, title, description, onClick }: Props) => {
   )
 }
 
-export default Prato
+export default Dish

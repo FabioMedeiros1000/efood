@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Container = styled.div`
   .overlay {
@@ -35,8 +35,8 @@ export const Section = styled.div`
 `
 
 export const Modal = styled.div`
-  background-color: ${cores.vermelho};
-  color: ${cores.branco};
+  background-color: ${colors.red};
+  color: ${colors.white};
   padding: 32px;
   position: fixed;
   top: 50%;
@@ -87,8 +87,8 @@ export const ModalContent = styled.div`
 `
 
 export const Botao = styled.div`
-  background-color: ${cores.brancoEscuro};
-  color: ${cores.vermelho};
+  background-color: ${colors.darkWhite};
+  color: ${colors.red};
   padding: 4px 7px;
   display: inline-block;
   font-weight: 700;
@@ -98,9 +98,9 @@ export const Botao = styled.div`
 
 export const ModalMobile = styled.div`
   width: 80%;
-  background-color: ${cores.vermelho};
+  background-color: ${colors.red};
   display: none;
-  color: ${cores.brancoEscuro};
+  color: ${colors.darkWhite};
   padding: 16px;
   position: fixed;
   top: 50%;

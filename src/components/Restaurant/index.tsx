@@ -1,6 +1,6 @@
 import Tag from '../Tag'
 
-import estrela from '../../assets/images/estrelinha.svg'
+import starIcon from '../../assets/images/estrelinha.svg'
 
 import * as S from './styles'
 
@@ -20,14 +20,7 @@ export const trimDescription = (texto: string, lengthDefault = 190) => {
   return texto
 }
 
-const Restaurante = ({
-  image,
-  title,
-  description,
-  score,
-  infos,
-  id
-}: Props) => {
+const Restaurant = ({ image, title, description, score, infos, id }: Props) => {
   return (
     <S.Card>
       <img src={image} alt={title} />
@@ -36,7 +29,7 @@ const Restaurante = ({
           <h2>{title}</h2>
           <S.BoxAvaliation>
             {score}
-            <img src={estrela} alt="Ícone de uma estrelinha" />
+            <img src={starIcon} alt="Ícone de uma estrelinha" />
           </S.BoxAvaliation>
         </S.BoxTitle>
         <p>{trimDescription(description)}</p>
@@ -56,4 +49,4 @@ const Restaurante = ({
   )
 }
 
-export default Restaurante
+export default Restaurant

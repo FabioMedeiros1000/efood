@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 import { Box } from '../Tag/styles'
 import { Link } from 'react-router-dom'
 
 export const Card = styled.div`
-  color: ${cores.vermelho};
+  color: ${colors.red};
   position: relative;
 
   > img {
@@ -17,10 +17,10 @@ export const Card = styled.div`
 
 export const Container = styled.div`
   padding: 8px;
-  border-left: 1px solid ${cores.vermelho};
-  border-bottom: 1px solid ${cores.vermelho};
-  border-right: 1px solid ${cores.vermelho};
-  background-color: ${cores.branco};
+  border-left: 1px solid ${colors.red};
+  border-bottom: 1px solid ${colors.red};
+  border-right: 1px solid ${colors.red};
+  background-color: ${colors.white};
 
   p {
     margin-bottom: 16px;
@@ -43,8 +43,8 @@ export const BoxTitle = styled.div`
 `
 
 export const Botao = styled(Link)`
-  color: ${cores.branco};
-  background-color: ${cores.vermelho};
+  color: ${colors.white};
+  background-color: ${colors.red};
   padding: 4px 6px;
   cursor: pointer;
   display: inline-block;

@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Container = styled.div`
   padding-top: 24px;
   padding-bottom: 32px;
   height: 280px;
-  color: ${cores.branco};
+  color: ${colors.white};
   line-height: 38px;
   background-repeat: no-repeat;
   background-position: center;

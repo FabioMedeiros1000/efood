@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RestauranteProps } from '../components/ListaDeRestaurantes'
-import { PratoProps } from '../components/ListaDePratos'
+import { RestaurantProps } from '../components/RestaurantList'
+import { DishProps } from '../components/DishesList'
 import { PaymentState } from '../store/reducers/payment'
 import { DeliveryType } from '../store/reducers/delivery'
 
@@ -24,15 +24,15 @@ const api = createApi({
     baseUrl: 'https://fake-api-tau.vercel.app/api/efood'
   }),
   endpoints: (builder) => ({
-    getRestaurant: builder.query<RestauranteProps[], void>({
+    getRestaurant: builder.query<RestaurantProps[], void>({
       query: () => 'restaurantes'
     }),
-    getFood: builder.query<PratoProps[], string>({
+    getFood: builder.query<DishProps[], string>({
       query: (id) => `restaurantes/${id}`,
-      transformResponse: (response: { cardapio: PratoProps[] }) =>
+      transformResponse: (response: { cardapio: DishProps[] }) =>
         response.cardapio
     }),
-    getHeroRestaurant: builder.query<RestauranteProps, string>({
+    getHeroRestaurant: builder.query<RestaurantProps, string>({
       query: (id) => `restaurantes/${id}`
     }),
     purchase: builder.mutation<PurchaseResponse, PurchaseType>({

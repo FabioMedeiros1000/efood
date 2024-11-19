@@ -1,11 +1,11 @@
 import { createGlobalStyle } from 'styled-components'
 
-export const cores = {
-  branco: '#ffffff',
-  vermelho: '#E66767',
-  brancoEscuro: '#FFF8F2',
-  vermelhoClaro: '#FFEBD9',
-  preto: '#4B4B4B'
+export const colors = {
+  white: '#ffffff',
+  red: '#E66767',
+  darkWhite: '#FFF8F2',
+  lightRed: '#FFEBD9',
+  black: '#4B4B4B'
 }
 
 export const breakpoints = {
@@ -13,7 +13,7 @@ export const breakpoints = {
   pc: '1023px'
 }
 
-const EstiloGlobal = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   * {
     padding: 0;
     margin: 0;
@@ -24,7 +24,7 @@ const EstiloGlobal = createGlobalStyle`
   body {
     font-size: 14px;
     font-family: Roboto, sans-serif;
-    background-color: ${cores.brancoEscuro};
+    background-color: ${colors.darkWhite};
   }
 
   .container {
@@ -43,4 +43,4 @@ const EstiloGlobal = createGlobalStyle`
   }
 `
 
-export default EstiloGlobal
+export default GlobalStyle

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
 export const Title = styled.h2`
-  color: ${cores.brancoEscuro};
+  color: ${colors.darkWhite};
   font-size: 16px;
   font-weight: 700;
   line-height: 18.75px;
@@ -10,7 +10,7 @@ export const Title = styled.h2`
 `
 
 export const Text = styled.p`
-  color: ${cores.brancoEscuro};
+  color: ${colors.darkWhite};
   line-height: 22px;
   margin-bottom: 24px;
 `

@@ -6,7 +6,7 @@ type Props = {
   titulo: string
 }
 
-const HeroRestaurante = ({ image, type, titulo }: Props) => {
+const HeroRestaurant = ({ image, type, titulo }: Props) => {
   const capitalizeInitial = (palavra: string) => {
     return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()
   }
@@ -21,4 +21,4 @@ const HeroRestaurante = ({ image, type, titulo }: Props) => {
   )
 }
 
-export default HeroRestaurante
+export default HeroRestaurant

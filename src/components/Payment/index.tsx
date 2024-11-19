@@ -24,7 +24,7 @@ const Payment = () => {
 
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
 
-  const formik = useFormik({
+  const form = useFormik({
     initialValues: {
       name: payment.card.name,
       number: payment.card.number,
@@ -84,7 +84,7 @@ const Payment = () => {
 
   const handleBlurAndSave = useCallback(
     (e: React.FocusEvent<HTMLInputElement>) => {
-      formik.handleBlur(e)
+      form.handleBlur(e)
 
       const { name, value } = e.target
       const parsedValue =
@@ -95,19 +95,19 @@ const Payment = () => {
       dispatch(
         updatePayment({
           card: {
-            name: formik.values.name,
-            number: formik.values.number,
-            code: formik.values.code,
+            name: form.values.name,
+            number: form.values.number,
+            code: form.values.code,
             expires: {
-              month: formik.values.month,
-              year: formik.values.year
+              month: form.values.month,
+              year: form.values.year
             },
             [name]: parsedValue
           }
         })
       )
     },
-    [dispatch, formik]
+    [dispatch, form]
   )
 
   useEffect(() => {
@@ -118,13 +118,13 @@ const Payment = () => {
 
   const checkInputHasError = (fieldname: string) => {
     return (
-      formik.errors[fieldname as keyof typeof formik.errors] &&
-      formik.touched[fieldname as keyof typeof formik.touched]
+      form.errors[fieldname as keyof typeof form.errors] &&
+      form.touched[fieldname as keyof typeof form.touched]
     )
   }
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={form.handleSubmit}>
       {isSuccess && data ? (
         <Confirmed orderId={data.orderId} />
       ) : (
@@ -140,12 +140,12 @@ const Payment = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
+                  value={form.values.name}
+                  onChange={form.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('name') ? formik.errors.name : ''}
+                  {checkInputHasError('name') ? form.errors.name : ''}
                 </small>
               </S.InputGroup>
             </S.Row>
@@ -157,12 +157,12 @@ const Payment = () => {
                   type="text"
                   id="number"
                   name="number"
-                  value={formik.values.number}
-                  onChange={formik.handleChange}
+                  value={form.values.number}
+                  onChange={form.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('number') ? formik.errors.number : ''}
+                  {checkInputHasError('number') ? form.errors.number : ''}
                 </small>
               </S.InputGroup>
               <S.InputGroup>
@@ -171,12 +171,12 @@ const Payment = () => {
                   type="text"
                   id="code"
                   name="code"
-                  value={formik.values.code}
-                  onChange={formik.handleChange}
+                  value={form.values.code}
+                  onChange={form.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('code') ? formik.errors.code : ''}
+                  {checkInputHasError('code') ? form.errors.code : ''}
                 </small>
               </S.InputGroup>
             </S.Row>
@@ -189,12 +189,12 @@ const Payment = () => {
                   name="month"
                   min="1"
                   max="12"
-                  value={formik.values.month}
-                  onChange={formik.handleChange}
+                  value={form.values.month}
+                  onChange={form.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('month') ? formik.errors.month : ''}
+                  {checkInputHasError('month') ? form.errors.month : ''}
                 </small>
               </S.InputGroup>
               <S.InputGroup>
@@ -207,12 +207,12 @@ const Payment = () => {
                   name="year"
                   min="1000"
                   max="9999"
-                  value={formik.values.year}
-                  onChange={formik.handleChange}
+                  value={form.values.year}
+                  onChange={form.handleChange}
                   onBlur={handleBlurAndSave}
                 />
                 <small>
-                  {checkInputHasError('year') ? formik.errors.year : ''}
+                  {checkInputHasError('year') ? form.errors.year : ''}
                 </small>
               </S.InputGroup>
             </S.Row>
@@ -222,15 +222,15 @@ const Payment = () => {
             disabled={isLoading}
             type="submit"
             onClick={() => {
-              if (!formik.isValid || !formik.dirty) {
-                formik.setTouched({
+              if (!form.isValid || !form.dirty) {
+                form.setTouched({
                   name: true,
                   number: true,
                   code: true,
                   month: true,
                   year: true
                 })
-                formik.validateForm()
+                form.validateForm()
               }
             }}
           >

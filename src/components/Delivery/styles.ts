@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const FormContainer = styled.div`
   margin-bottom: 24px;
@@ -9,7 +9,7 @@ export const Title = styled.h2`
   font-size: 16px;
   font-weight: 700;
   line-height: 18.75px;
-  color: ${cores.brancoEscuro};
+  color: ${colors.darkWhite};
   margin-bottom: 16px;
 `
 
@@ -29,15 +29,15 @@ export const InputGroup = styled.div`
   label {
     font-weight: 700;
     line-height: 16.41px;
-    color: ${cores.brancoEscuro};
+    color: ${colors.darkWhite};
     margin-bottom: 8px;
   }
 
   input {
-    background-color: ${cores.brancoEscuro};
+    background-color: ${colors.darkWhite};
     border: none;
     padding: 8px;
-    color: ${cores.preto};
+    color: ${colors.black};
     font-weight: 700;
     line-height: 16.41px;
   }
@@ -49,7 +49,7 @@ export const InputGroup = styled.div`
   }
 
   small {
-    color: ${cores.preto};
+    color: ${colors.black};
     font-weight: bold;
   }
 `

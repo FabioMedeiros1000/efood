@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Props } from './index' // Certifique-se de que `Props` está corretamente definido em `./index`
+import { Props } from './index'
 
-type ContainerProps = Omit<Props, 'color'> // Omitir `color` se necessário
+type ContainerProps = Omit<Props, 'color'>
 
 export const Container = styled.div<ContainerProps>`
   height: ${(props) => props.height}px;

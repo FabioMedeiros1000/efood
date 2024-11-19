@@ -53,8 +53,6 @@ const deliverySlice = createSlice({
       const isDescriptionCompleted =
         state.delivery.address.description !==
         initialState.delivery.address.description
-      const isNumberCompleted =
-        state.delivery.address.number !== initialState.delivery.address.number
       const isZipCodeCompleted =
         state.delivery.address.zipCode !== initialState.delivery.address.zipCode
 
@@ -62,7 +60,6 @@ const deliverySlice = createSlice({
         isReceiverCompleted &&
         isCityCompleted &&
         isDescriptionCompleted &&
-        isNumberCompleted &&
         isZipCodeCompleted
     },
     clearDelivery: (state) => {

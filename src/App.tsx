@@ -1,7 +1,7 @@
 import Footer from './components/Footer'
-import Restaurante from './pages/Restaurante'
+import Restaurant from './pages/Restaurant'
 import Home from './pages/Home'
-import EstiloGlobal from './styles'
+import GlobalStyle from './styles'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -15,14 +15,14 @@ const rotas = createBrowserRouter([
   },
   {
     path: '/restaurante/:id',
-    element: <Restaurante />
+    element: <Restaurant />
   }
 ])
 
 function App() {
   return (
     <Provider store={store}>
-      <EstiloGlobal />
+      <GlobalStyle />
       <RouterProvider router={rotas} />
       <Footer />
     </Provider>

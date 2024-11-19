@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  color: ${cores.vermelho};
+  color: ${colors.red};
   justify-content: center;
   padding: 64px 0;
   font-weight: bold;

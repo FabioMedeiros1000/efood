@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PratoProps } from '../../components/ListaDePratos'
+import { DishProps } from '../../components/DishesList'
 
 type CartState = {
-  items: PratoProps[]
+  items: DishProps[]
   isOpen: boolean
 }
 
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<PratoProps>) => {
+    addToCart: (state, action: PayloadAction<DishProps>) => {
       const itemFound = state.items.find(
         (item) => item.id === action.payload.id
       )
@@ -32,7 +32,7 @@ const cartSlice = createSlice({
     closeCart: (state) => {
       state.isOpen = false
     },
-    deleteToCart: (state, action: PayloadAction<number>) => {
+    deleteFromCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload)
     },
     clearCart: (state) => {
@@ -43,5 +43,5 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer
 
-export const { addToCart, openCart, closeCart, deleteToCart, clearCart } =
+export const { addToCart, openCart, closeCart, deleteFromCart, clearCart } =
   cartSlice.actions

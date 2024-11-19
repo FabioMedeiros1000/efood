@@ -1,10 +1,10 @@
-import ListaDeRestaurantes from '../../components/ListaDeRestaurantes'
-import Hero from '../../components/Hero'
+import RestaurantList from '../../components/RestaurantList'
+import HomeHero from '../../components/HomeHero'
 
 const Home = () => (
   <>
-    <Hero />
-    <ListaDeRestaurantes />
+    <HomeHero />
+    <RestaurantList />
   </>
 )
 

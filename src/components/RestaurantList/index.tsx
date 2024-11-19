@@ -1,10 +1,10 @@
-import Restaurante from '../Restaurante'
+import Restaurant from '../Restaurant'
 import { Container } from './styles'
 import { useGetRestaurantQuery } from '../../services/api'
 import Loading from '../Loading'
-import { cores } from '../../styles'
+import { colors } from '../../styles'
 
-export type RestauranteProps = {
+export type RestaurantProps = {
   avaliacao: number
   capa: string
   descricao: string
@@ -14,10 +14,10 @@ export type RestauranteProps = {
   titulo: string
 }
 
-const ListaDeRestaurantes = () => {
-  const { data: restaurante } = useGetRestaurantQuery()
+const RestaurantList = () => {
+  const { data: restaurant } = useGetRestaurantQuery()
 
-  const getTags = (item: RestauranteProps) => {
+  const getTags = (item: RestaurantProps) => {
     const tags = []
 
     if (item.destacado) {
@@ -28,15 +28,15 @@ const ListaDeRestaurantes = () => {
     return tags
   }
 
-  if (!restaurante) {
-    return <Loading color={cores.vermelho} />
+  if (!restaurant) {
+    return <Loading color={colors.red} />
   }
 
   return (
     <div className="container">
       <Container>
-        {restaurante.map((item) => (
-          <Restaurante
+        {restaurant.map((item) => (
+          <Restaurant
             key={item.id}
             title={item.titulo}
             description={item.descricao}
@@ -51,4 +51,4 @@ const ListaDeRestaurantes = () => {
   )
 }
 
-export default ListaDeRestaurantes
+export default RestaurantList

@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import HeaderRestaurante from '../../components/HeaderRestaurante'
-import HeroRestaurante from '../../components/HeroRestaurante'
-import ListaDePratos from '../../components/ListaDePratos'
+import HeaderRestaurant from '../../components/HeaderRestaurant'
+import HeroRestaurant from '../../components/HeroRestaurant'
+import DishesList from '../../components/DishesList'
 import Sidebar from '../../components/Sidebar'
 
 import { useGetHeroRestaurantQuery } from '../../services/api'
@@ -31,13 +31,13 @@ const Restaurante = () => {
 
   return (
     <>
-      <HeaderRestaurante />
-      <HeroRestaurante
+      <HeaderRestaurant />
+      <HeroRestaurant
         image={restaurante.capa}
         titulo={restaurante.titulo}
         type={restaurante.tipo}
       />
-      <ListaDePratos />
+      <DishesList />
       {isOpenCart && <Sidebar content="cart" />}
       {isOpenDelivery && <Sidebar content="delivery" />}
       {isOpenPayment && <Sidebar content="payment" />}
