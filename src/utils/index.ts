@@ -1,6 +1,4 @@
 import { PratoProps } from '../components/ListaDePratos'
-import { FormikProps } from 'formik'
-import { PaymentType } from '../store/reducers/payment'
 
 export const TotalPrice = (items: PratoProps[]) => {
   return items.reduce((acumulador, valorAtual) => {

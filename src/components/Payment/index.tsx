@@ -5,14 +5,16 @@ import * as Yup from 'yup'
 import InputMask from 'react-input-mask'
 
 import ButtonSidebar from '../ButtonSidebar'
-import { FormContainer, InputGroup, Row, Title } from '../Payment/styles'
+import Confirmed from '../Confirmed'
+
 import { closePayment, updatePayment } from '../../store/reducers/payment'
 import { openConfirmed } from '../../store/reducers/confirmed'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency, TotalPrice } from '../../utils'
 import { RootReducer } from '../../store'
 import { usePurchaseMutation } from '../../services/api'
-import Confirmed from '../Confirmed'
+
+import * as S from '../Payment/styles'
 
 const Payment = () => {
   const dispatch = useDispatch()
@@ -127,12 +129,12 @@ const Payment = () => {
         <Confirmed orderId={data.orderId} />
       ) : (
         <>
-          <FormContainer>
-            <Title>
+          <S.FormContainer>
+            <S.Title>
               Pagamento - Valor a pagar {convertToCurrency(TotalPrice(items))}
-            </Title>
-            <Row>
-              <InputGroup>
+            </S.Title>
+            <S.Row>
+              <S.InputGroup>
                 <label>Nome do cartão</label>
                 <input
                   type="text"
@@ -145,10 +147,10 @@ const Payment = () => {
                 <small>
                   {checkInputHasError('name') ? formik.errors.name : ''}
                 </small>
-              </InputGroup>
-            </Row>
-            <Row>
-              <InputGroup>
+              </S.InputGroup>
+            </S.Row>
+            <S.Row>
+              <S.InputGroup>
                 <label>Número do cartão</label>
                 <InputMask
                   mask="9999 9999 9999 9999"
@@ -162,8 +164,8 @@ const Payment = () => {
                 <small>
                   {checkInputHasError('number') ? formik.errors.number : ''}
                 </small>
-              </InputGroup>
-              <InputGroup>
+              </S.InputGroup>
+              <S.InputGroup>
                 <label>CVV</label>
                 <input
                   type="text"
@@ -176,10 +178,10 @@ const Payment = () => {
                 <small>
                   {checkInputHasError('code') ? formik.errors.code : ''}
                 </small>
-              </InputGroup>
-            </Row>
-            <Row>
-              <InputGroup>
+              </S.InputGroup>
+            </S.Row>
+            <S.Row>
+              <S.InputGroup>
                 <label>Mês de vencimento</label>
                 <input
                   type="number"
@@ -194,8 +196,8 @@ const Payment = () => {
                 <small>
                   {checkInputHasError('month') ? formik.errors.month : ''}
                 </small>
-              </InputGroup>
-              <InputGroup>
+              </S.InputGroup>
+              <S.InputGroup>
                 <label>
                   Ano de <br /> vencimento
                 </label>
@@ -212,9 +214,9 @@ const Payment = () => {
                 <small>
                   {checkInputHasError('year') ? formik.errors.year : ''}
                 </small>
-              </InputGroup>
-            </Row>
-          </FormContainer>
+              </S.InputGroup>
+            </S.Row>
+          </S.FormContainer>
           <ButtonSidebar
             title="Clique aqui para finalizar o pagamento e fazer o seu pedido"
             disabled={isLoading}

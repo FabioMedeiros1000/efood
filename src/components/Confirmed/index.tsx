@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import ButtonSidebar from '../ButtonSidebar'
-import { Title, Text } from './styles'
 import { useDispatch } from 'react-redux'
+
+import ButtonSidebar from '../ButtonSidebar'
 
 import { closeDelivery } from '../../store/reducers/delivery'
 import {
@@ -14,9 +14,10 @@ import {
   setFormCompleted as setFormCompletedDelivery
 } from '../../store/reducers/delivery'
 import { clearPayment } from '../../store/reducers/payment'
-
 import { PurchaseResponse } from '../../services/api'
 import { closeConfirmed } from '../../store/reducers/confirmed'
+
+import * as S from './styles'
 
 const Confirmed = (data: PurchaseResponse) => {
   const navigate = useNavigate()
@@ -25,8 +26,8 @@ const Confirmed = (data: PurchaseResponse) => {
   if (data.orderId) {
     return (
       <>
-        <Title>Pedido realizado - {data.orderId}</Title>
-        <Text>
+        <S.Title>Pedido realizado - {data.orderId}</S.Title>
+        <S.Text>
           Estamos felizes em informar que seu pedido já está em processo de
           preparação e, em breve, será entregue no endereço fornecido. <br />
           Gostaríamos de ressaltar que nossos entregadores não estão autorizados
@@ -37,7 +38,7 @@ const Confirmed = (data: PurchaseResponse) => {
           <br />
           Esperamos que desfrute de uma deliciosa e agradável experiência
           gastronômica. Bom apetite!
-        </Text>
+        </S.Text>
         <ButtonSidebar
           title="Clique aqui para voltar à Home"
           type="button"

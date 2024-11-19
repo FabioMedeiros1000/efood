@@ -1,4 +1,4 @@
-import { Botao, Card, Title } from './styles'
+import * as S from './styles'
 
 type Props = {
   image: string
@@ -9,16 +9,16 @@ type Props = {
 
 const Prato = ({ image, title, description, onClick }: Props) => {
   return (
-    <Card
+    <S.Card
       title="Clique aqui para ter mais informações sobre esse prato"
       onClick={onClick}
       className="container"
     >
       <img src={image} alt={title} />
-      <Title>{title}</Title>
+      <S.Title>{title}</S.Title>
       <p>{description}</p>
-      <Botao>Adicionar ao carrinho</Botao>
-    </Card>
+      <S.Botao>Adicionar ao carrinho</S.Botao>
+    </S.Card>
   )
 }
 

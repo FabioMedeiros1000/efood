@@ -1,8 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux'
+
 import Cart from '../Cart'
 import Delivery from '../Delivery'
-import { Aside, CartContainer, Overlay } from './styles'
-
-import { useDispatch, useSelector } from 'react-redux'
+import Payment from '../Payment'
 
 import { clearCart, closeCart } from '../../store/reducers/cart'
 import {
@@ -15,11 +15,11 @@ import {
   closePayment,
   setFormCompleted as setFormCompletedPayment
 } from '../../store/reducers/payment'
-
 import { closeConfirmed } from '../../store/reducers/confirmed'
 
-import Payment from '../Payment'
 import { RootReducer } from '../../store'
+
+import * as S from './styles'
 
 type Props = {
   content: 'cart' | 'delivery' | 'payment' | 'confirmed'
@@ -30,8 +30,8 @@ const Sidebar = ({ content }: Props) => {
   const { isOpen } = useSelector((state: RootReducer) => state.confirmed)
 
   return (
-    <CartContainer className={content ? 'is-open' : ''}>
-      <Overlay
+    <S.CartContainer className={content ? 'is-open' : ''}>
+      <S.Overlay
         onClick={() => {
           if (content === 'cart') {
             dispatch(closeCart())
@@ -54,12 +54,12 @@ const Sidebar = ({ content }: Props) => {
           }
         }}
       />
-      <Aside>
+      <S.Aside>
         {content === 'cart' && <Cart />}
         {content === 'delivery' && <Delivery />}
         {content === 'payment' && <Payment />}
-      </Aside>
-    </CartContainer>
+      </S.Aside>
+    </S.CartContainer>
   )
 }
 

@@ -1,13 +1,8 @@
-import estrela from '../../assets/images/estrelinha.svg'
 import Tag from '../Tag'
-import {
-  Botao,
-  BoxAvaliation,
-  BoxTitle,
-  Card,
-  Container,
-  TagContainer
-} from './styles'
+
+import estrela from '../../assets/images/estrelinha.svg'
+
+import * as S from './styles'
 
 export type Props = {
   image: string
@@ -34,30 +29,30 @@ const Restaurante = ({
   id
 }: Props) => {
   return (
-    <Card>
+    <S.Card>
       <img src={image} alt={title} />
-      <Container>
-        <BoxTitle>
+      <S.Container>
+        <S.BoxTitle>
           <h2>{title}</h2>
-          <BoxAvaliation>
+          <S.BoxAvaliation>
             {score}
             <img src={estrela} alt="Ícone de uma estrelinha" />
-          </BoxAvaliation>
-        </BoxTitle>
+          </S.BoxAvaliation>
+        </S.BoxTitle>
         <p>{trimDescription(description)}</p>
-        <Botao
+        <S.Botao
           title="Clique aqui para saber mais sobre o restaurante"
           to={`/restaurante/${id}`}
         >
           Saiba mais
-        </Botao>
-      </Container>
-      <TagContainer>
+        </S.Botao>
+      </S.Container>
+      <S.TagContainer>
         {infos.map((info) => (
           <Tag key={info}>{info}</Tag>
         ))}
-      </TagContainer>
-    </Card>
+      </S.TagContainer>
+    </S.Card>
   )
 }
 

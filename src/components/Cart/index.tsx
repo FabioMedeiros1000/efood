@@ -1,30 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 
-import excluir from '../../assets/images/excluir.svg'
+import ButtonSidebar from '../ButtonSidebar'
 
 import { closeCart, deleteToCart } from '../../store/reducers/cart'
 import { openDelivery } from '../../store/reducers/delivery'
-
 import { convertToCurrency } from '../../utils'
-
-import { Item, PriceContainer, P } from './styles'
 import { TotalPrice } from '../../utils'
-import ButtonSidebar from '../ButtonSidebar'
+
+import excluir from '../../assets/images/excluir.svg'
+
+import * as S from './styles'
 
 const Cart = () => {
-  const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
+  const { items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
 
   if (items.length === 0) {
-    return <P>Sem itens no carrinho. Adicione algum item!</P>
+    return <S.P>Sem itens no carrinho. Adicione algum item!</S.P>
   }
 
   return (
     <>
       <ul>
         {items.map((item) => (
-          <Item key={item.id}>
+          <S.Item key={item.id}>
             <img src={item.foto} alt={item.nome} />
             <div>
               <h3>{item.nome}</h3>
@@ -36,13 +36,13 @@ const Cart = () => {
               src={excluir}
               alt="Botão para excluir do carrinho"
             />
-          </Item>
+          </S.Item>
         ))}
       </ul>
-      <PriceContainer>
+      <S.PriceContainer>
         <p>Valor Total</p>
         <p>{convertToCurrency(TotalPrice(items))}</p>
-      </PriceContainer>
+      </S.PriceContainer>
       <ButtonSidebar
         title="Clique aqui para fornecer informações de entrega"
         type="button"

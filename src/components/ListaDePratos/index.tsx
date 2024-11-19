@@ -3,24 +3,17 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Prato from '../Prato'
-import {
-  Botao,
-  Modal,
-  ModalContent,
-  Section,
-  Container,
-  ModalMobile,
-  ModalContentMobile
-} from './styles'
+import Loading from '../Loading'
 
 import fechar from '../../assets/images/close.svg'
 
 import { trimDescription } from '../Restaurante'
-
 import { addToCart, openCart } from '../../store/reducers/cart'
 import { useGetFoodQuery } from '../../services/api'
 import { convertToCurrency } from '../../utils'
-import Loading from '../Loading'
+
+import * as S from './styles'
+
 import { cores } from '../../styles'
 
 export interface PratoProps {
@@ -88,8 +81,8 @@ const ListaDePratos = () => {
   }
 
   return (
-    <Container>
-      <Section className="container">
+    <S.Container>
+      <S.Section className="container">
         {pratos.map((prato) => (
           <Prato
             onClick={() => {
@@ -109,9 +102,9 @@ const ListaDePratos = () => {
             description={trimDescription(prato.descricao)}
           />
         ))}
-      </Section>
-      <Modal className={modal.visible ? 'container isVisible' : 'container'}>
-        <ModalContent>
+      </S.Section>
+      <S.Modal className={modal.visible ? 'container isVisible' : 'container'}>
+        <S.ModalContent>
           <img src={modal.foto} />
           <div>
             <h1>{modal.nome}</h1>
@@ -122,26 +115,26 @@ const ListaDePratos = () => {
                 ? 'Serve: 1 pessoa'
                 : `Serve: de ${modal.porcao}`}
             </p>
-            <Botao
+            <S.Botao
               title="Clique aqui para adicionar ao carrinho"
               onClick={() => {
                 addCar(), OpenCar(), closeModal()
               }}
             >
               Adicionar ao carrinho - {convertToCurrency(modal.preco)}
-            </Botao>
+            </S.Botao>
           </div>
           <img
             onClick={() => closeModal()}
             src={fechar}
             alt="Ícone de fechar a modal"
           />
-        </ModalContent>
-      </Modal>
-      <ModalMobile
+        </S.ModalContent>
+      </S.Modal>
+      <S.ModalMobile
         className={modal.visible ? 'container isVisible' : 'container'}
       >
-        <ModalContentMobile>
+        <S.ModalContentMobile>
           <h1>{modal.nome}</h1>
           <img src={modal.foto} className="prato-foto-mobile" />
           <p>
@@ -151,27 +144,27 @@ const ListaDePratos = () => {
               ? 'Serve: 1 pessoa'
               : `Serve: de ${modal.porcao}`}
           </p>
-          <Botao
+          <S.Botao
             title="Clique aqui para adicionar ao carrinho"
             onClick={() => {
               addCar(), OpenCar(), closeModal()
             }}
           >
             Adicionar ao carrinho - {convertToCurrency(modal.preco)}
-          </Botao>
+          </S.Botao>
           <img
             className="close-icone-mobile"
             onClick={() => closeModal()}
             src={fechar}
             alt="Ícone de fechar a modal"
           />
-        </ModalContentMobile>
-      </ModalMobile>
+        </S.ModalContentMobile>
+      </S.ModalMobile>
       <div
         onClick={() => closeModal()}
         className={modal.visible ? 'overlay isVisible' : 'overlay'}
       ></div>
-    </Container>
+    </S.Container>
   )
 }
 

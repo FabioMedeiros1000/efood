@@ -1,4 +1,5 @@
 import { ClipLoader } from 'react-spinners'
+
 import { Container } from './styles'
 
 export type Props = {
