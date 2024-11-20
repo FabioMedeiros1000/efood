@@ -11,7 +11,7 @@ import { RootReducer } from '../../store'
 
 const Restaurante = () => {
   const { id } = useParams()
-  const { data: restaurante } = useGetHeroRestaurantQuery(id!)
+  const { data: restaurante } = useGetHeroRestaurantQuery(id as string)
 
   const { isOpen: isOpenCart } = useSelector((state: RootReducer) => state.cart)
   const { isOpen: isOpenDelivery } = useSelector(

@@ -33,7 +33,7 @@ const DishesList = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
 
-  const { data: pratos } = useGetFoodQuery(id!)
+  const { data: pratos } = useGetFoodQuery(id as string)
 
   if (id === undefined) {
     return null
