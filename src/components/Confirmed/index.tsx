@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import ButtonSidebar from '../ButtonSidebar'
+import Button from '../Button'
 
 import { closeDelivery } from '../../store/reducers/delivery'
 import {
@@ -38,7 +38,7 @@ const Confirmed = (data: PurchaseResponse) => {
           Esperamos que desfrute de uma deliciosa e agradável experiência
           gastronômica. Bom apetite!
         </S.Text>
-        <ButtonSidebar
+        <Button
           title="Clique aqui para voltar à Home"
           type="button"
           onClick={() => {
@@ -54,7 +54,7 @@ const Confirmed = (data: PurchaseResponse) => {
           }}
         >
           Concluir
-        </ButtonSidebar>
+        </Button>
       </>
     )
   }

@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import InputMask from 'react-input-mask'
 
-import ButtonSidebar from '../ButtonSidebar'
+import Button from '../Button'
 import Confirmed from '../Confirmed'
 
 import { closePayment, updatePayment } from '../../store/reducers/payment'
@@ -217,7 +217,7 @@ const Payment = () => {
               </S.InputGroup>
             </S.Row>
           </S.FormContainer>
-          <ButtonSidebar
+          <Button
             title="Clique aqui para finalizar o pagamento e fazer o seu pedido"
             disabled={isLoading}
             type="submit"
@@ -235,8 +235,8 @@ const Payment = () => {
             }}
           >
             {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
-          </ButtonSidebar>
-          <ButtonSidebar
+          </Button>
+          <Button
             title="Clique aqui para editar o endereço"
             type="button"
             onClick={() => {
@@ -245,7 +245,7 @@ const Payment = () => {
             }}
           >
             Voltar para a edição de endereço
-          </ButtonSidebar>
+          </Button>
         </>
       )}
     </form>

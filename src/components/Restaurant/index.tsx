@@ -3,6 +3,7 @@ import Tag from '../Tag'
 import starIcon from '../../assets/images/estrelinha.svg'
 
 import * as S from './styles'
+import Button from '../Button'
 
 type Props = {
   image: string
@@ -33,12 +34,13 @@ const Restaurant = ({ image, title, description, score, infos, id }: Props) => {
           </S.BoxAvaliation>
         </S.BoxTitle>
         <p>{trimDescription(description)}</p>
-        <S.Botao
+        <Button
+          type="link"
           title="Clique aqui para saber mais sobre o restaurante"
-          to={`/restaurante/${id}`}
+          link={`/restaurante/${id}`}
         >
           Saiba mais
-        </S.Botao>
+        </Button>
       </S.Container>
       <S.TagContainer>
         {infos.map((info) => (

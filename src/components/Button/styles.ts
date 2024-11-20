@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
 
-export const Button = styled.button`
+export const BtnContainer = styled.button`
   display: block;
   width: 100%;
   padding: 4px 0;
@@ -13,4 +13,12 @@ export const Button = styled.button`
   font-weight: 700;
   line-height: 16.41px;
   cursor: pointer;
+`
+
+export const BtnLink = styled.div`
+  color: ${colors.white};
+  background-color: ${colors.red};
+  padding: 4px 6px;
+  cursor: pointer;
+  display: inline-block;
 `

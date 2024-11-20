@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 
-import ButtonSidebar from '../ButtonSidebar'
+import Button from '../Button'
 
 import { closeCart, deleteFromCart } from '../../store/reducers/cart'
 import { openDelivery } from '../../store/reducers/delivery'
@@ -43,7 +43,7 @@ const Cart = () => {
         <p>Valor Total</p>
         <p>{convertToCurrency(TotalPrice(items))}</p>
       </S.PriceContainer>
-      <ButtonSidebar
+      <Button
         title="Clique aqui para fornecer informações de entrega"
         type="button"
         onClick={() => {
@@ -56,7 +56,7 @@ const Cart = () => {
         }}
       >
         Continuar com a entrega
-      </ButtonSidebar>
+      </Button>
     </>
   )
 }

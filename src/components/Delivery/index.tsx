@@ -1,4 +1,4 @@
-import ButtonSidebar from '../ButtonSidebar'
+import Button from '../Button'
 import { FormContainer, InputGroup, Row, Title } from './styles'
 
 import { openCart } from '../../store/reducers/cart'
@@ -192,7 +192,7 @@ const Delivery = () => {
           </InputGroup>
         </Row>
       </FormContainer>
-      <ButtonSidebar
+      <Button
         title="Clique aqui para fornecer informações de pagamento"
         type="button"
         onClick={() => {
@@ -205,8 +205,8 @@ const Delivery = () => {
         }}
       >
         Continuar com o pagamento
-      </ButtonSidebar>
-      <ButtonSidebar
+      </Button>
+      <Button
         title="Clique aqui para voltar ao carrinho e editar itens"
         type="button"
         onClick={() => {
@@ -215,7 +215,7 @@ const Delivery = () => {
         }}
       >
         Voltar para o carrinho
-      </ButtonSidebar>
+      </Button>
     </form>
   )
 }

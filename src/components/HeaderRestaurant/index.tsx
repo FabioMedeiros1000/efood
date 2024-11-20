@@ -25,6 +25,7 @@ const HeaderRestaurant = () => {
           />
         </Link>
         <S.ButtonCart
+          role="button"
           title="Clique aqui para ver os itens no carrinho"
           onClick={() => dispatch(openCart())}
         >

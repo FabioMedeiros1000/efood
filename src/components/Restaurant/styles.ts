@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
 import { Box } from '../Tag/styles'
-import { Link } from 'react-router-dom'
 
 export const Card = styled.div`
   color: ${colors.red};
@@ -40,14 +39,6 @@ export const BoxTitle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
-`
-
-export const Botao = styled(Link)`
-  color: ${colors.white};
-  background-color: ${colors.red};
-  padding: 4px 6px;
-  cursor: pointer;
-  display: inline-block;
 `
 
 export const TagContainer = styled.div`
