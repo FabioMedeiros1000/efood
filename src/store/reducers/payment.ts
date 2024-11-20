@@ -1,25 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface CardDetails {
-  name: string
-  number: string
-  code: number
-  expires: {
-    month: number
-    year: number
-  }
-}
-
-export interface PaymentType {
-  card: CardDetails
-}
-
-export interface PaymentState {
-  isOpen: boolean
-  formCompleted: boolean
-  payment: PaymentType
-}
-
 const initialState: PaymentState = {
   isOpen: false,
   formCompleted: false,

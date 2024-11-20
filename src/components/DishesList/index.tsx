@@ -16,15 +16,6 @@ import * as S from './styles'
 
 import { colors } from '../../styles'
 
-export interface DishProps {
-  foto: string
-  preco: number
-  id: number
-  nome: string
-  descricao: string
-  porcao: string
-}
-
 interface ModalType extends DishProps {
   visible: boolean
 }

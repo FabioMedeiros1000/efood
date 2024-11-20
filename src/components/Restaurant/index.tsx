@@ -4,7 +4,7 @@ import starIcon from '../../assets/images/estrelinha.svg'
 
 import * as S from './styles'
 
-export type Props = {
+type Props = {
   image: string
   title: string
   description: string

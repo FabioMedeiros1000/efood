@@ -1,8 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RestaurantProps } from '../components/RestaurantList'
-import { DishProps } from '../components/DishesList'
-import { PaymentState } from '../store/reducers/payment'
-import { DeliveryType } from '../store/reducers/delivery'
 
 interface Product {
   id: number
@@ -13,10 +9,6 @@ interface PurchaseType
   extends Omit<PaymentState, 'isOpen' | 'formCompleted'>,
     DeliveryType {
   products: Product[]
-}
-
-export type PurchaseResponse = {
-  orderId: string
 }
 
 const api = createApi({

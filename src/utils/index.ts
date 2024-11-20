@@ -1,5 +1,3 @@
-import { DishProps } from '../components/DishesList'
-
 export const TotalPrice = (items: DishProps[]) => {
   return items.reduce((accumulator, currentValue) => {
     return (accumulator += currentValue.preco)

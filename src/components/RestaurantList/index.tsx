@@ -4,16 +4,6 @@ import { useGetRestaurantQuery } from '../../services/api'
 import Loading from '../Loading'
 import { colors } from '../../styles'
 
-export type RestaurantProps = {
-  avaliacao: number
-  capa: string
-  descricao: string
-  destacado: boolean
-  id: number
-  tipo: string
-  titulo: string
-}
-
 const RestaurantList = () => {
   const { data: restaurant } = useGetRestaurantQuery()
 

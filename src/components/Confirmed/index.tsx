@@ -14,7 +14,6 @@ import {
   setFormCompleted as setFormCompletedDelivery
 } from '../../store/reducers/delivery'
 import { clearPayment } from '../../store/reducers/payment'
-import { PurchaseResponse } from '../../services/api'
 import { closeConfirmed } from '../../store/reducers/confirmed'
 
 import * as S from './styles'

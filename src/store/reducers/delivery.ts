@@ -1,18 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface DeliveryType {
-  delivery: {
-    receiver: string
-    address: {
-      city: string
-      complement: string
-      description: string
-      number: number
-      zipCode: string
-    }
-  }
-}
-
 interface DeliveryState extends DeliveryType {
   isOpen: boolean
   isformCompleted: boolean
