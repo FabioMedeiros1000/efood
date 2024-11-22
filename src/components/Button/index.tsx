@@ -1,23 +1,36 @@
 import { Link } from 'react-router-dom'
 import { BtnContainer, BtnLink } from './styles'
 
-type Props = {
-  children: string
-  onClick?: () => void
+export type Props = {
+  children: string | string[]
+  onClick?: (e?: any) => void
   type: 'button' | 'submit' | 'link'
   disabled?: boolean
   title?: string
   link?: string
+  marginBottom?: string
+  width?: 'full' | 'adjusted'
 }
 
-const Button = ({ children, onClick, type, disabled, title, link }: Props) => {
+const Button = ({
+  children,
+  onClick,
+  type,
+  disabled,
+  title,
+  link,
+  marginBottom = '0px',
+  width = 'full'
+}: Props) => {
   if (type === 'button' || type === 'submit') {
     return (
       <BtnContainer
+        width={width}
         title={title}
         disabled={disabled}
         type={type}
         onClick={onClick}
+        marginBottom={marginBottom}
       >
         {children}
       </BtnContainer>

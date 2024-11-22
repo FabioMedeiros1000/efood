@@ -193,6 +193,7 @@ const Delivery = () => {
         </Row>
       </FormContainer>
       <Button
+        marginBottom="8px"
         title="Clique aqui para fornecer informações de pagamento"
         type="button"
         onClick={() => {

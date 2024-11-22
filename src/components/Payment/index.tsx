@@ -218,6 +218,7 @@ const Payment = () => {
             </S.Row>
           </S.FormContainer>
           <Button
+            marginBottom="8px"
             title="Clique aqui para finalizar o pagamento e fazer o seu pedido"
             disabled={isLoading}
             type="submit"

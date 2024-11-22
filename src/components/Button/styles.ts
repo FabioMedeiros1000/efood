@@ -1,18 +1,21 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
+import { Props } from '.'
 
-export const BtnContainer = styled.button`
+export const BtnContainer = styled.button<
+  Pick<Props, 'marginBottom' | 'width'>
+>`
   display: block;
-  width: 100%;
-  padding: 4px 0;
+  width: ${(props) => (props.width === 'full' ? '100%' : 'auto')};
+  padding: 4px 8px;
   text-align: center;
   background-color: ${colors.darkWhite};
   color: ${colors.red};
   border: none;
-  margin-bottom: 8px;
   font-weight: 700;
   line-height: 16.41px;
   cursor: pointer;
+  margin-bottom: ${(props) => props.marginBottom};
 `
 
 export const BtnLink = styled.div`

@@ -15,6 +15,7 @@ import { convertToCurrency } from '../../utils'
 import * as S from './styles'
 
 import { colors } from '../../styles'
+import Button from '../Button'
 
 interface ModalType extends DishProps {
   visible: boolean
@@ -39,31 +40,22 @@ const DishesList = () => {
     return null
   }
 
-  const closeModal = () =>
-    setModal({
-      id: modal.id,
-      nome: modal.nome,
-      descricao: modal.descricao,
-      foto: modal.foto,
-      porcao: modal.porcao,
-      preco: modal.preco,
-      visible: false
-    })
+  const closeModal = () => setModal((prev) => ({ ...prev, visible: false }))
 
-  const addCar = () => {
+  const addCar = (prato: DishProps) => {
     dispatch(
       addToCart({
-        id: modal.id,
-        preco: modal.preco,
-        descricao: modal.descricao,
-        foto: modal.foto,
-        nome: modal.nome,
-        porcao: modal.porcao
+        id: prato.id,
+        preco: prato.preco,
+        descricao: prato.descricao,
+        foto: prato.foto,
+        nome: prato.nome,
+        porcao: prato.porcao
       })
     )
   }
 
-  const OpenCar = () => {
+  const openCar = () => {
     dispatch(openCart())
   }
 
@@ -76,7 +68,7 @@ const DishesList = () => {
       <S.Section className="container">
         {pratos.map((prato) => (
           <Dish
-            onClick={() => {
+            onClick={() =>
               setModal({
                 id: prato.id,
                 nome: prato.nome,
@@ -86,6 +78,10 @@ const DishesList = () => {
                 preco: prato.preco,
                 visible: true
               })
+            }
+            onAddToCart={() => {
+              addCar(prato)
+              openCar()
             }}
             key={prato.id}
             image={prato.foto}
@@ -106,17 +102,21 @@ const DishesList = () => {
                 ? 'Serve: 1 pessoa'
                 : `Serve: de ${modal.porcao}`}
             </p>
-            <S.Botao
+            <Button
+              width="adjusted"
+              type="button"
               title="Clique aqui para adicionar ao carrinho"
               onClick={() => {
-                addCar(), OpenCar(), closeModal()
+                addCar(modal)
+                openCar()
+                closeModal()
               }}
             >
               Adicionar ao carrinho - {convertToCurrency(modal.preco)}
-            </S.Botao>
+            </Button>
           </div>
           <img
-            onClick={() => closeModal()}
+            onClick={closeModal}
             src={closeIcon}
             alt="Ícone de fechar a modal"
           />
@@ -135,24 +135,27 @@ const DishesList = () => {
               ? 'Serve: 1 pessoa'
               : `Serve: de ${modal.porcao}`}
           </p>
-          <S.Botao
+          <Button
+            type="button"
             title="Clique aqui para adicionar ao carrinho"
             onClick={() => {
-              addCar(), OpenCar(), closeModal()
+              addCar(modal)
+              openCart()
+              closeModal()
             }}
           >
             Adicionar ao carrinho - {convertToCurrency(modal.preco)}
-          </S.Botao>
+          </Button>
           <img
             className="close-icone-mobile"
-            onClick={() => closeModal()}
+            onClick={closeModal}
             src={closeIcon}
             alt="Ícone de fechar a modal"
           />
         </S.ModalContentMobile>
       </S.ModalMobile>
       <div
-        onClick={() => closeModal()}
+        onClick={closeModal}
         className={modal.visible ? 'overlay isVisible' : 'overlay'}
       ></div>
     </S.Container>
