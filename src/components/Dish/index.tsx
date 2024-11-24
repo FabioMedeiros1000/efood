@@ -20,6 +20,7 @@ const Dish = ({ image, title, description, onClick, onAddToCart }: Props) => {
       <S.Title>{title}</S.Title>
       <p>{description}</p>
       <Button
+        title="Clique aqui para adicionar ao carrinho"
         type="button"
         onClick={(e) => {
           e.stopPropagation()
