@@ -44,6 +44,7 @@ const Cart = () => {
         <p>{convertToCurrency(TotalPrice(items))}</p>
       </S.PriceContainer>
       <Button
+        marginBottom="24px"
         title="Clique aqui para fornecer informações de entrega"
         type="button"
         onClick={() => {

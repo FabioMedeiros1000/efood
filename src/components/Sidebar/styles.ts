@@ -32,4 +32,5 @@ export const Aside = styled.aside`
   padding: 0 8px;
   padding-top: 32px;
   width: 360px;
+  overflow: auto;
 `
