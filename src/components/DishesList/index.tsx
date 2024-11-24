@@ -40,7 +40,9 @@ const DishesList = () => {
     return null
   }
 
-  const closeModal = () => setModal((prev) => ({ ...prev, visible: false }))
+  const closeModal = () => {
+    setModal((prev) => ({ ...prev, visible: false }))
+  }
 
   const addCar = (prato: DishProps) => {
     dispatch(
@@ -53,9 +55,7 @@ const DishesList = () => {
         porcao: prato.porcao
       })
     )
-  }
-
-  const openCar = () => {
+    closeModal()
     dispatch(openCart())
   }
 
@@ -79,10 +79,7 @@ const DishesList = () => {
                 visible: true
               })
             }
-            onAddToCart={() => {
-              addCar(prato)
-              openCar()
-            }}
+            onAddToCart={() => addCar(prato)}
             key={prato.id}
             image={prato.foto}
             title={prato.nome}
@@ -106,11 +103,7 @@ const DishesList = () => {
               width="adjusted"
               type="button"
               title="Clique aqui para adicionar ao carrinho"
-              onClick={() => {
-                addCar(modal)
-                openCar()
-                closeModal()
-              }}
+              onClick={() => addCar(modal)}
             >
               Adicionar ao carrinho - {convertToCurrency(modal.preco)}
             </Button>
@@ -138,11 +131,7 @@ const DishesList = () => {
           <Button
             type="button"
             title="Clique aqui para adicionar ao carrinho"
-            onClick={() => {
-              addCar(modal)
-              openCart()
-              closeModal()
-            }}
+            onClick={() => addCar(modal)}
           >
             Adicionar ao carrinho - {convertToCurrency(modal.preco)}
           </Button>
