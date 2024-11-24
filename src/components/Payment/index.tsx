@@ -37,7 +37,7 @@ const Payment = () => {
         .min(5, 'Esse campo deve ter pelo menos 5 caracteres')
         .required('Esse campo é obrigatório'),
       number: Yup.string()
-        .matches(/^\d{4} \d{4} \d{4} \d{4}$/, 'Número de cartão inválido') // Aceita formato com espaços
+        .matches(/^\d{4} \d{4} \d{4} \d{4}$/, 'Número de cartão inválido')
         .required('Esse campo é obrigatório'),
       code: Yup.string()
         .matches(/^\d{3,4}$/, 'CVV inválido')

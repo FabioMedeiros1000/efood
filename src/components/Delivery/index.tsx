@@ -1,22 +1,21 @@
+import React, { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import InputMask from 'react-input-mask'
+import * as Yup from 'yup'
+
 import Button from '../Button'
 import { FormContainer, InputGroup, Row, Title } from './styles'
 
 import { openCart } from '../../store/reducers/cart'
 import { closeDelivery, updateDelivery } from '../../store/reducers/delivery'
 import { openPayment } from '../../store/reducers/payment'
-
-import { useDispatch, useSelector } from 'react-redux'
-import { useFormik } from 'formik'
-
-import * as Yup from 'yup'
 import { RootReducer } from '../../store'
-import InputMask from 'react-input-mask'
-import { useCallback } from 'react'
 
 const Delivery = () => {
   const dispatch = useDispatch()
 
-  const { delivery: deliveryState, isformCompleted } = useSelector(
+  const { delivery: deliveryState } = useSelector(
     (state: RootReducer) => state.delivery
   )
 
@@ -40,39 +39,31 @@ const Delivery = () => {
         .required('Esse campo é obrigatório'),
       number: Yup.number().required('Esse campo é obrigatório')
     }),
-    onSubmit: (values, { setSubmitting }) => {
-      setSubmitting(false)
+    validateOnBlur: true,
+    validateOnChange: true,
+    onSubmit: () => {
+      // Intencionalmente vazio, pois a ação de submit é gerenciada manualmente
     }
   })
-
-  console.log(form)
-
-  const checkInputHasError = (fieldname: string) => {
-    const isInvalid = fieldname in form.errors
-    const isTouched = fieldname in form.touched
-
-    return isInvalid && isTouched
-  }
 
   const handleBlurAndSave = useCallback(
     (e: React.FocusEvent<HTMLInputElement>) => {
       form.handleBlur(e)
 
       const { name, value } = e.target
-      const unmaskedValue = name === 'zipCode' ? value.replace('-', '') : value
 
       dispatch(
         updateDelivery({
           delivery: {
-            receiver: form.values.receiver,
+            ...form.values,
             address: {
               city: form.values.city,
               complement: form.values.complement,
               description: form.values.description,
               number: form.values.number,
-              zipCode: name === 'zipCode' ? unmaskedValue : form.values.zipCode
-            },
-            [name]: unmaskedValue
+              zipCode: form.values.zipCode,
+              [name]: value
+            }
           }
         })
       )
@@ -80,18 +71,25 @@ const Delivery = () => {
     [dispatch, form]
   )
 
-  const touchInputsFormAndValidate = () => {
+  const handleValidateAndProceed = () => {
     form.setTouched({
-      city: true,
-      complement: true,
-      description: true,
-      number: true,
       receiver: true,
-      zipCode: true
+      description: true,
+      city: true,
+      zipCode: true,
+      number: true,
+      complement: true
     })
 
-    form.validateForm()
+    form.validateForm().then((errors) => {
+      if (Object.keys(errors).length === 0) {
+        dispatch(closeDelivery())
+        dispatch(openPayment())
+      }
+    })
   }
+
+  console.log(form)
 
   return (
     <form>
@@ -109,7 +107,9 @@ const Delivery = () => {
               onBlur={handleBlurAndSave}
             />
             <small>
-              {checkInputHasError('receiver') ? form.errors.receiver : ''}
+              {form.touched.receiver && form.errors.receiver
+                ? form.errors.receiver
+                : ''}
             </small>
           </InputGroup>
         </Row>
@@ -125,7 +125,9 @@ const Delivery = () => {
               onBlur={handleBlurAndSave}
             />
             <small>
-              {checkInputHasError('description') ? form.errors.description : ''}
+              {form.touched.description && form.errors.description
+                ? form.errors.description
+                : ''}
             </small>
           </InputGroup>
         </Row>
@@ -140,7 +142,9 @@ const Delivery = () => {
               onChange={form.handleChange}
               onBlur={handleBlurAndSave}
             />
-            <small>{checkInputHasError('city') ? form.errors.city : ''}</small>
+            <small>
+              {form.touched.city && form.errors.city ? form.errors.city : ''}
+            </small>
           </InputGroup>
         </Row>
         <Row>
@@ -156,7 +160,9 @@ const Delivery = () => {
               onBlur={handleBlurAndSave}
             />
             <small>
-              {checkInputHasError('zipCode') ? form.errors.zipCode : ''}
+              {form.touched.zipCode && form.errors.zipCode
+                ? form.errors.zipCode
+                : ''}
             </small>
           </InputGroup>
           <InputGroup>
@@ -171,7 +177,9 @@ const Delivery = () => {
               onBlur={handleBlurAndSave}
             />
             <small>
-              {checkInputHasError('number') ? form.errors.number : ''}
+              {form.touched.number && form.errors.number
+                ? form.errors.number
+                : ''}
             </small>
           </InputGroup>
         </Row>
@@ -187,7 +195,9 @@ const Delivery = () => {
               onBlur={handleBlurAndSave}
             />
             <small>
-              {checkInputHasError('complement') ? form.errors.complement : ''}
+              {form.touched.complement && form.errors.complement
+                ? form.errors.complement
+                : ''}
             </small>
           </InputGroup>
         </Row>
@@ -196,14 +206,7 @@ const Delivery = () => {
         marginBottom="8px"
         title="Clique aqui para fornecer informações de pagamento"
         type="button"
-        onClick={() => {
-          if (isformCompleted && form.isValid) {
-            dispatch(closeDelivery())
-            dispatch(openPayment())
-          } else {
-            touchInputsFormAndValidate()
-          }
-        }}
+        onClick={handleValidateAndProceed}
       >
         Continuar com o pagamento
       </Button>
