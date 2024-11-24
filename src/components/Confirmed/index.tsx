@@ -3,20 +3,8 @@ import { useDispatch } from 'react-redux'
 
 import Button from '../Button'
 
-import { closeDelivery } from '../../store/reducers/delivery'
-import {
-  closePayment,
-  setFormCompleted as setFormCompletedPayment
-} from '../../store/reducers/payment'
-import { clearCart } from '../../store/reducers/cart'
-import {
-  clearDelivery,
-  setFormCompleted as setFormCompletedDelivery
-} from '../../store/reducers/delivery'
-import { clearPayment } from '../../store/reducers/payment'
-import { closeConfirmed } from '../../store/reducers/confirmed'
-
 import * as S from './styles'
+import { closeAndCleanAll } from '../../utils'
 
 const Confirmed = (data: PurchaseResponse) => {
   const navigate = useNavigate()
@@ -43,14 +31,7 @@ const Confirmed = (data: PurchaseResponse) => {
           type="button"
           onClick={() => {
             navigate('/')
-            dispatch(closeConfirmed())
-            dispatch(closeDelivery())
-            dispatch(closePayment())
-            dispatch(clearCart())
-            dispatch(clearDelivery())
-            dispatch(clearPayment())
-            dispatch(setFormCompletedPayment(false))
-            dispatch(setFormCompletedDelivery(false))
+            closeAndCleanAll(dispatch)
           }}
         >
           Concluir

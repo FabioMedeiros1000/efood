@@ -4,22 +4,14 @@ import Cart from '../Cart'
 import Delivery from '../Delivery'
 import Payment from '../Payment'
 
-import { clearCart, closeCart } from '../../store/reducers/cart'
-import {
-  clearDelivery,
-  closeDelivery,
-  setFormCompleted as setFormCompletedDelivery
-} from '../../store/reducers/delivery'
-import {
-  clearPayment,
-  closePayment,
-  setFormCompleted as setFormCompletedPayment
-} from '../../store/reducers/payment'
-import { closeConfirmed } from '../../store/reducers/confirmed'
+import { closeCart } from '../../store/reducers/cart'
+import { closeDelivery } from '../../store/reducers/delivery'
+import { closePayment } from '../../store/reducers/payment'
 
 import { RootReducer } from '../../store'
 
 import * as S from './styles'
+import { closeAndCleanAll } from '../../utils'
 
 type Props = {
   content: 'cart' | 'delivery' | 'payment' | 'confirmed'
@@ -43,14 +35,7 @@ const Sidebar = ({ content }: Props) => {
             dispatch(closePayment())
           }
           if (isOpen) {
-            dispatch(closeConfirmed())
-            dispatch(closeDelivery())
-            dispatch(closePayment())
-            dispatch(clearCart())
-            dispatch(clearDelivery())
-            dispatch(clearPayment())
-            dispatch(setFormCompletedDelivery(false))
-            dispatch(setFormCompletedPayment(false))
+            closeAndCleanAll(dispatch)
           }
         }}
       />
