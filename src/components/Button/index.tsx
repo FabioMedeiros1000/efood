@@ -3,7 +3,7 @@ import { BtnContainer, BtnLink } from './styles'
 
 export type Props = {
   children: string | string[]
-  onClick?: (e?: any) => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
   type: 'button' | 'submit' | 'link'
   disabled?: boolean
   title?: string
