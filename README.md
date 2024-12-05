@@ -13,6 +13,7 @@
 - **Formulário de Entrega e Pagamento**: Com validação de campos e máscaras, utilizando Formik, Yup e React Input Mask.
 - **Loaders**: Indicadores visuais de carregamento com React Spinners.
 - **Envio de Dados do Formulário**: Envia informações de entrega e pagamento para uma API, retornando o número do pedido.
+- **Design Responsivo**: Layout adaptável para diferentes tamanhos de tela, garantindo uma experiência otimizada em dispositivos móveis, tablets e desktops.
 
 ## Tecnologias Utilizadas
 
