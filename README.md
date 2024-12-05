@@ -13,6 +13,9 @@
 - **Preço Total**: Visualize o valor total dos itens selecionados no carrinho.
 - **Detalhes do Prato**: Exiba informações detalhadas sobre o prato em uma modal.
 - **Contador de Itens**: Mostra a quantidade de itens adicionados ao carrinho.
+- **Formulário de Entrega e Pagamento**: Com validação de campos e máscaras, utilizando Formik, Yup e React Input Mask.
+- **Loaders**: Indicadores visuais de carregamento com React Spinners.
+- **Envio de Dados do Formulário**: Envia informações de entrega e pagamento para uma API, retornando o número do pedido.
 
 ## Tecnologias Utilizadas
 
@@ -20,12 +23,16 @@
 - **Styled-components**: Estilização de componentes.
 - **React Router DOM**: Gerenciamento de rotas e navegação entre páginas.
 - **Redux** e **Redux Toolkit Query**: Gerenciamento de estado e requisições de dados.
+- **Formik** e **Yup**: Validação e gerenciamento de formulários.
+- **React Input Mask**: Máscaras para campos de entrada.
+- **React Spinners**: Indicadores de carregamento.
 
 ## APIs Utilizadas
 
 - **Restaurantes**: https://fake-api-tau.vercel.app/api/efood/restaurantes
 - **Detalhes do Restaurante**: https://fake-api-tau.vercel.app/api/efood/restaurantes/:id  
-  (Substitua `:id` pelo ID do restaurante mais informações sobre ele)
+  (Substitua `:id` pelo ID do restaurante para obter informações sobre ele)
+- **Finalizar Pedido**: Endpoint para envio dos dados do formulário e obtenção do número do pedido.
 
 ## Como Usar
 
