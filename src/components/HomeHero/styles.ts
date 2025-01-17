@@ -6,6 +6,19 @@ export const Container = styled.div`
   padding-top: 64px;
   padding-bottom: 40px;
   color: ${colors.red};
+  position: relative;
+
+  p {
+    position: absolute;
+    top: 48px;
+    right: 48px;
+    font-size: 16px;
+
+    &:hover {
+      cursor: pointer;
+      border-bottom: 2px solid ${colors.red};
+    }
+  }
 
   @media (max-width: ${breakpoints.tablet}) {
     max-width: 100%;

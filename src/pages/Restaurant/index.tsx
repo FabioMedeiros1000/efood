@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import HeaderRestaurant from '../../components/HeaderRestaurant'
@@ -8,6 +8,7 @@ import Sidebar from '../../components/Sidebar'
 
 import { useGetHeroRestaurantQuery } from '../../services/api'
 import { RootReducer } from '../../store'
+import { useEffect } from 'react'
 
 const Restaurante = () => {
   const { id } = useParams()
@@ -20,6 +21,16 @@ const Restaurante = () => {
   const { isOpen: isOpenPayment } = useSelector(
     (state: RootReducer) => state.payment
   )
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('authToken')
+
+    if (!isAuthenticated) {
+      navigate('/login', { replace: true })
+    }
+  }, [navigate])
 
   if (!id) {
     return null
