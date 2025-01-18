@@ -53,7 +53,6 @@ const Login = () => {
         if (response.ok) {
           const { token } = data
           localStorage.setItem('authToken', token)
-
           navigate('/', { replace: true })
           resetForm()
         } else {
