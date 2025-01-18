@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import HomeHero from '../../components/HomeHero'
 
@@ -15,6 +15,7 @@ import {
 
 const Login = () => {
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useFormik({
     initialValues: {
@@ -39,6 +40,7 @@ const Login = () => {
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
+        setIsLoading(true)
         const response = await fetch(
           'https://efood-backend.onrender.com/login',
           {
@@ -63,6 +65,7 @@ const Login = () => {
         alert('Erro ao conectar com o servidor. Tente novamente mais tarde')
       } finally {
         setSubmitting(false)
+        setIsLoading(false)
       }
     }
   })
@@ -116,7 +119,9 @@ const Login = () => {
             {checkInputHasError('password') ? form.errors.password : ''}
           </small>
         </InputGroup>
-        <ButtonSubmit type="submit">Fazer login</ButtonSubmit>
+        <ButtonSubmit type="submit">
+          {isLoading ? 'Logando...' : 'Fazer login'}
+        </ButtonSubmit>
         <Small onClick={() => navigate('/cadastro')}>
           <div>Ainda não tem login? Clique aqui para se cadastrar!</div>
         </Small>

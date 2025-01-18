@@ -11,10 +11,11 @@ import {
   Small,
   Title
 } from './styles'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Register = () => {
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useFormik({
     initialValues: {
@@ -39,6 +40,7 @@ const Register = () => {
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
+        setIsLoading(true)
         const response = await fetch(
           'https://efood-backend.onrender.com/signup',
           {
@@ -62,6 +64,7 @@ const Register = () => {
         alert('Erro ao conectar com o servidor. Tente novamente mais tarde')
       } finally {
         setSubmitting(false)
+        setIsLoading(false)
       }
     }
   })
@@ -115,7 +118,9 @@ const Register = () => {
             {checkInputHasError('password') ? form.errors.password : ''}
           </small>
         </InputGroup>
-        <ButtonSubmit type="submit">Cadastrar</ButtonSubmit>
+        <ButtonSubmit type="submit">
+          {isLoading ? 'Cadastrando...' : 'Cadastrar'}
+        </ButtonSubmit>
         <Small onClick={() => navigate('/login')}>
           <div>Já tem login? Clique aqui para efetuar o login!</div>
         </Small>
