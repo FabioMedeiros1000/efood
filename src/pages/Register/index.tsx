@@ -39,11 +39,14 @@ const Register = () => {
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await fetch('http://localhost:5000/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values)
-        })
+        const response = await fetch(
+          'https://efood-backend.onrender.com/signup',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values)
+          }
+        )
 
         const data = await response.json()
 
