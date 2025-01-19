@@ -8,7 +8,7 @@ import HomeHero from '../../components/HomeHero'
 import {
   ButtonSubmit,
   InputGroup,
-  RegisterContainer,
+  LoginContainer,
   Small,
   Title
 } from './styles'
@@ -87,7 +87,7 @@ const Login = () => {
   return (
     <>
       <HomeHero logout={false} />
-      <RegisterContainer onSubmit={form.handleSubmit}>
+      <LoginContainer onSubmit={form.handleSubmit}>
         <Title>Login:</Title>
         <InputGroup>
           <label htmlFor="username">Nome de usuário:</label>
@@ -125,7 +125,7 @@ const Login = () => {
         <Small onClick={() => navigate('/cadastro')}>
           <div>Ainda não tem login? Clique aqui para se cadastrar!</div>
         </Small>
-      </RegisterContainer>
+      </LoginContainer>
     </>
   )
 }

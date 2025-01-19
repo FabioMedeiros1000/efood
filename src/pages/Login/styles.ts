@@ -1,18 +1,22 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
-export const RegisterContainer = styled.form`
+export const LoginContainer = styled.form`
   max-width: 508px;
   margin: 137px auto 95px auto;
   color: ${colors.red};
   background-color: ${colors.darkWhite};
+
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 80%;
+  }
 `
 
 export const Title = styled.h2`
   font-weight: bold;
   font-size: 32px;
-  line-height: 21.9px;
-  margin-bottom: 32px;
+  line-height: 30px;
+  margin-bottom: 16px;
 `
 
 export const InputGroup = styled.div`
