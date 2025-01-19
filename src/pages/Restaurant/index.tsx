@@ -25,18 +25,14 @@ const Restaurante = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('authToken')
+    const token = localStorage.getItem('authToken')
 
-    if (!isAuthenticated) {
+    if (!token) {
       navigate('/login', { replace: true })
     }
   }, [navigate])
 
-  if (!id) {
-    return null
-  }
-
-  if (!restaurante) {
+  if (!id || !restaurante) {
     return null
   }
 

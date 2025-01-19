@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import Restaurant from './pages/Restaurant'
@@ -11,16 +11,11 @@ import Footer from './components/Footer'
 import { store } from './store'
 
 import GlobalStyle from './styles'
-import { useEffect } from 'react'
 
 const rotas = createBrowserRouter([
   {
     path: '/',
-    element: localStorage.getItem('authToken') ? (
-      <Home />
-    ) : (
-      <Navigate to="/login" />
-    )
+    element: <Home />
   },
   {
     path: '/restaurante/:id',

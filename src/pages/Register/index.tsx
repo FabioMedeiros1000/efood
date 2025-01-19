@@ -77,8 +77,8 @@ const Register = () => {
   }
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('authToken')
-    if (isAuthenticated) {
+    const token = localStorage.getItem('authToken')
+    if (token) {
       navigate('/', { replace: true })
     }
   }, [navigate])
@@ -118,7 +118,7 @@ const Register = () => {
             {checkInputHasError('password') ? form.errors.password : ''}
           </small>
         </InputGroup>
-        <ButtonSubmit type="submit">
+        <ButtonSubmit disabled={isLoading} type="submit">
           {isLoading ? 'Cadastrando...' : 'Cadastrar'}
         </ButtonSubmit>
         <Small onClick={() => navigate('/login')}>

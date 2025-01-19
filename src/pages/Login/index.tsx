@@ -55,8 +55,8 @@ const Login = () => {
         if (response.ok) {
           const { token } = data
           localStorage.setItem('authToken', token)
-          navigate('/', { replace: true })
           resetForm()
+          navigate('/', { replace: true })
         } else {
           alert(data.message || 'Erro ao cadastrar o usuário')
         }
@@ -64,8 +64,8 @@ const Login = () => {
         console.error('Erro ao conectar com o servidor', error)
         alert('Erro ao conectar com o servidor. Tente novamente mais tarde')
       } finally {
-        setSubmitting(false)
         setIsLoading(false)
+        setSubmitting(false)
       }
     }
   })
@@ -78,8 +78,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('authToken')
-    if (isAuthenticated) {
+    const token = localStorage.getItem('authToken')
+    if (token) {
       navigate('/', { replace: true })
     }
   }, [navigate])
@@ -119,7 +119,7 @@ const Login = () => {
             {checkInputHasError('password') ? form.errors.password : ''}
           </small>
         </InputGroup>
-        <ButtonSubmit type="submit">
+        <ButtonSubmit disabled={isLoading} type="submit">
           {isLoading ? 'Logando...' : 'Fazer login'}
         </ButtonSubmit>
         <Small onClick={() => navigate('/cadastro')}>

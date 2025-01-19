@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import RestaurantList from '../../components/RestaurantList'
 import HomeHero from '../../components/HomeHero'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   const navigate = useNavigate()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem('authToken')
 
     if (!token) {
-      navigate('/login', { replace: true })
-    } else {
-      setIsAuthenticated(true)
+      navigate('/login')
     }
   }, [navigate])
-
-  if (!isAuthenticated) return null
 
   return (
     <>
