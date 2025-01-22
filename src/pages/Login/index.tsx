@@ -42,7 +42,7 @@ const Login = () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          'https://efood-backend.onrender.com/login',
+          'https://efood-backend.onrender.com/api/auth/login',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -42,7 +42,7 @@ const Register = () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          'https://efood-backend.onrender.com/signup',
+          'https://efood-backend.onrender.com/api/auth/signup',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
