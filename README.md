@@ -39,6 +39,10 @@ Agora, a aplicação conta com uma funcionalidade de **login e cadastro**, permi
 -  **Cadastro de usuários**: Endpoint para cadastrar um novo usuário: https://efood-backend.onrender.com/api/auth/signup 
 - **Finalizar Pedido**: Endpoint para envio dos dados do formulário e obtenção do número do pedido: https://fake-api-tau.vercel.app/api/efood/checkout
 
+## Backend da aplicação
+
+O **backend da aplicação** está em outro repositório: https://github.com/FabioMedeiros1000/efood-backend
+
 ## Como Usar
 
 1. Clone o repositório e instale as dependências:
