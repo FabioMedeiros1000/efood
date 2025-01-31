@@ -12,6 +12,17 @@ import {
 import { clearCart } from '../store/reducers/cart'
 import { AppDispatch } from '../store'
 
+export const getTags = (item: RestaurantProps) => {
+  const tags = []
+
+  if (item.destacado) {
+    tags.push('Destaque da semana')
+  }
+  tags.push(item.tipo)
+
+  return tags
+}
+
 export const TotalPrice = (items: DishProps[]) => {
   return items.reduce((accumulator, currentValue) => {
     return (accumulator += currentValue.preco)

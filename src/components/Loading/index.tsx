@@ -8,7 +8,7 @@ export type Props = {
 }
 
 const Loading = ({ color, height = 600 }: Props) => (
-  <Container height={height}>
+  <Container>
     <ClipLoader color={color} size={height / 4} />
   </Container>
 )

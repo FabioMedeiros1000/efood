@@ -1,29 +1,22 @@
 import Restaurant from '../Restaurant'
-import { Container } from './styles'
-import { useGetRestaurantQuery } from '../../services/api'
 import Loading from '../Loading'
+
+import { getTags } from '../../utils'
+import { useGetRestaurantQuery } from '../../services/api'
+
+import { Container } from './styles'
+
 import { colors } from '../../styles'
 
 const RestaurantList = () => {
   const { data: restaurant } = useGetRestaurantQuery()
 
-  const getTags = (item: RestaurantProps) => {
-    const tags = []
-
-    if (item.destacado) {
-      tags.push('Destaque da semana')
+  const renderContent = () => {
+    if (!restaurant) {
+      return <Loading color={colors.red} />
     }
-    tags.push(item.tipo)
 
-    return tags
-  }
-
-  if (!restaurant) {
-    return <Loading color={colors.red} />
-  }
-
-  return (
-    <div className="container">
+    return (
       <Container>
         {restaurant.map((item) => (
           <Restaurant
@@ -37,8 +30,10 @@ const RestaurantList = () => {
           />
         ))}
       </Container>
-    </div>
-  )
+    )
+  }
+
+  return <div className="container">{renderContent()}</div>
 }
 
 export default RestaurantList

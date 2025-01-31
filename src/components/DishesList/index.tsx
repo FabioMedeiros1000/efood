@@ -11,6 +11,7 @@ import { trimDescription } from '../Restaurant'
 import { addToCart, openCart } from '../../store/reducers/cart'
 import { useGetFoodQuery } from '../../services/api'
 import { convertToCurrency } from '../../utils'
+import { Dispatch } from '@reduxjs/toolkit'
 
 import * as S from './styles'
 
@@ -19,6 +20,22 @@ import Button from '../Button'
 
 interface ModalType extends DishProps {
   visible: boolean
+}
+
+const handleAddToCart = (
+  dispatch: Dispatch,
+  closeModal: () => void,
+  prato: DishProps
+) => {
+  dispatch(addToCart(prato))
+  closeModal()
+  dispatch(openCart())
+}
+
+const closeModalHandler = (
+  setModal: React.Dispatch<React.SetStateAction<ModalType>>
+) => {
+  setModal((prev) => ({ ...prev, visible: false }))
 }
 
 const DishesList = () => {
@@ -40,24 +57,10 @@ const DishesList = () => {
     return null
   }
 
-  const closeModal = () => {
-    setModal((prev) => ({ ...prev, visible: false }))
-  }
+  const addCar = (prato: DishProps) =>
+    handleAddToCart(dispatch, closeModal, prato)
 
-  const addCar = (prato: DishProps) => {
-    dispatch(
-      addToCart({
-        id: prato.id,
-        preco: prato.preco,
-        descricao: prato.descricao,
-        foto: prato.foto,
-        nome: prato.nome,
-        porcao: prato.porcao
-      })
-    )
-    closeModal()
-    dispatch(openCart())
-  }
+  const closeModal = () => closeModalHandler(setModal)
 
   if (!pratos) {
     return <Loading color={colors.red} height={400} />
