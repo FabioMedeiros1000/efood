@@ -8,13 +8,19 @@ import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency } from '../../utils'
 import { TotalPrice } from '../../utils'
 
-import removeIcon from '../../assets/images/excluir.svg'
-
 import * as S from './styles'
+import CartItem from '../CartItem'
 
 const Cart = () => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
+
+  const handleDeleteItem = (id: number) => dispatch(deleteFromCart(id))
+
+  const handleProceedToDelivery = () => {
+    dispatch(closeCart())
+    if (items.length) dispatch(openDelivery())
+  }
 
   if (items.length === 0) {
     return <S.P>Sem itens no carrinho. Adicione algum item!</S.P>
@@ -24,19 +30,7 @@ const Cart = () => {
     <>
       <ul>
         {items.map((item) => (
-          <S.Item key={item.id}>
-            <img src={item.foto} alt={item.nome} />
-            <div>
-              <h3>{item.nome}</h3>
-              <p>{convertToCurrency(item.preco)}</p>
-            </div>
-            <img
-              title="Clique para excluir esse item do carrinho"
-              onClick={() => dispatch(deleteFromCart(item.id))}
-              src={removeIcon}
-              alt="Botão para excluir do carrinho"
-            />
-          </S.Item>
+          <CartItem key={item.id} item={item} onDelete={handleDeleteItem} />
         ))}
       </ul>
       <S.PriceContainer>
@@ -47,14 +41,7 @@ const Cart = () => {
         marginBottom="24px"
         title="Clique aqui para fornecer informações de entrega"
         type="button"
-        onClick={() => {
-          if (items.length != 0) {
-            dispatch(closeCart())
-            dispatch(openDelivery())
-          } else {
-            dispatch(closeCart())
-          }
-        }}
+        onClick={handleProceedToDelivery}
       >
         Continuar com a entrega
       </Button>
