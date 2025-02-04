@@ -41,6 +41,13 @@ const GlobalStyle = createGlobalStyle`
     }
 
   }
+
+  .form-cols {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 34px;
+  }
 `
 
 export default GlobalStyle

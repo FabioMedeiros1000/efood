@@ -1,13 +1,13 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import InputMask from 'react-input-mask'
 
 import Button from '../Button'
 import Confirmed from '../Confirmed'
+import InputField from '../InputField'
 
-import { closePayment, updatePayment } from '../../store/reducers/payment'
+import { closePayment } from '../../store/reducers/payment'
 import { openConfirmed } from '../../store/reducers/confirmed'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency, TotalPrice } from '../../utils'
@@ -24,6 +24,26 @@ const Payment = () => {
 
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
 
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(5, 'Esse campo deve ter pelo menos 5 caracteres')
+      .required('Esse campo é obrigatório'),
+    number: Yup.string()
+      .matches(/^\d{4} \d{4} \d{4} \d{4}$/, 'Número de cartão inválido')
+      .required('Esse campo é obrigatório'),
+    code: Yup.string()
+      .matches(/^\d{3,4}$/, 'CVV inválido')
+      .required('Esse campo é obrigatório'),
+    month: Yup.number()
+      .min(1, 'Digite um mês válido')
+      .max(12, 'Digite um mês válido')
+      .required('Esse campo é obrigatório'),
+    year: Yup.number()
+      .min(1000, 'Esse campo precisa ter 4 dígitos')
+      .max(9999, 'Esse campo precisa ter 4 dígitos')
+      .required('Esse campo é obrigatório')
+  })
+
   const form = useFormik({
     initialValues: {
       name: payment.card.name,
@@ -32,25 +52,7 @@ const Payment = () => {
       month: payment.card.expires.month,
       year: payment.card.expires.year
     },
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .min(5, 'Esse campo deve ter pelo menos 5 caracteres')
-        .required('Esse campo é obrigatório'),
-      number: Yup.string()
-        .matches(/^\d{4} \d{4} \d{4} \d{4}$/, 'Número de cartão inválido')
-        .required('Esse campo é obrigatório'),
-      code: Yup.string()
-        .matches(/^\d{3,4}$/, 'CVV inválido')
-        .required('Esse campo é obrigatório'),
-      month: Yup.number()
-        .min(1, 'Digite um mês válido')
-        .max(12, 'Digite um mês válido')
-        .required('Esse campo é obrigatório'),
-      year: Yup.number()
-        .min(1000, 'Esse campo precisa ter 4 dígitos')
-        .max(9999, 'Esse campo precisa ter 4 dígitos')
-        .required('Esse campo é obrigatório')
-    }),
+    validationSchema,
     onSubmit: (values) => {
       purchase({
         products: items.map((item) => ({
@@ -82,45 +84,15 @@ const Payment = () => {
     }
   })
 
-  const handleBlurAndSave = useCallback(
-    (e: React.FocusEvent<HTMLInputElement>) => {
-      form.handleBlur(e)
-
-      const { name, value } = e.target
-      const parsedValue =
-        name === 'code' || name === 'month' || name === 'year'
-          ? Number(value)
-          : value
-
-      dispatch(
-        updatePayment({
-          card: {
-            name: form.values.name,
-            number: form.values.number,
-            code: form.values.code,
-            expires: {
-              month: form.values.month,
-              year: form.values.year
-            },
-            [name]: parsedValue
-          }
-        })
-      )
-    },
-    [dispatch, form]
-  )
-
   useEffect(() => {
     if (isSuccess) {
       dispatch(openConfirmed())
     }
   }, [isSuccess, dispatch])
 
-  const checkInputHasError = (fieldname: string) => {
-    return (
-      form.errors[fieldname as keyof typeof form.errors] &&
-      form.touched[fieldname as keyof typeof form.touched]
-    )
+  const backToDelivery = () => {
+    dispatch(closePayment())
+    dispatch(openDelivery())
   }
 
   return (
@@ -133,117 +105,76 @@ const Payment = () => {
             <S.Title>
               Pagamento - Valor a pagar {convertToCurrency(TotalPrice(items))}
             </S.Title>
-            <S.Row>
-              <S.InputGroup>
-                <label>Nome do cartão</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={form.values.name}
-                  onChange={form.handleChange}
-                  onBlur={handleBlurAndSave}
-                />
-                <small>
-                  {checkInputHasError('name') ? form.errors.name : ''}
-                </small>
-              </S.InputGroup>
-            </S.Row>
-            <S.Row>
-              <S.InputGroup>
-                <label>Número do cartão</label>
-                <InputMask
-                  mask="9999 9999 9999 9999"
-                  type="text"
-                  id="number"
-                  name="number"
-                  value={form.values.number}
-                  onChange={form.handleChange}
-                  onBlur={handleBlurAndSave}
-                />
-                <small>
-                  {checkInputHasError('number') ? form.errors.number : ''}
-                </small>
-              </S.InputGroup>
-              <S.InputGroup>
-                <label>CVV</label>
-                <input
-                  type="text"
-                  id="code"
-                  name="code"
-                  value={form.values.code}
-                  onChange={form.handleChange}
-                  onBlur={handleBlurAndSave}
-                />
-                <small>
-                  {checkInputHasError('code') ? form.errors.code : ''}
-                </small>
-              </S.InputGroup>
-            </S.Row>
-            <S.Row>
-              <S.InputGroup>
-                <label>Mês de vencimento</label>
-                <input
-                  type="number"
-                  id="month"
-                  name="month"
-                  min="1"
-                  max="12"
-                  value={form.values.month}
-                  onChange={form.handleChange}
-                  onBlur={handleBlurAndSave}
-                />
-                <small>
-                  {checkInputHasError('month') ? form.errors.month : ''}
-                </small>
-              </S.InputGroup>
-              <S.InputGroup>
-                <label>
-                  Ano de <br /> vencimento
-                </label>
-                <input
-                  type="number"
-                  id="year"
-                  name="year"
-                  min="1000"
-                  max="9999"
-                  value={form.values.year}
-                  onChange={form.handleChange}
-                  onBlur={handleBlurAndSave}
-                />
-                <small>
-                  {checkInputHasError('year') ? form.errors.year : ''}
-                </small>
-              </S.InputGroup>
-            </S.Row>
+            <InputField
+              id="name"
+              name="name"
+              label="Nome do cartão"
+              value={form.values.name}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              error={form.errors.name}
+              touched={form.touched.name}
+            />
+            <div className="form-cols">
+              <InputField
+                id="number"
+                name="number"
+                label="Número do cartão"
+                mask="9999 9999 9999 9999"
+                value={form.values.number}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                error={form.errors.number}
+                touched={form.touched.number}
+              />
+              <InputField
+                id="code"
+                name="code"
+                label="CVV"
+                value={form.values.code}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                error={form.errors.code}
+                touched={form.touched.code}
+              />
+            </div>
+            <div className="form-cols">
+              <InputField
+                id="month"
+                name="month"
+                label="Mês de vencimento"
+                type="number"
+                value={form.values.month}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                error={form.errors.month}
+                touched={form.touched.month}
+              />
+              <InputField
+                id="year"
+                name="year"
+                label="Ano de vencimento"
+                type="number"
+                value={form.values.year}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                error={form.errors.year}
+                touched={form.touched.year}
+              />
+            </div>
           </S.FormContainer>
           <Button
             marginBottom="8px"
             title="Clique aqui para finalizar o pagamento e fazer o seu pedido"
             disabled={isLoading}
             type="submit"
-            onClick={() => {
-              if (!form.isValid || !form.dirty) {
-                form.setTouched({
-                  name: true,
-                  number: true,
-                  code: true,
-                  month: true,
-                  year: true
-                })
-                form.validateForm()
-              }
-            }}
           >
             {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
           </Button>
           <Button
             title="Clique aqui para editar o endereço"
             type="button"
-            onClick={() => {
-              dispatch(closePayment())
-              dispatch(openDelivery())
-            }}
+            onClick={backToDelivery}
           >
             Voltar para a edição de endereço
           </Button>
