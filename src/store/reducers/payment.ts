@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: PaymentState = {
   isOpen: false,
-  formCompleted: false,
   payment: {
     card: {
       name: '',
@@ -29,20 +28,12 @@ const paymentSlice = createSlice({
     updatePayment(state, action: PayloadAction<PaymentType>) {
       state.payment = action.payload
     },
-    setFormCompleted(state, action: PayloadAction<boolean>) {
-      state.formCompleted = action.payload
-    },
     clearPayment(state) {
       state.payment = initialState.payment
     }
   }
 })
 
-export const {
-  openPayment,
-  closePayment,
-  updatePayment,
-  setFormCompleted,
-  clearPayment
-} = paymentSlice.actions
+export const { openPayment, closePayment, updatePayment, clearPayment } =
+  paymentSlice.actions
 export default paymentSlice.reducer

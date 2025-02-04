@@ -30,6 +30,10 @@ declare interface DeliveryType {
   }
 }
 
+declare interface DeliveryState extends DeliveryType {
+  isOpen: boolean
+}
+
 declare interface CardDetails {
   name: string
   number: string
@@ -46,7 +50,6 @@ declare interface PaymentType {
 
 declare interface PaymentState {
   isOpen: boolean
-  formCompleted: boolean
   payment: PaymentType
 }
 

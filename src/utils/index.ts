@@ -1,14 +1,6 @@
 import { closeConfirmed } from '../store/reducers/confirmed'
-import {
-  clearDelivery,
-  closeDelivery,
-  setFormCompleted as setFormCompletedDelivery
-} from '../store/reducers/delivery'
-import {
-  clearPayment,
-  closePayment,
-  setFormCompleted as setFormCompletedPayment
-} from '../store/reducers/payment'
+import { clearDelivery, closeDelivery } from '../store/reducers/delivery'
+import { clearPayment, closePayment } from '../store/reducers/payment'
 import { clearCart } from '../store/reducers/cart'
 import { AppDispatch } from '../store'
 
@@ -43,6 +35,4 @@ export const closeAndCleanAll = (dispatch: AppDispatch) => {
   dispatch(clearCart())
   dispatch(clearDelivery())
   dispatch(clearPayment())
-  dispatch(setFormCompletedPayment(false))
-  dispatch(setFormCompletedDelivery(false))
 }
