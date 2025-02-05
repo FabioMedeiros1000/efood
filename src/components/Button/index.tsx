@@ -9,7 +9,9 @@ export type Props = {
   title?: string
   link?: string
   marginBottom?: string
+  marginTop?: string
   width?: 'full' | 'adjusted'
+  backgroundColor?: string
 }
 
 const Button = ({
@@ -20,7 +22,9 @@ const Button = ({
   title,
   link,
   marginBottom = '0px',
-  width = 'full'
+  marginTop = '0px',
+  width = 'full',
+  backgroundColor
 }: Props) => {
   if (type === 'button' || type === 'submit') {
     return (
@@ -31,6 +35,8 @@ const Button = ({
         type={type}
         onClick={onClick}
         marginBottom={marginBottom}
+        marginTop={marginTop}
+        backgroundColor={backgroundColor}
       >
         {children}
       </BtnContainer>

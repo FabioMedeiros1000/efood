@@ -55,13 +55,12 @@ export const ButtonSubmit = styled.button`
   cursor: pointer;
 `
 
-export const Small = styled.small`
+export const Small = styled.div`
   display: flex;
   justify-content: center;
 
-  div {
-    font-size: 10px;
-    margin-top: 4px;
+  small {
+    border-bottom: 2px solid transparent;
 
     &:hover {
       cursor: pointer;

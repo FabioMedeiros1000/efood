@@ -1,7 +1,7 @@
 import { InputGroup } from './styles'
 import InputMask from 'react-input-mask'
 
-interface InputFieldProps {
+export interface InputFieldProps {
   id: string
   name: string
   label: string
@@ -12,6 +12,7 @@ interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
   mask?: string
+  color?: string
 }
 
 const InputField = ({
@@ -24,9 +25,10 @@ const InputField = ({
   value,
   onChange,
   onBlur,
-  mask
+  mask,
+  color
 }: InputFieldProps) => (
-  <InputGroup>
+  <InputGroup color={color}>
     <label htmlFor={id}>{label}</label>
     {mask ? (
       <InputMask

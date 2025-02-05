@@ -1,23 +1,26 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
+import { InputFieldProps } from '.'
 
-export const InputGroup = styled.div`
+export const InputGroup = styled.div<Pick<InputFieldProps, 'color'>>`
   margin-bottom: 8px;
   width: 100%;
 
   label {
     font-weight: 700;
     line-height: 16.41px;
-    color: ${colors.darkWhite};
+    color: ${(props) => props.color || colors.darkWhite};
     margin-bottom: 8px;
     white-space: nowrap;
   }
 
   input {
-    background-color: ${colors.darkWhite};
-    border: none;
+    background-color: ${(props) =>
+      props.color ? 'transparent' : colors.darkWhite};
+    border: ${(props) => (props.color ? `2px solid ${props.color}` : 'none')};
     padding: 8px;
-    color: ${colors.black};
+    color: ${(props) => props.color || colors.black};
+    outline: none;
     font-weight: 700;
     line-height: 16.41px;
   }
