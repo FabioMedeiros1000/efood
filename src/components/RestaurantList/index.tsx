@@ -1,7 +1,7 @@
 import Restaurant from '../Restaurant'
 import Loading from '../Loading'
 
-import { getTags } from '../../utils'
+import { getTags } from '../../utils/functions'
 import { useGetRestaurantQuery } from '../../services/api'
 
 import { Container } from './styles'

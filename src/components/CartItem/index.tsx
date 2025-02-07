@@ -1,6 +1,6 @@
 import removeIcon from '../../assets/images/excluir.svg'
 
-import { convertToCurrency } from '../../utils'
+import { convertToCurrency } from '../../utils/functions'
 
 import * as S from './styles'
 

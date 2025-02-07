@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import Button from '../Button'
 
 import * as S from './styles'
-import { closeAndCleanAll } from '../../utils'
+import { closeAndCleanAll } from '../../utils/functions'
 
 const Confirmed = (data: PurchaseResponse) => {
   const navigate = useNavigate()

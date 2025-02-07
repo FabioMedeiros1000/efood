@@ -7,7 +7,7 @@ import Sidebar from '../../components/Sidebar'
 
 import { useGetHeroRestaurantQuery } from '../../services/api'
 import { useEffect } from 'react'
-import { useSidebarState } from '../../hooks/useSidebarState'
+import { useSidebarState } from '../../hooks/useSidebar'
 
 const Restaurante = () => {
   const { id } = useParams()

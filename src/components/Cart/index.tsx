@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 
 import Button from '../Button'
 
 import { closeCart, deleteFromCart } from '../../store/reducers/cart'
 import { openDelivery } from '../../store/reducers/delivery'
-import { convertToCurrency } from '../../utils'
-import { TotalPrice } from '../../utils'
+import { convertToCurrency } from '../../utils/functions'
+import { TotalPrice } from '../../utils/functions'
 
 import * as S from './styles'
 import CartItem from '../CartItem'
 
 const Cart = () => {
-  const { items } = useSelector((state: RootReducer) => state.cart)
+  const { items } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
 
   const handleDeleteItem = (id: number) => dispatch(deleteFromCart(id))

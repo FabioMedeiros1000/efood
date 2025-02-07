@@ -1,7 +1,7 @@
 import Button from '../Button'
 import Modal from '../Modal'
 
-import { convertToCurrency } from '../../utils'
+import { convertToCurrency } from '../../utils/functions'
 
 type DishModalProps = {
   prato: DishProps

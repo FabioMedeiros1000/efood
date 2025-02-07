@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 import { openCart } from '../../store/reducers/cart'
 
 import logo from '../../assets/images/logo-efood.svg'
@@ -10,7 +10,7 @@ import backgroundPng from '../../assets/images/fundo-header-categoria.png'
 import * as S from './styles'
 
 const HeaderRestaurant = () => {
-  const { items } = useSelector((state: RootReducer) => state.cart)
+  const { items } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
 
   return (

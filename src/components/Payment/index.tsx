@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
@@ -10,17 +10,15 @@ import InputField from '../InputField'
 import { closePayment } from '../../store/reducers/payment'
 import { openConfirmed } from '../../store/reducers/confirmed'
 import { openDelivery } from '../../store/reducers/delivery'
-import { convertToCurrency, TotalPrice } from '../../utils'
-import { RootReducer } from '../../store'
+import { convertToCurrency, TotalPrice } from '../../utils/functions'
 import { usePurchaseMutation } from '../../services/api'
+import { useSidebarItems } from '../../hooks/useSidebar'
 
 import * as S from '../Payment/styles'
 
 const Payment = () => {
   const dispatch = useDispatch()
-  const { items } = useSelector((state: RootReducer) => state.cart)
-  const { payment } = useSelector((state: RootReducer) => state.payment)
-  const delivery = useSelector((state: RootReducer) => state.delivery.delivery)
+  const { cartItems, delivery, payment } = useSidebarItems()
 
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
 
@@ -55,7 +53,7 @@ const Payment = () => {
     validationSchema,
     onSubmit: (values) => {
       purchase({
-        products: items.map((item) => ({
+        products: cartItems.map((item) => ({
           id: item.id,
           price: item.preco
         })),
@@ -103,7 +101,8 @@ const Payment = () => {
         <>
           <S.FormContainer>
             <S.Title>
-              Pagamento - Valor a pagar {convertToCurrency(TotalPrice(items))}
+              Pagamento - Valor a pagar{' '}
+              {convertToCurrency(TotalPrice(cartItems))}
             </S.Title>
             <InputField
               id="name"

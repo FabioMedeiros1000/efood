@@ -8,10 +8,10 @@ import { closeCart } from '../../store/reducers/cart'
 import { closeDelivery } from '../../store/reducers/delivery'
 import { closePayment } from '../../store/reducers/payment'
 
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 
 import * as S from './styles'
-import { closeAndCleanAll } from '../../utils'
+import { closeAndCleanAll } from '../../utils/functions'
 
 type Props = {
   content: 'cart' | 'delivery' | 'payment' | 'confirmed'
@@ -19,7 +19,7 @@ type Props = {
 
 const Sidebar = ({ content }: Props) => {
   const dispatch = useDispatch()
-  const { isOpen } = useSelector((state: RootReducer) => state.confirmed)
+  const { isOpen } = useSelector((state: RootState) => state.confirmed)
 
   const handleCloseSidebar = (content: string, isOpen: boolean) => {
     if (content === 'cart') {

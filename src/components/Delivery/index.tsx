@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import InputField from '../InputField'
 import Button from '../Button'
 
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 import { closeDelivery, updateDelivery } from '../../store/reducers/delivery'
 import { openPayment } from '../../store/reducers/payment'
 import { openCart } from '../../store/reducers/cart'
@@ -15,7 +15,7 @@ import { Title, BtnWrapper } from './styles'
 const Delivery = () => {
   const dispatch = useDispatch()
   const { delivery: deliveryState } = useSelector(
-    (state: RootReducer) => state.delivery
+    (state: RootState) => state.delivery
   )
 
   const validationSchema = Yup.object({
