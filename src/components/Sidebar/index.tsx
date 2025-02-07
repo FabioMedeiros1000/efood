@@ -21,24 +21,23 @@ const Sidebar = ({ content }: Props) => {
   const dispatch = useDispatch()
   const { isOpen } = useSelector((state: RootReducer) => state.confirmed)
 
+  const handleCloseSidebar = (content: string, isOpen: boolean) => {
+    if (content === 'cart') {
+      dispatch(closeCart())
+    } else if (content === 'delivery') {
+      dispatch(closeDelivery())
+    } else if (content === 'payment') {
+      dispatch(closePayment())
+    }
+
+    if (isOpen) {
+      closeAndCleanAll(dispatch)
+    }
+  }
+
   return (
     <S.CartContainer className={content ? 'is-open' : ''}>
-      <S.Overlay
-        onClick={() => {
-          if (content === 'cart') {
-            dispatch(closeCart())
-          }
-          if (content === 'delivery') {
-            dispatch(closeDelivery())
-          }
-          if (content === 'payment') {
-            dispatch(closePayment())
-          }
-          if (isOpen) {
-            closeAndCleanAll(dispatch)
-          }
-        }}
-      />
+      <S.Overlay onClick={() => handleCloseSidebar(content, isOpen)} />
       <S.Aside>
         {content === 'cart' && <Cart />}
         {content === 'delivery' && <Delivery />}

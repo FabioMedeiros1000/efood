@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import HeaderRestaurant from '../../components/HeaderRestaurant'
 import HeroRestaurant from '../../components/HeroRestaurant'
@@ -7,20 +6,14 @@ import DishesList from '../../components/DishesList'
 import Sidebar from '../../components/Sidebar'
 
 import { useGetHeroRestaurantQuery } from '../../services/api'
-import { RootReducer } from '../../store'
 import { useEffect } from 'react'
+import { useSidebarState } from '../../hooks/useSidebarState'
 
 const Restaurante = () => {
   const { id } = useParams()
   const { data: restaurante } = useGetHeroRestaurantQuery(id as string)
 
-  const { isOpen: isOpenCart } = useSelector((state: RootReducer) => state.cart)
-  const { isOpen: isOpenDelivery } = useSelector(
-    (state: RootReducer) => state.delivery
-  )
-  const { isOpen: isOpenPayment } = useSelector(
-    (state: RootReducer) => state.payment
-  )
+  const { isOpenCart, isOpenDelivery, isOpenPayment } = useSidebarState()
 
   const navigate = useNavigate()
 
@@ -36,6 +29,14 @@ const Restaurante = () => {
     return null
   }
 
+  const openSidebarContent = isOpenCart
+    ? 'cart'
+    : isOpenDelivery
+    ? 'delivery'
+    : isOpenPayment
+    ? 'payment'
+    : null
+
   return (
     <>
       <HeaderRestaurant />
@@ -45,9 +46,7 @@ const Restaurante = () => {
         type={restaurante.tipo}
       />
       <DishesList />
-      {isOpenCart && <Sidebar content="cart" />}
-      {isOpenDelivery && <Sidebar content="delivery" />}
-      {isOpenPayment && <Sidebar content="payment" />}
+      {openSidebarContent && <Sidebar content={openSidebarContent} />}
     </>
   )
 }
