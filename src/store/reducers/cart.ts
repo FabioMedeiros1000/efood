@@ -5,13 +5,8 @@ type CartState = {
   isOpen: boolean
 }
 
-const loadCartFromLocalStorage = (): DishProps[] => {
-  const savedCart = localStorage.getItem('cart')
-  return savedCart ? JSON.parse(savedCart) : []
-}
-
 const initialState: CartState = {
-  items: loadCartFromLocalStorage(),
+  items: [],
   isOpen: false
 }
 
@@ -26,7 +21,6 @@ const cartSlice = createSlice({
 
       if (!itemFound) {
         state.items.push(action.payload)
-        localStorage.setItem('cart', JSON.stringify(state.items))
       } else {
         alert('Esse item já foi adicionado ao carrinho')
       }
@@ -39,11 +33,9 @@ const cartSlice = createSlice({
     },
     deleteFromCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload)
-      localStorage.setItem('cart', JSON.stringify(state.items))
     },
     clearCart: (state) => {
       state.items = []
-      localStorage.removeItem('cart')
     }
   }
 })
