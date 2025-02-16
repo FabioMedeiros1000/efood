@@ -1,21 +1,40 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store'
+import { useDispatch } from 'react-redux'
 
 import Button from '../Button'
+import CartItem from '../CartItem'
 
-import { closeCart, deleteFromCart } from '../../store/reducers/cart'
+import { closeCart } from '../../store/reducers/cart'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency } from '../../utils/functions'
 import { TotalPrice } from '../../utils/functions'
+import { useSidebarItems } from '../../hooks/useSidebar'
 
 import * as S from './styles'
-import CartItem from '../CartItem'
 
 const Cart = () => {
-  const { items } = useSelector((state: RootState) => state.cart)
+  const { cartItems: items, setCartItems, setError } = useSidebarItems()
   const dispatch = useDispatch()
 
-  const handleDeleteItem = (id: number) => dispatch(deleteFromCart(id))
+  const linkReal = 'https://efood-backend.onrender.com'
+  const linkLocal = 'http://localhost:5000'
+
+  const handleDeleteItem = async (id: number) => {
+    try {
+      const response = await fetch(`${linkLocal}/api/cart/${id}`, {
+        method: 'DELETE'
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao remover item do carrinho')
+      }
+
+      const updatedCart = await response.json() // Adiciona esta linha para obter os itens atualizados da resposta da API
+      setCartItems(updatedCart.cartItems) // Atualiza os itens com a resposta da API
+    } catch (error: any) {
+      console.error('Erro ao deletar item:', error.message)
+      setError(error.message)
+    }
+  }
 
   const handleProceedToDelivery = () => {
     dispatch(closeCart())

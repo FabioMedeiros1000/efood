@@ -4,20 +4,20 @@ import useAuthForm from '../../hooks/useAuthForm'
 import AuthForm from '../../components/AuthForm'
 import { LoginContainer, Small, Title } from './styles'
 
+const linkReal = 'https://efood-backend.onrender.com'
+const linkLocal = 'http://localhost:5000'
+
 const Login = () => {
   const navigate = useNavigate()
 
   const { form, isLoading } = useAuthForm({
     initialValues: { username: '', password: '' },
     onSubmit: async (values) => {
-      const response = await fetch(
-        'https://efood-backend.onrender.com/api/auth/login',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values)
-        }
-      )
+      const response = await fetch(`${linkLocal}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      })
       const data = await response.json()
       if (response.ok) {
         localStorage.setItem('authToken', data.token)

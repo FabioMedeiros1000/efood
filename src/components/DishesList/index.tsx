@@ -6,13 +6,14 @@ import Dish from '../Dish'
 import Loading from '../Loading'
 
 import { trimDescription } from '../Restaurant'
-import { addToCart, openCart } from '../../store/reducers/cart'
+import { openCart } from '../../store/reducers/cart'
 import { useGetFoodQuery } from '../../services/api'
 
 import * as S from './styles'
 
 import { colors } from '../../styles'
 import DishModal from '../DishModal'
+import { useSidebarItems } from '../../hooks/useSidebar'
 
 interface ModalType extends DishProps {
   visible: boolean
@@ -25,13 +26,39 @@ const DishesList = () => {
 
   const { data: pratos, isFetching } = useGetFoodQuery(id as string)
 
+  const { setCartItems } = useSidebarItems()
+
   if (!id) return null
   if (isFetching) return <Loading color={colors.red} height={400} />
 
-  const handleAddToCart = (prato: DishProps) => {
-    dispatch(addToCart(prato))
-    dispatch(openCart())
-    setModal(null)
+  const linkReal = 'https://efood-backend.onrender.com'
+  const linkLocal = 'http://localhost:5000'
+
+  const handleAddToCart = async (prato: DishProps) => {
+    try {
+      const response = await fetch(`${linkLocal}/api/cart/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(prato)
+      })
+
+      console.log('Status da resposta:', response.status)
+
+      if (!response.ok) {
+        throw new Error('Erro ao adicionar item ao carrinho')
+      }
+
+      const cartResponse = await fetch(`${linkLocal}/api/cart`)
+      const cartData = await cartResponse.json()
+      console.log('Carrinho atualizado no frontend:', cartData)
+
+      setCartItems(cartData)
+      dispatch(openCart())
+      setModal(null)
+    } catch (error: any) {
+      console.error('Erro ao adicionar item:', error.message)
+      alert('Esse item já foi adicionado ao carrinho')
+    }
   }
 
   const openDishModal = (prato: DishProps) => {

@@ -1,16 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { RootState } from '../../store'
 import { openCart } from '../../store/reducers/cart'
 
 import logo from '../../assets/images/logo-efood.svg'
 import backgroundPng from '../../assets/images/fundo-header-categoria.png'
 
 import * as S from './styles'
+import { useSidebarItems } from '../../hooks/useSidebar'
 
 const HeaderRestaurant = () => {
-  const { items } = useSelector((state: RootState) => state.cart)
+  const { cartItems } = useSidebarItems()
+  console.log('Itens no carrinho:', cartItems)
+
   const dispatch = useDispatch()
 
   return (
@@ -29,7 +31,7 @@ const HeaderRestaurant = () => {
           title="Clique aqui para ver os itens no carrinho"
           onClick={() => dispatch(openCart())}
         >
-          {items.length} produto(s) no carrinho
+          {cartItems.length} produto(s) no carrinho
         </S.ButtonCart>
       </div>
     </S.Container>

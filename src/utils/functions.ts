@@ -1,7 +1,6 @@
 import { closeConfirmed } from '../store/reducers/confirmed'
 import { clearDelivery, closeDelivery } from '../store/reducers/delivery'
 import { clearPayment, closePayment } from '../store/reducers/payment'
-import { clearCart } from '../store/reducers/cart'
 import { AppDispatch } from '../store'
 
 export const getTags = (item: RestaurantProps) => {
@@ -28,11 +27,25 @@ export const convertToCurrency = (price: number) => {
   }).format(price)
 }
 
-export const closeAndCleanAll = (dispatch: AppDispatch) => {
-  dispatch(closeConfirmed())
-  dispatch(closeDelivery())
-  dispatch(closePayment())
-  dispatch(clearCart())
-  dispatch(clearDelivery())
-  dispatch(clearPayment())
+const linkReal = 'https://efood-backend.onrender.com'
+const linkLocal = 'http://localhost:5000'
+
+export const closeAndCleanAll = async (dispatch: AppDispatch) => {
+  try {
+    const response = await fetch(`${linkLocal}/api/cart`, {
+      method: 'DELETE'
+    })
+
+    if (!response.ok) {
+      throw new Error('Erro ao limpar o carrinho')
+    }
+
+    dispatch(closeConfirmed())
+    dispatch(closeDelivery())
+    dispatch(closePayment())
+    dispatch(clearDelivery())
+    dispatch(clearPayment())
+  } catch (error: any) {
+    console.error('Erro ao limpar o carrinho:', error.message)
+  }
 }
