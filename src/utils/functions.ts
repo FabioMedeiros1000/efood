@@ -16,7 +16,7 @@ export const getTags = (item: RestaurantProps) => {
 
 export const TotalPrice = (items: DishProps[]) => {
   return items.reduce((accumulator, currentValue) => {
-    return (accumulator += currentValue.preco)
+    return (accumulator += Number(currentValue.preco))
   }, 0)
 }
 
@@ -27,14 +27,19 @@ export const convertToCurrency = (price: number) => {
   }).format(price)
 }
 
-const linkReal = 'https://efood-backend.onrender.com'
-const linkLocal = 'http://localhost:5000'
-
 export const closeAndCleanAll = async (dispatch: AppDispatch) => {
   try {
-    const response = await fetch(`${linkLocal}/api/cart`, {
-      method: 'DELETE'
-    })
+    const userId = localStorage.getItem('userId')
+    if (!userId) {
+      throw new Error('Usuário não autenticado')
+    }
+
+    const response = await fetch(
+      `https://efood-backend.onrender.com/api/cart/${userId}`,
+      {
+        method: 'DELETE'
+      }
+    )
 
     if (!response.ok) {
       throw new Error('Erro ao limpar o carrinho')

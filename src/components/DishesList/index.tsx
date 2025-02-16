@@ -31,33 +31,37 @@ const DishesList = () => {
   if (!id) return null
   if (isFetching) return <Loading color={colors.red} height={400} />
 
-  const linkReal = 'https://efood-backend.onrender.com'
-  const linkLocal = 'http://localhost:5000'
-
   const handleAddToCart = async (prato: DishProps) => {
     try {
-      const response = await fetch(`${linkLocal}/api/cart/add`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(prato)
-      })
+      const userId = localStorage.getItem('userId')
+      if (!userId) {
+        throw new Error('Usuário não autenticado')
+      }
 
-      console.log('Status da resposta:', response.status)
+      const response = await fetch(
+        `https://efood-backend.onrender.com/api/cart/add`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...prato, userId })
+        }
+      )
 
       if (!response.ok) {
         throw new Error('Erro ao adicionar item ao carrinho')
       }
 
-      const cartResponse = await fetch(`${linkLocal}/api/cart`)
+      const cartResponse = await fetch(
+        `https://efood-backend.onrender.com/api/cart/${userId}`
+      )
       const cartData = await cartResponse.json()
-      console.log('Carrinho atualizado no frontend:', cartData)
 
-      setCartItems(cartData)
+      setCartItems(cartData.items)
       dispatch(openCart())
       setModal(null)
     } catch (error: any) {
       console.error('Erro ao adicionar item:', error.message)
-      alert('Esse item já foi adicionado ao carrinho')
+      alert('Erro ao adicionar item ao carrinho')
     }
   }
 

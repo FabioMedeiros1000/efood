@@ -21,20 +21,24 @@ export const useSidebarItems = () => {
   const payment = useSelector((state: RootState) => state.payment.payment)
   const delivery = useSelector((state: RootState) => state.delivery.delivery)
 
-  const linkReal = 'https://efood-backend.onrender.com'
-  const linkLocal = 'http://localhost:5000'
-
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await fetch(`${linkLocal}/api/cart`)
+        const userId = localStorage.getItem('userId')
+        if (!userId) {
+          throw new Error('Usuário não autenticado')
+        }
+
+        const response = await fetch(
+          `https://efood-backend.onrender.com/api/cart/${userId}`
+        )
 
         if (!response.ok) {
           throw new Error('Erro ao buscar os itens do carrinho')
         }
 
         const data = await response.json()
-        setCartItems([...data.cartItems])
+        setCartItems([...data.items])
       } catch (error: any) {
         setError(error.message)
       } finally {

@@ -7,17 +7,17 @@ import { RegisterContainer, Small, Title } from './styles'
 const Register = () => {
   const navigate = useNavigate()
 
-  const linkReal = 'https://efood-backend.onrender.com'
-  const linkLocal = 'http://localhost:5000'
-
   const { form, isLoading } = useAuthForm({
     initialValues: { username: '', password: '' },
     onSubmit: async (values) => {
-      const response = await fetch(`${linkLocal}/api/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
-      })
+      const response = await fetch(
+        `https://efood-backend.onrender.com/api/auth/signup`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values)
+        }
+      )
       const data = await response.json()
       if (response.ok) {
         alert('Usuário cadastrado com sucesso!')

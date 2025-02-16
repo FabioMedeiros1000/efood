@@ -11,7 +11,6 @@ import { useSidebarItems } from '../../hooks/useSidebar'
 
 const HeaderRestaurant = () => {
   const { cartItems } = useSidebarItems()
-  console.log('Itens no carrinho:', cartItems)
 
   const dispatch = useDispatch()
 
