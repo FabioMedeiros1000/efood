@@ -24,7 +24,11 @@ export const useCart = () => {
   }, [dispatch])
 
   const addItemToCart = async (item: DishProps) => {
-    await dispatch(addItemToCartAsync(item)).unwrap()
+    try {
+      await dispatch(addItemToCartAsync(item)).unwrap()
+    } catch (error) {
+      alert(error)
+    }
   }
 
   const removeItemFromCart = async (itemId: string) => {

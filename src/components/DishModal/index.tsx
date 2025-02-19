@@ -1,15 +1,24 @@
 import Button from '../Button'
 import Modal from '../Modal'
+import Loading from '../Loading'
 
 import { convertToCurrency } from '../../utils/functions'
+
+import { colors } from '../../styles'
 
 type DishModalProps = {
   prato: DishProps
   onAddToCart: (prato: DishProps) => void
   onClose: () => void
+  isLoading: boolean
 }
 
-const DishModal = ({ prato, onAddToCart, onClose }: DishModalProps) => (
+const DishModal = ({
+  isLoading,
+  prato,
+  onAddToCart,
+  onClose
+}: DishModalProps) => (
   <Modal isVisible={true} onClose={onClose}>
     <img src={prato.foto} alt={prato.nome} />
     <div>
@@ -26,8 +35,13 @@ const DishModal = ({ prato, onAddToCart, onClose }: DishModalProps) => (
         type="button"
         title="Clique aqui para adicionar ao carrinho"
         onClick={() => onAddToCart(prato)}
+        disabled={isLoading}
       >
-        Adicionar ao carrinho - {convertToCurrency(prato.preco)}
+        {isLoading ? (
+          <Loading color={colors.red} height={15} />
+        ) : (
+          `Adicionar ao carrinho - ${convertToCurrency(prato.preco)}`
+        )}
       </Button>
     </div>
   </Modal>

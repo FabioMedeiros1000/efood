@@ -37,7 +37,7 @@ export const fetchCartItems = createAsyncThunk(
 
 export const addItemToCartAsync = createAsyncThunk(
   'cart/addItem',
-  async (item: DishProps) => {
+  async (item: DishProps, { rejectWithValue }) => {
     const userId = localStorage.getItem('userId')
     if (!userId) throw new Error('Usuário não autenticado')
 
@@ -50,7 +50,10 @@ export const addItemToCartAsync = createAsyncThunk(
       }
     )
 
-    if (!response.ok) throw new Error('Erro ao adicionar item ao carrinho')
+    if (!response.ok) {
+      const errorData = await response.json()
+      return rejectWithValue(errorData.message)
+    }
 
     return item
   }
