@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { BtnContainer, BtnLink } from './styles'
 
 export type Props = {
-  children: string | string[]
+  children: React.ReactNode
   onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void
   type: 'button' | 'submit' | 'link'
   disabled?: boolean

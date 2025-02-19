@@ -1,16 +1,20 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import Loading from '../Loading'
+
 import { openCart } from '../../store/reducers/cart'
 
 import logo from '../../assets/images/logo-efood.svg'
 import backgroundPng from '../../assets/images/fundo-header-categoria.png'
 
 import * as S from './styles'
-import { useSidebarItems } from '../../hooks/useSidebar'
+import { useCart } from '../../hooks/useCart'
+
+import { colors } from '../../styles'
 
 const HeaderRestaurant = () => {
-  const { cartItems } = useSidebarItems()
+  const { cartItems, loading } = useCart()
 
   const dispatch = useDispatch()
 
@@ -30,7 +34,11 @@ const HeaderRestaurant = () => {
           title="Clique aqui para ver os itens no carrinho"
           onClick={() => dispatch(openCart())}
         >
-          {cartItems.length} produto(s) no carrinho
+          {loading ? (
+            <Loading color={colors.red} height={40} />
+          ) : (
+            `${cartItems.length} produto(s) no carrinho`
+          )}
         </S.ButtonCart>
       </div>
     </S.Container>

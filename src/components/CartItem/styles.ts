@@ -14,7 +14,7 @@ export const Item = styled.li`
     display: block;
   }
 
-  img:first-child {
+  .photoDish {
     width: 80px;
     height: 80px;
     object-fit: cover;
@@ -37,10 +37,16 @@ export const Item = styled.li`
     line-height: 22px;
   }
 
-  img:last-child {
+  .deleteFromCart {
     position: absolute;
     bottom: 8px;
     right: 8px;
-    cursor: pointer;
+
+    img {
+      display: block;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
   }
 `

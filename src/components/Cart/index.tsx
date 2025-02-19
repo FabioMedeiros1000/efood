@@ -7,41 +7,13 @@ import { closeCart } from '../../store/reducers/cart'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency } from '../../utils/functions'
 import { TotalPrice } from '../../utils/functions'
-import { useSidebarItems } from '../../hooks/useSidebar'
+import { useCart } from '../../hooks/useCart'
 
 import * as S from './styles'
 
 const Cart = () => {
-  const { cartItems: items, setCartItems, setError } = useSidebarItems()
+  const { cartItems: items, removeItemFromCart, loadingRemoveItem } = useCart()
   const dispatch = useDispatch()
-
-  const handleDeleteItem = async (dishId: number) => {
-    try {
-      const userId = Number(localStorage.getItem('userId'))
-
-      if (!userId) {
-        throw new Error('Usuário não autenticado')
-      }
-
-      const response = await fetch(
-        `https://efood-backend.onrender.com/api/cart/${userId}/${dishId}`,
-        {
-          method: 'DELETE'
-        }
-      )
-
-      if (!response.ok) {
-        throw new Error('Erro ao remover item do carrinho')
-      }
-
-      const updatedCart = await response.json()
-
-      setCartItems([...updatedCart.items])
-    } catch (error: any) {
-      console.error('Erro ao deletar item:', error.message)
-      setError(error.message)
-    }
-  }
 
   const handleProceedToDelivery = () => {
     dispatch(closeCart())
@@ -59,7 +31,8 @@ const Cart = () => {
           <CartItem
             key={item.id}
             item={item}
-            onDelete={() => handleDeleteItem(item.id)}
+            isDeleting={loadingRemoveItem.includes(item.id.toString())}
+            onDelete={() => removeItemFromCart(item.id.toString())}
           />
         ))}
       </ul>

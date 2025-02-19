@@ -7,9 +7,9 @@ export type Props = {
   height?: number
 }
 
-const Loading = ({ color, height = 600 }: Props) => (
-  <Container>
-    <ClipLoader color={color} size={height / 4} />
+const Loading = ({ color, height = 200 }: Props) => (
+  <Container height={height}>
+    <ClipLoader color={color} size={height} />
   </Container>
 )
 

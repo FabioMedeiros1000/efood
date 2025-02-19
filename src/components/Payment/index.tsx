@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
@@ -12,13 +12,17 @@ import { openConfirmed } from '../../store/reducers/confirmed'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency, TotalPrice } from '../../utils/functions'
 import { usePurchaseMutation } from '../../services/api'
-import { useSidebarItems } from '../../hooks/useSidebar'
+import { useCart } from '../../hooks/useCart'
+import { RootState } from '../../store'
 
 import * as S from '../Payment/styles'
 
 const Payment = () => {
   const dispatch = useDispatch()
-  const { cartItems, delivery, payment } = useSidebarItems()
+  const { cartItems } = useCart()
+
+  const { delivery } = useSelector((state: RootState) => state.delivery)
+  const { payment } = useSelector((state: RootState) => state.payment)
 
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
 

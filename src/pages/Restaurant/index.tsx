@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import HeaderRestaurant from '../../components/HeaderRestaurant'
 import HeroRestaurant from '../../components/HeroRestaurant'
@@ -6,14 +7,13 @@ import DishesList from '../../components/DishesList'
 import Sidebar from '../../components/Sidebar'
 
 import { useGetHeroRestaurantQuery } from '../../services/api'
-import { useEffect } from 'react'
-import { useSidebarState } from '../../hooks/useSidebar'
+import { useSidebar } from '../../hooks/useSidebar'
 
 const Restaurante = () => {
   const { id } = useParams()
   const { data: restaurante } = useGetHeroRestaurantQuery(id as string)
 
-  const { isOpenCart, isOpenDelivery, isOpenPayment } = useSidebarState()
+  const { isOpenCart, isOpenDelivery, isOpenPayment } = useSidebar()
 
   const navigate = useNavigate()
 
