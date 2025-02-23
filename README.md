@@ -36,7 +36,7 @@ Agora, a aplicação conta com uma funcionalidade de **login e cadastro**, permi
 - **Detalhes do Restaurante**: https://fake-api-tau.vercel.app/api/efood/restaurantes/:id  
   (Substitua `:id` pelo ID do restaurante para obter informações sobre ele)
 - **Login**: Endpoint para autenticação: https://efood-backend.onrender.com/api/auth/login
--  **Cadastro de usuários**: Endpoint para cadastrar um novo usuário: https://efood-backend.onrender.com/api/auth/signup 
+- **Cadastro de usuários**: Endpoint para cadastrar um novo usuário: https://efood-backend.onrender.com/api/auth/signup
 - **Finalizar Pedido**: Endpoint para envio dos dados do formulário e obtenção do número do pedido: https://fake-api-tau.vercel.app/api/efood/checkout
 
 ## Backend da aplicação
@@ -46,6 +46,7 @@ O **backend da aplicação** está em outro repositório: https://github.com/Fab
 ## Como Usar
 
 1. Clone o repositório e instale as dependências:
+
    ```bash
    git clone https://github.com/FabioMedeiros1000/efood.git
    cd efood
@@ -54,16 +55,18 @@ O **backend da aplicação** está em outro repositório: https://github.com/Fab
 
 2. Inicie a aplicação:
 
-  ```bash
-  npm start
-  ```
+```bash
+npm start
+```
 
 3. Acesse a aplicação no navegador:
-  ```bash
-  http://localhost:3000
-  ```
+
+```bash
+http://localhost:3000
+```
 
 ## Demonstração
+
 [Link para demonstração do projeto](https://efood-flm.vercel.app/)
 
 Observação: Este projeto foi criado para fins educacionais e usa uma API simulada para os dados dos restaurantes e pratos.
