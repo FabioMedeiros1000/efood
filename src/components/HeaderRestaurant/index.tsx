@@ -33,6 +33,7 @@ const HeaderRestaurant = () => {
           role="button"
           title="Clique aqui para ver os itens no carrinho"
           onClick={() => dispatch(openCart())}
+          disabled={loading}
         >
           {loading ? (
             <Loading color={colors.red} height={40} />

@@ -25,11 +25,21 @@ export const Container = styled.div`
   }
 `
 
-export const ButtonCart = styled.div`
+export const ButtonCart = styled.button`
   cursor: pointer;
-  display: inline-block;
+  display: block;
 
-  @media (max-width: ${breakpoints.tablet}) {
-    width: min-content;
+  background-color: transparent;
+  border: none;
+  color: ${colors.red};
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21.09px;
+  text-align: right;
+
+  width: 256px;
+
+  span {
+    margin: 0 auto;
   }
 `

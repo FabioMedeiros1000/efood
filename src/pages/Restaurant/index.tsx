@@ -22,7 +22,23 @@ const Restaurante = () => {
 
     if (!token) {
       navigate('/login', { replace: true })
+      return
     }
+
+    fetch('https://efood-backend.onrender.com/api/me', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data?.user) {
+          localStorage.removeItem('authToken')
+          navigate('/login', { replace: true })
+        }
+      })
   }, [navigate])
 
   if (!id || !restaurante) {
