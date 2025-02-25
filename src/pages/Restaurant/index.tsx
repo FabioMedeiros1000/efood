@@ -5,7 +5,7 @@ import HeroRestaurant from '../../components/HeroRestaurant'
 import DishesList from '../../components/DishesList'
 import Sidebar from '../../components/Sidebar'
 
-import { useGetHeroRestaurantQuery } from '../../services/api'
+import { useGetHeroRestaurantQuery } from '../../services/restaurantApi'
 import { useSidebar } from '../../hooks/useSidebar'
 import useAuth from '../../hooks/useAuth'
 

@@ -5,21 +5,21 @@ import deliveryReducer from './reducers/delivery'
 import paymentReducer from './reducers/payment'
 import confirmedReducer from './reducers/confirmed'
 
-import api from '../services/api'
+import restaurantApi from '../services/restaurantApi'
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   delivery: deliveryReducer,
   payment: paymentReducer,
   confirmed: confirmedReducer,
-  [api.reducerPath]: api.reducer
+  [restaurantApi.reducerPath]: restaurantApi.reducer
 })
 
 export function configuraStore(preloadedState: Partial<RootState> = {}) {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(api.middleware),
+      getDefaultMiddleware().concat(restaurantApi.middleware),
     preloadedState
   })
 }

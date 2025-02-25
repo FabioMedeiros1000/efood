@@ -11,7 +11,7 @@ import { closePayment } from '../../store/reducers/payment'
 import { openConfirmed } from '../../store/reducers/confirmed'
 import { openDelivery } from '../../store/reducers/delivery'
 import { convertToCurrency, TotalPrice } from '../../utils/functions'
-import { usePurchaseMutation } from '../../services/api'
+import { usePurchaseMutation } from '../../services/restaurantApi'
 import { useCart } from '../../hooks/useCart'
 import { RootState } from '../../store'
 

@@ -8,7 +8,7 @@ import DishModal from '../DishModal'
 
 import { trimDescription } from '../Restaurant'
 import { openCart } from '../../store/reducers/cart'
-import { useGetFoodQuery } from '../../services/api'
+import { useGetFoodQuery } from '../../services/restaurantApi'
 import { useCart } from '../../hooks/useCart'
 
 import * as S from './styles'

@@ -11,7 +11,7 @@ interface PurchaseType
   products: Product[]
 }
 
-const api = createApi({
+const restaurantApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://fake-api-tau.vercel.app/api/efood'
   }),
@@ -37,10 +37,10 @@ const api = createApi({
   })
 })
 
-export default api
+export default restaurantApi
 export const {
   useGetRestaurantQuery,
   useGetFoodQuery,
   useGetHeroRestaurantQuery,
   usePurchaseMutation
-} = api
+} = restaurantApi
