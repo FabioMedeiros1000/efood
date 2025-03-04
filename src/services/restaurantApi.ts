@@ -12,6 +12,7 @@ interface PurchaseType
 }
 
 const restaurantApi = createApi({
+  reducerPath: 'restaurantApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://fake-api-tau.vercel.app/api/efood'
   }),

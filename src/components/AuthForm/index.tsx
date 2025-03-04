@@ -3,18 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import { FormikProps } from 'formik'
 
 import InputField from '../InputField'
+import Loading from '../Loading'
+
+import { CredentialsType } from '../../services/authApi'
 
 import { ButtonAuth } from './styles'
 
 import { colors } from '../../styles'
 
-interface FormValues {
-  username: string
-  password: string
-}
-
 interface AuthFormProps {
-  form: FormikProps<FormValues>
+  form: FormikProps<CredentialsType>
   isLoading: boolean
   buttonText: string
 }
@@ -62,7 +60,7 @@ const AuthForm = ({ form, isLoading, buttonText }: AuthFormProps) => {
         disabled={isLoading}
         type="submit"
       >
-        {isLoading ? `${buttonText}...` : buttonText}
+        {isLoading ? <Loading color={colors.white} height={20} /> : buttonText}
       </ButtonAuth>
     </>
   )

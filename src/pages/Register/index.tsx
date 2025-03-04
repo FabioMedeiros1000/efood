@@ -1,29 +1,33 @@
 import { useNavigate } from 'react-router-dom'
+
 import HomeHero from '../../components/HomeHero'
-import useAuthForm from '../../hooks/useAuthForm'
 import AuthForm from '../../components/AuthForm'
+
+import useAuthForm from '../../hooks/useAuthForm'
+import { useSignupMutation } from '../../services/authApi'
+
 import { RegisterContainer, Small, Title } from './styles'
 
 const Register = () => {
   const navigate = useNavigate()
+  const [signup, { isLoading }] = useSignupMutation()
 
-  const { form, isLoading } = useAuthForm({
+  const { form } = useAuthForm({
     initialValues: { username: '', password: '' },
     onSubmit: async (values) => {
-      const response = await fetch(
-        `https://efood-backend.onrender.com/api/auth/signup`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values)
+      try {
+        const result = await signup(values)
+
+        if (result.error) {
+          alert('O usuário já está cadastrado')
+        } else if (result.data) {
+          alert('Usuário cadastrado com sucesso')
+          navigate('/login', { replace: true })
         }
-      )
-      const data = await response.json()
-      if (response.ok) {
-        alert('Usuário cadastrado com sucesso!')
-        navigate('/login', { replace: true })
-      } else {
-        alert(data.message || 'Erro ao cadastrar')
+      } catch (error) {
+        console.error('Erro no cadastro', error)
+
+        alert('Erro interno no servidor. Por favor, tente mais tarde!')
       }
     }
   })
