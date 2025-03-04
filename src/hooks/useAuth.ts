@@ -1,32 +1,29 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { useMeQuery } from '../services/isAuthenticateApi'
+import { RootState } from '../store'
+import { removeToken, removeUserId } from '../store/reducers/auth'
 
 const useAuth = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { data, isLoading, error } = useMeQuery()
+  const { token } = useSelector((state: RootState) => state.auth)
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken')
-
     if (!token) {
       navigate('/login', { replace: true })
       return
     }
 
-    fetch('https://efood-backend.onrender.com/api/me', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data?.user) {
-          localStorage.removeItem('authToken')
-          navigate('/login', { replace: true })
-        }
-      })
-  }, [navigate])
+    if (!isLoading && (error || !data?.user)) {
+      dispatch(removeToken())
+      dispatch(removeUserId())
+      navigate('/login', { replace: true })
+    }
+  }, [navigate, data?.user, isLoading, error, token, dispatch])
 }
 
 export default useAuth

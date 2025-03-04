@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import logo from '../../assets/images/logo-efood.svg'
 import backgroundPng from '../../assets/images/fundo-hero.png'
 
 import * as S from './styles'
+import { removeToken, removeUserId } from '../../store/reducers/auth'
 
 type Props = {
   logout: boolean
@@ -11,9 +13,11 @@ type Props = {
 
 const HomeHero = ({ logout }: Props) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const clearStorageAndRedirect = () => {
-    localStorage.removeItem('authToken')
+    dispatch(removeToken())
+    dispatch(removeUserId())
     navigate('/login', { replace: true })
   }
 

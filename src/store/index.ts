@@ -3,17 +3,21 @@ import cartReducer from './reducers/cart'
 import deliveryReducer from './reducers/delivery'
 import paymentReducer from './reducers/payment'
 import confirmedReducer from './reducers/confirmed'
+import authReducer from './reducers/auth'
 
 import restaurantApi from '../services/restaurantApi'
 import authApi from '../services/authApi'
+import isAuthenticateApi from '../services/isAuthenticateApi'
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   delivery: deliveryReducer,
   payment: paymentReducer,
   confirmed: confirmedReducer,
+  auth: authReducer,
   [restaurantApi.reducerPath]: restaurantApi.reducer,
-  [authApi.reducerPath]: authApi.reducer
+  [authApi.reducerPath]: authApi.reducer,
+  [isAuthenticateApi.reducerPath]: isAuthenticateApi.reducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>
@@ -24,7 +28,8 @@ export function configuraStore(preloadedState: Partial<RootState> = {}) {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         restaurantApi.middleware,
-        authApi.middleware
+        authApi.middleware,
+        isAuthenticateApi.middleware
       ),
     preloadedState
   })

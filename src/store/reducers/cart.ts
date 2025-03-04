@@ -1,4 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux'
+
+import { RootState } from '..'
 
 type CartState = {
   isOpen: boolean
@@ -21,7 +24,7 @@ const initialState: CartState = {
 export const fetchCartItems = createAsyncThunk(
   'cart/fetchCartItems',
   async () => {
-    const userId = localStorage.getItem('userId')
+    const { userId } = useSelector((state: RootState) => state.auth)
     if (!userId) throw new Error('Usuário não autenticado')
 
     const response = await fetch(
@@ -38,7 +41,7 @@ export const fetchCartItems = createAsyncThunk(
 export const addItemToCartAsync = createAsyncThunk(
   'cart/addItem',
   async (item: DishProps, { rejectWithValue }) => {
-    const userId = localStorage.getItem('userId')
+    const { userId } = useSelector((state: RootState) => state.auth)
     if (!userId) throw new Error('Usuário não autenticado')
 
     const response = await fetch(
@@ -62,7 +65,7 @@ export const addItemToCartAsync = createAsyncThunk(
 export const removeItemFromCartAsync = createAsyncThunk(
   'cart/removeItem',
   async (itemId: string) => {
-    const userId = localStorage.getItem('userId')
+    const { userId } = useSelector((state: RootState) => state.auth)
     if (!userId) throw new Error('Usuário não autenticado')
 
     const response = await fetch(

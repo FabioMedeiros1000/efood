@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux'
+
 import { closeConfirmed } from '../store/reducers/confirmed'
 import { clearDelivery, closeDelivery } from '../store/reducers/delivery'
 import { clearPayment, closePayment } from '../store/reducers/payment'
-import { AppDispatch } from '../store'
+import { AppDispatch, RootState } from '../store'
 
 export const getTags = (item: RestaurantProps) => {
   const tags = []
@@ -27,9 +29,11 @@ export const convertToCurrency = (price: number) => {
   }).format(price)
 }
 
-export const closeAndCleanAll = async (dispatch: AppDispatch) => {
+export const closeAndCleanAll = async (
+  dispatch: AppDispatch,
+  userId: string | null
+) => {
   try {
-    const userId = localStorage.getItem('userId')
     if (!userId) {
       throw new Error('Usuário não autenticado')
     }

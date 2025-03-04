@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FormikProps } from 'formik'
+import { useSelector } from 'react-redux'
 
 import InputField from '../InputField'
 import Loading from '../Loading'
@@ -10,6 +11,7 @@ import { CredentialsType } from '../../services/authApi'
 import { ButtonAuth } from './styles'
 
 import { colors } from '../../styles'
+import { RootState } from '../../store'
 
 interface AuthFormProps {
   form: FormikProps<CredentialsType>
@@ -19,13 +21,13 @@ interface AuthFormProps {
 
 const AuthForm = ({ form, isLoading, buttonText }: AuthFormProps) => {
   const navigate = useNavigate()
-  useEffect(() => {
-    const token = localStorage.getItem('authToken')
+  const { token } = useSelector((state: RootState) => state.auth)
 
+  useEffect(() => {
     if (token) {
       navigate('/')
     }
-  }, [navigate])
+  }, [navigate, token])
 
   return (
     <>

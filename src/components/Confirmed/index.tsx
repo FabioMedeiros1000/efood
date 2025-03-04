@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Button from '../Button'
 
 import * as S from './styles'
 import { closeAndCleanAll } from '../../utils/functions'
+import { RootState } from '../../store'
 
 const Confirmed = (data: PurchaseResponse) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { userId } = useSelector((state: RootState) => state.auth)
 
   if (data.orderId) {
     return (
@@ -31,7 +33,7 @@ const Confirmed = (data: PurchaseResponse) => {
           type="button"
           onClick={() => {
             navigate('/')
-            closeAndCleanAll(dispatch)
+            closeAndCleanAll(dispatch, userId)
           }}
         >
           Concluir

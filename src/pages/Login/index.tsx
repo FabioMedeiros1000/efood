@@ -1,13 +1,19 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
 import HomeHero from '../../components/HomeHero'
-import useAuthForm from '../../hooks/useAuthForm'
 import AuthForm from '../../components/AuthForm'
-import { LoginContainer, Small, Title } from './styles'
+
 import { useLoginMutation } from '../../services/authApi'
+import useAuthForm from '../../hooks/useAuthForm'
+
+import { LoginContainer, Small, Title } from './styles'
+import { setToken, setUserId } from '../../store/reducers/auth'
 
 const Login = () => {
   const navigate = useNavigate()
   const [login, { isLoading }] = useLoginMutation()
+  const dispatch = useDispatch()
 
   const { form } = useAuthForm({
     initialValues: { username: '', password: '' },
@@ -16,8 +22,8 @@ const Login = () => {
         const result = await login(values)
 
         if (result.data) {
-          localStorage.setItem('userId', result.data.user.id)
-          localStorage.setItem('authToken', result.data.token)
+          dispatch(setUserId(result.data.user.id))
+          dispatch(setToken(result.data.token))
           navigate('/', { replace: true })
         } else if (result.error) {
           alert('Credenciais inválidas!')

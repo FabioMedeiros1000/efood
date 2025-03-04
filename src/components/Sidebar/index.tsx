@@ -20,6 +20,7 @@ type Props = {
 const Sidebar = ({ content }: Props) => {
   const dispatch = useDispatch()
   const { isOpen } = useSelector((state: RootState) => state.confirmed)
+  const { userId } = useSelector((state: RootState) => state.auth)
 
   const handleCloseSidebar = (content: string, isOpen: boolean) => {
     if (content === 'cart') {
@@ -31,7 +32,7 @@ const Sidebar = ({ content }: Props) => {
     }
 
     if (isOpen) {
-      closeAndCleanAll(dispatch)
+      closeAndCleanAll(dispatch, userId)
     }
   }
 
