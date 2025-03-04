@@ -18,7 +18,7 @@ const useAuth = () => {
       return
     }
 
-    if (!isLoading && (error || !data?.user)) {
+    if (!isLoading && (error || !data?.user.id)) {
       dispatch(removeToken())
       dispatch(removeUserId())
       navigate('/login', { replace: true })

@@ -23,8 +23,10 @@ const initialState: CartState = {
 
 export const fetchCartItems = createAsyncThunk(
   'cart/fetchCartItems',
-  async () => {
-    const { userId } = useSelector((state: RootState) => state.auth)
+  async (_, { getState }) => {
+    const state = getState() as RootState
+    const userId = state.auth.userId
+
     if (!userId) throw new Error('Usuário não autenticado')
 
     const response = await fetch(
@@ -40,8 +42,10 @@ export const fetchCartItems = createAsyncThunk(
 
 export const addItemToCartAsync = createAsyncThunk(
   'cart/addItem',
-  async (item: DishProps, { rejectWithValue }) => {
-    const { userId } = useSelector((state: RootState) => state.auth)
+  async (item: DishProps, { rejectWithValue, getState }) => {
+    const state = getState() as RootState
+    const userId = state.auth.userId
+
     if (!userId) throw new Error('Usuário não autenticado')
 
     const response = await fetch(
@@ -64,8 +68,10 @@ export const addItemToCartAsync = createAsyncThunk(
 
 export const removeItemFromCartAsync = createAsyncThunk(
   'cart/removeItem',
-  async (itemId: string) => {
-    const { userId } = useSelector((state: RootState) => state.auth)
+  async (itemId: string, { getState }) => {
+    const state = getState() as RootState
+    const userId = state.auth.userId
+
     if (!userId) throw new Error('Usuário não autenticado')
 
     const response = await fetch(

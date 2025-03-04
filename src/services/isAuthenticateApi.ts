@@ -3,7 +3,10 @@ import { RootState } from '../store'
 
 interface Response {
   message: string
-  user: any
+  user: {
+    id: string
+    username: string
+  }
 }
 
 const isAuthenticateApi = createApi({
