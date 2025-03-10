@@ -26,7 +26,7 @@ const DishesList = () => {
 
   const { data: pratos, isFetching } = useGetFoodQuery(id as string)
 
-  const { addItemToCart, loadingAddItem } = useCart()
+  const { addItemToCart, addingItemId } = useCart()
 
   if (!id) return null
   if (isFetching) return <Loading color={colors.red} height={400} />
@@ -59,6 +59,7 @@ const DishesList = () => {
             description={trimDescription(prato.descricao)}
             onClick={() => openDishModal(prato)}
             onAddToCart={() => handleAddToCart(prato)}
+            isLoading={addingItemId === prato.id.toString()}
           />
         ))}
       </S.Section>
@@ -67,7 +68,7 @@ const DishesList = () => {
           prato={modal}
           onAddToCart={handleAddToCart}
           onClose={() => setModal(null)}
-          isLoading={loadingAddItem.includes(modal.id.toString())}
+          isLoading={addingItemId === modal.id.toString()}
         />
       )}
     </div>

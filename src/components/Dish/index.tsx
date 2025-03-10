@@ -1,8 +1,6 @@
 import Button from '../Button'
 import Loading from '../Loading'
 
-import { useCart } from '../../hooks/useCart'
-
 import * as S from './styles'
 
 import { colors } from '../../styles'
@@ -14,6 +12,7 @@ type Props = {
   description: string
   onClick: () => void
   onAddToCart: () => void
+  isLoading: boolean
 }
 
 const Dish = ({
@@ -22,11 +21,9 @@ const Dish = ({
   title,
   description,
   onClick,
-  onAddToCart
+  onAddToCart,
+  isLoading
 }: Props) => {
-  const { loadingAddItem } = useCart()
-  const isLoading = loadingAddItem.includes(id)
-
   return (
     <S.Card
       title="Clique aqui para ter mais informações sobre esse prato"

@@ -12,33 +12,34 @@ import { useCart } from '../../hooks/useCart'
 import * as S from './styles'
 
 const Cart = () => {
-  const { cartItems: items, removeItemFromCart, loadingRemoveItem } = useCart()
+  const { cartItems, removeItemFromCart, removingItemId } = useCart()
   const dispatch = useDispatch()
 
   const handleProceedToDelivery = () => {
     dispatch(closeCart())
-    if (items.length) dispatch(openDelivery())
+    if (cartItems && cartItems.length) dispatch(openDelivery())
   }
 
-  if (items.length === 0) {
+  if (cartItems && cartItems.length === 0) {
     return <S.P>Sem itens no carrinho. Adicione algum item!</S.P>
   }
 
   return (
     <>
       <ul>
-        {items.map((item) => (
-          <CartItem
-            key={item.id}
-            item={item}
-            isDeleting={loadingRemoveItem.includes(item.id.toString())}
-            onDelete={() => removeItemFromCart(item.id.toString())}
-          />
-        ))}
+        {cartItems &&
+          cartItems.map((item) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              isDeleting={removingItemId === item.id.toString()}
+              onDelete={() => removeItemFromCart(item.id.toString())}
+            />
+          ))}
       </ul>
       <S.PriceContainer>
         <p>Valor Total</p>
-        <p>{convertToCurrency(TotalPrice(items))}</p>
+        <p>{convertToCurrency(TotalPrice(cartItems))}</p>
       </S.PriceContainer>
       <Button
         marginBottom="24px"
