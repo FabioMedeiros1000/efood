@@ -1,9 +1,7 @@
-import { useSelector } from 'react-redux'
-
 import { closeConfirmed } from '../store/reducers/confirmed'
 import { clearDelivery, closeDelivery } from '../store/reducers/delivery'
 import { clearPayment, closePayment } from '../store/reducers/payment'
-import { AppDispatch, RootState } from '../store'
+import { AppDispatch } from '../store'
 
 export const getTags = (item: RestaurantProps) => {
   const tags = []
@@ -29,32 +27,10 @@ export const convertToCurrency = (price: number) => {
   }).format(price)
 }
 
-export const closeAndCleanAll = async (
-  dispatch: AppDispatch,
-  userId: string | null
-) => {
-  try {
-    if (!userId) {
-      throw new Error('Usuário não autenticado')
-    }
-
-    const response = await fetch(
-      `https://efood-backend.onrender.com/api/cart/${userId}`,
-      {
-        method: 'DELETE'
-      }
-    )
-
-    if (!response.ok) {
-      throw new Error('Erro ao limpar o carrinho')
-    }
-
-    dispatch(closeConfirmed())
-    dispatch(closeDelivery())
-    dispatch(closePayment())
-    dispatch(clearDelivery())
-    dispatch(clearPayment())
-  } catch (error: any) {
-    console.error('Erro ao limpar o carrinho:', error.message)
-  }
+export const closeAndCleanAll = async (dispatch: AppDispatch) => {
+  dispatch(closeConfirmed())
+  dispatch(closeDelivery())
+  dispatch(closePayment())
+  dispatch(clearDelivery())
+  dispatch(clearPayment())
 }

@@ -7,11 +7,10 @@ import Payment from '../Payment'
 import { closeCart } from '../../store/reducers/cart'
 import { closeDelivery } from '../../store/reducers/delivery'
 import { closePayment } from '../../store/reducers/payment'
-
 import { RootState } from '../../store'
+import { closeAndCleanAll } from '../../utils/functions'
 
 import * as S from './styles'
-import { closeAndCleanAll } from '../../utils/functions'
 
 type Props = {
   content: 'cart' | 'delivery' | 'payment' | 'confirmed'
@@ -20,7 +19,6 @@ type Props = {
 const Sidebar = ({ content }: Props) => {
   const dispatch = useDispatch()
   const { isOpen } = useSelector((state: RootState) => state.confirmed)
-  const { userId } = useSelector((state: RootState) => state.auth)
 
   const handleCloseSidebar = (content: string, isOpen: boolean) => {
     if (content === 'cart') {
@@ -32,7 +30,7 @@ const Sidebar = ({ content }: Props) => {
     }
 
     if (isOpen) {
-      closeAndCleanAll(dispatch, userId)
+      closeAndCleanAll(dispatch)
     }
   }
 

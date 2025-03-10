@@ -47,6 +47,10 @@ const GlobalStyle = createGlobalStyle`
     align-items: flex-start;
     justify-content: space-between;
     gap: 34px;
+
+    @media (max-width: ${breakpoints.tablet}){
+      display: block;
+    }
   }
 `
 

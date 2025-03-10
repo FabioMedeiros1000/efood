@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 import Button from '../Button'
 import Confirmed from '../Confirmed'
 import InputField from '../InputField'
+import Loading from '../Loading'
 
 import { closePayment } from '../../store/reducers/payment'
 import { openConfirmed } from '../../store/reducers/confirmed'
@@ -17,6 +18,8 @@ import { RootState } from '../../store'
 
 import * as S from '../Payment/styles'
 
+import { colors } from '../../styles'
+
 const Payment = () => {
   const dispatch = useDispatch()
   const { cartItems } = useCart()
@@ -25,6 +28,8 @@ const Payment = () => {
   const { payment } = useSelector((state: RootState) => state.payment)
 
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
+
+  const { removeCartAll } = useCart()
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -55,34 +60,44 @@ const Payment = () => {
       year: payment.card.expires.year
     },
     validationSchema,
-    onSubmit: (values) => {
-      purchase({
-        products: cartItems.map((item) => ({
-          id: item.id,
-          price: item.preco
-        })),
-        delivery: {
-          receiver: delivery.receiver,
-          address: {
-            city: delivery.address.city,
-            complement: delivery.address.complement,
-            description: delivery.address.description,
-            number: delivery.address.number,
-            zipCode: delivery.address.zipCode
-          }
-        },
-        payment: {
-          card: {
-            code: Number(values.code),
-            name: values.name,
-            number: values.number,
-            expires: {
-              month: values.month,
-              year: values.year
+    onSubmit: async (values) => {
+      try {
+        const response = await purchase({
+          products: cartItems.map((item) => ({
+            id: item.id,
+            price: item.preco
+          })),
+          delivery: {
+            receiver: delivery.receiver,
+            address: {
+              city: delivery.address.city,
+              complement: delivery.address.complement,
+              description: delivery.address.description,
+              number: delivery.address.number,
+              zipCode: delivery.address.zipCode
+            }
+          },
+          payment: {
+            card: {
+              code: Number(values.code),
+              name: values.name,
+              number: values.number,
+              expires: {
+                month: values.month,
+                year: values.year
+              }
             }
           }
+        })
+
+        if (!('error' in response)) {
+          await removeCartAll()
+        } else {
+          console.error('Erro na compra:', response.error)
         }
-      })
+      } catch (error) {
+        console.error('Erro inesperado:', error)
+      }
     }
   })
 
@@ -172,7 +187,11 @@ const Payment = () => {
             disabled={isLoading}
             type="submit"
           >
-            {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
+            {isLoading ? (
+              <Loading color={colors.red} height={20} />
+            ) : (
+              'Finalizar pagamento'
+            )}
           </Button>
           <Button
             title="Clique aqui para editar o endereço"

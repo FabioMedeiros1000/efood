@@ -1,10 +1,20 @@
 declare interface DishProps {
-  foto: string
-  preco: number
   id: number
   nome: string
   descricao: string
   porcao: string
+  preco: number
+  foto: string
+}
+
+declare interface AddToCartRequest {
+  dish: DishProps
+  userId: string
+}
+
+declare interface CartItem extends DishProps {
+  user_id: string
+  dish_id: string
 }
 
 declare type RestaurantProps = {

@@ -14,7 +14,7 @@ import { useCart } from '../../hooks/useCart'
 import { colors } from '../../styles'
 
 const HeaderRestaurant = () => {
-  const { cartItems, loading } = useCart()
+  const { cartItems, isLoading } = useCart()
 
   const dispatch = useDispatch()
 
@@ -33,9 +33,9 @@ const HeaderRestaurant = () => {
           role="button"
           title="Clique aqui para ver os itens no carrinho"
           onClick={() => dispatch(openCart())}
-          disabled={loading}
+          disabled={isLoading}
         >
-          {loading ? (
+          {isLoading ? (
             <Loading color={colors.red} height={40} />
           ) : (
             `${cartItems.length} produto(s) no carrinho`
