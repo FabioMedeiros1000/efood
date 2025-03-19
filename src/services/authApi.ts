@@ -9,7 +9,7 @@ interface SignupResponse {
   message: string
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   message: string
   token: string
   user: {

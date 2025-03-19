@@ -19,7 +19,10 @@ const Register = () => {
         const result = await signup(values)
 
         if (result.error) {
-          alert('O usuário já está cadastrado')
+          if ('data' in result.error) {
+            const errorData = result.error.data as { message: string }
+            alert(errorData.message)
+          }
         } else if (result.data) {
           alert('Usuário cadastrado com sucesso')
           navigate('/login', { replace: true })

@@ -21,12 +21,17 @@ const Login = () => {
       try {
         const result = await login(values)
 
-        if (result.data) {
+        if (result.data?.user) {
           dispatch(setUserId(result.data.user.id))
           dispatch(setToken(result.data.token))
           navigate('/', { replace: true })
-        } else if (result.error) {
-          alert('Credenciais inválidas!')
+        } else {
+          if ('data' in result.error!) {
+            const errorData = result.error.data as { message: string }
+            alert(errorData.message)
+          } else {
+            alert('Erro desconhecido. Tente novamente.')
+          }
         }
       } catch (error) {
         alert('Erro interno no servidor. Por favor, tente novamente mais tarde')
