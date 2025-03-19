@@ -9,7 +9,7 @@ Agora, a aplicação conta com uma funcionalidade de **login e cadastro**, permi
 ## Funcionalidades
 
 - **Login e Cadastro**: Permite que novos usuários se cadastrem e usuários existentes façam login, garantindo acesso seguro às funcionalidades.
-- **Adicionar ao Carrinho**: Adicione pratos ao carrinho para um pedido personalizado.
+- **Adicionar ao Carrinho**: Adicione pratos ao carrinho da aplicação, que conta com um banco de dados PostgreSQL.
 - **Remover do Carrinho**: Remova itens do carrinho com facilidade.
 - **Preço Total**: Visualize o valor total dos itens selecionados no carrinho.
 - **Detalhes do Prato**: Exiba informações detalhadas sobre o prato em uma modal.
@@ -37,6 +37,7 @@ Agora, a aplicação conta com uma funcionalidade de **login e cadastro**, permi
   (Substitua `:id` pelo ID do restaurante para obter informações sobre ele)
 - **Login**: Endpoint para autenticação: https://efood-backend.onrender.com/api/auth/login
 - **Cadastro de usuários**: Endpoint para cadastrar um novo usuário: https://efood-backend.onrender.com/api/auth/signup
+- **Persistência das informações do carrinho de um usuário em um banco de dados**: Os dados do carrinho de um usuário são salvos em um banco de dados PostgreSQL. Assim, é possível acessá-los em diferentes dispositivos.
 - **Finalizar Pedido**: Endpoint para envio dos dados do formulário e obtenção do número do pedido: https://fake-api-tau.vercel.app/api/efood/checkout
 
 ## Backend da aplicação
